@@ -1,3 +1,10 @@
+import LoginNavComp from "./components/NavBar/LoggedOut";
+import style from "./homepage.module.css";
+
 export default function Home() {
-  return <div id="App">Main app page</div>;
+  return (
+    <div className={style.homePageContainer}>
+      <LoginNavComp />
+    </div>
+  );
 }
