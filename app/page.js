@@ -8,6 +8,7 @@ import style from "./homepage.module.css";
 export default function Home() {
   const [isDark, setIsDark] = useState(false);
   const [theme, setTheme] = useState({});
+  const [popularCommunities, setPopularCommunities] = useState([]);
   const themeData = {
     light: {
       currTheme: "Light",
@@ -17,6 +18,10 @@ export default function Home() {
       navTabColor: "#0F1A1C",
       activeNavClr: "#000000",
       activeNavBg: "#EAEDEF",
+      popularCommunitiesBg: "#F9FAFA",
+      showMoreBtnHoverBg: "#becfcf",
+      popularCommunitiesTxt: "#576F76",
+      communityTxtClr: "#2A3C42",
     },
     dark: {
       currTheme: "Dark",
@@ -26,19 +31,44 @@ export default function Home() {
       navTabColor: "#F2F4F5",
       activeNavClr: "#ffffff",
       activeNavBg: "#1A282D",
+      popularCommunitiesBg: "#04090A",
+      showMoreBtnHoverBg: "#142f34",
+      popularCommunitiesTxt: "#82959B",
+      communityTxtClr: "#B8C5C9",
     },
   };
 
-  useEffect(
-    () => setTheme(isDark ? themeData.dark : themeData.light),
-    [isDark]
-  );
+  const fetchPopularCommunities = async () => {
+    try {
+      const resp = await fetch(
+        "https://academics.newtonschool.co/api/v1/reddit/channel",
+        {
+          headers: {
+            projectID: "y6yyb0r40hr5",
+          },
+        }
+      );
+      if (!resp.ok) return;
+      const result = await resp.json();
+      console.log("result: ", result);
+      setPopularCommunities(result.data);
+    } catch {
+      console.log(err.message ? err.message : err);
+    }
+  };
+
+  useEffect(() => {
+    setTheme(isDark ? themeData.dark : themeData.light), [isDark];
+    fetchPopularCommunities();
+  }, []);
+
+  console.log("communities: ", popularCommunities);
 
   return (
     <>
       <LoginNavComp theme={theme} />
       <div className={style.homePageContainer}>
-        <HomeRightComp />
+        <HomeRightComp theme={theme} popularCommunities={popularCommunities} />
         <HomeLeftComp theme={theme} />
       </div>
     </>

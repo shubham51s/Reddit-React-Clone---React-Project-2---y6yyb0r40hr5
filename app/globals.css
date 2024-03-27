@@ -7,3 +7,14 @@ body {
   overflow-wrap: break-word;
   line-height: 1.5;
 }
+
+div {
+  display: block;
+  unicode-bidi: isolate;
+}
+
+li {
+  display: list-item;
+  text-align: -webkit-match-parent;
+  unicode-bidi: isolate;
+}
