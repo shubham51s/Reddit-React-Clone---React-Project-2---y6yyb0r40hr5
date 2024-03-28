@@ -52,7 +52,6 @@ export default function Home() {
       );
       if (!resp.ok) return;
       const result = await resp.json();
-      console.log("result: ", result);
       setPopularCommunities(result.data);
     } catch {
       console.log(err.message ? err.message : err);
@@ -63,8 +62,6 @@ export default function Home() {
     setTheme(isDark ? themeData.dark : themeData.light), [isDark];
     fetchPopularCommunities();
   }, []);
-
-  console.log("communities: ", popularCommunities);
 
   return (
     <>

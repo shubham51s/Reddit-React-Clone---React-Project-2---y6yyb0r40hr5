@@ -1,0 +1,40 @@
+.sortContainer {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+
+.sortOptionContainer {
+  margin-right: 1rem;
+}
+
+.sortContent {
+  display: flex;
+  height: 32px;
+  unicode-bidi: isolate;
+}
+
+.sortOptionsMain {
+  border: none;
+  background-color: transparent;
+  padding: 5px;
+  padding-right: 0;
+  padding-left: 0.625rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.optionList {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  padding-right: 16px;
+  outline-offset: -1px;
+  text-decoration-line: none;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  cursor: pointer;
+  background-color: transparent;
+}
