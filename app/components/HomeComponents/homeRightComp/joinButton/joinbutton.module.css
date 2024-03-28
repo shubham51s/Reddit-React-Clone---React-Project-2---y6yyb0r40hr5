@@ -1,0 +1,25 @@
+.joinBtnMain {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  position: relative;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.joinBtn {
+  display: inline-block;
+  line-height: 1;
+  height: 24px;
+  box-sizing: border-box;
+  cursor: pointer;
+  text-align: center;
+  text-overflow: ellipsis;
+  color: #ffffff;
+  background-color: #0045ac;
+  border: none;
+  border-radius: 999px;
+  overflow: hidden;
+  padding: 0 calc(var(0.75rem) - var(0.0625rem, 0px));
+  text-decoration: none;
+  white-space: nowrap;
+}
