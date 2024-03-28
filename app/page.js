@@ -22,6 +22,7 @@ export default function Home() {
       showMoreBtnHoverBg: "#becfcf",
       popularCommunitiesTxt: "#576F76",
       communityTxtClr: "#2A3C42",
+      sortBtmBorderClr: "#0000001a",
     },
     dark: {
       currTheme: "Dark",
@@ -35,6 +36,7 @@ export default function Home() {
       showMoreBtnHoverBg: "#142f34",
       popularCommunitiesTxt: "#82959B",
       communityTxtClr: "#B8C5C9",
+      sortBtmBorderClr: "#ffffff1a",
     },
   };
 
