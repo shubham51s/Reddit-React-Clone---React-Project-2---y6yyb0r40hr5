@@ -8,7 +8,8 @@ import SortComp from "../sortContainer";
 import JoinBtnComp from "./joinButton";
 import CommentsComp from "./voteNcomments";
 
-function HomeRightComp({ theme, popularCommunities }) {
+function HomeRightComp({ theme, popularCommunities, postResult }) {
+  console.log("Post data: ", postResult);
   return (
     <div className={style.mainContainer}>
       <div className={style.mainContent}>
@@ -28,7 +29,7 @@ function HomeRightComp({ theme, popularCommunities }) {
                   className={style.postListMain}
                   style={{ backgroundColor: theme.bgColor }}
                 >
-                  <CommentsComp theme={theme} />
+                  {/* <CommentsComp theme={theme} /> */}
                   <span className={style.creditBar}>
                     <span className={style.creditBarLeft}>
                       <span className={style.aboutCommunity}>
@@ -103,6 +104,7 @@ function HomeRightComp({ theme, popularCommunities }) {
                       </div>
                     </div>
                   </div>
+                  <CommentsComp theme={theme} />
                 </div>
                 <hr
                   className={style.cardBtmBorder}

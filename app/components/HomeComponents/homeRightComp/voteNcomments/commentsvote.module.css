@@ -51,12 +51,30 @@
   white-space: nowrap;
 }
 
-.voteBtnInner {
+.downvoteBtnInner {
   display: flex;
   font-size: 1rem;
   line-height: 1.25rem;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
+  color: inherit;
+}
+
+.upvoteBtnInner {
+  display: flex;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  color: inherit;
+}
+
+.upvoteBtnInner:hover {
+  color: orangered;
+}
+
+.downvoteBtnInner:hover {
+  color: blue;
 }
 
 .commentsMain {
@@ -80,4 +98,22 @@
   overflow: hidden;
   text-decoration: none;
   white-space: nowrap;
+  font-size: 1rem;
+}
+
+.commentCtr {
+  display: flex;
+  align-items: center;
+}
+
+.commentIconMain {
+  display: flex;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  margin-right: 0.375rem;
+}
+
+.commentValue {
+  font-size: 12px;
+  font-weight: 500;
 }

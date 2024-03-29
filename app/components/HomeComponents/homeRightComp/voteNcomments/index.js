@@ -1,8 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import style from "./commentsvote.module.css";
 import { TheaterComedy } from "@mui/icons-material";
+import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
+import ThumbDownOutlinedIcon from "@mui/icons-material/ThumbDownOutlined";
+import { useScrollTrigger } from "@mui/material";
+import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 
 function CommentsComp({ theme }) {
+  const [voteValue, setVoteValue] = useState(566);
+  const [upVote, setUpVote] = useState(false);
+  const [downVote, setDownVote] = useState(false);
+
+  const handleUpvote = (e) => {
+    e.stopPropagation();
+    if (!upVote) {
+      setUpVote(true);
+      setDownVote(false);
+    }
+  };
+
+  const handleDownVote = (e) => {
+    e.stopPropagation();
+    if (!downVote) {
+      setDownVote(true);
+      setUpVote(false);
+    }
+  };
+
   return (
     <div className={style.mainContainer}>
       <span className={style.voteMain}>
@@ -14,21 +38,47 @@ function CommentsComp({ theme }) {
             className={style.voteBtn}
             style={{ color: theme.navTabColor, background: "transparent" }}
           >
-            <span className={style.voteBtnInner}></span>
+            <span
+              className={style.upvoteBtnInner}
+              onClick={(e) => handleUpvote(e)}
+            >
+              <ThumbUpOutlinedIcon />
+            </span>
           </button>
-          <span className={style.voteCount}></span>
+          {!upVote && !downVote && (
+            <span className={style.voteCount}>{voteValue}</span>
+          )}{" "}
+          {upVote && !downVote && (
+            <span className={style.voteCount}>{`${voteValue + 1}`}</span>
+          )}{" "}
+          {!upVote && downVote && (
+            <span className={style.voteCount}>{`${voteValue - 1}`}</span>
+          )}
           <button
             className={style.voteBtn}
             style={{ color: theme.navTabColor, background: "transparent" }}
           >
-            <span className={style.voteBtnInner}></span>
+            <span
+              className={style.downvoteBtnInner}
+              onClick={(e) => handleDownVote(e)}
+            >
+              <ThumbDownOutlinedIcon />
+            </span>
           </button>
         </span>
       </span>
       <span
         className={style.commentsMain}
         style={{ color: theme.activeNavClr, background: theme.activeNavBg }}
-      ></span>
+      >
+        <span className={style.commentCtr}>
+          <span className={style.commentIconMain}>
+            <ModeCommentOutlinedIcon style={{ fontSize: "20px" }} />
+          </span>
+          {/* need to add comments later */}
+          <span className={style.commentValue}>{`105`}</span>
+        </span>
+      </span>
     </div>
   );
 }

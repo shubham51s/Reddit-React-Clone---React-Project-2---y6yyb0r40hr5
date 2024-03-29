@@ -9,6 +9,8 @@ export default function Home() {
   const [isDark, setIsDark] = useState(false);
   const [theme, setTheme] = useState({});
   const [popularCommunities, setPopularCommunities] = useState([]);
+  const [postResult, setPostResult] = useState([]);
+
   const themeData = {
     light: {
       currTheme: "Light",
@@ -53,7 +55,25 @@ export default function Home() {
       if (!resp.ok) return;
       const result = await resp.json();
       setPopularCommunities(result.data);
-    } catch {
+    } catch (err) {
+      console.log(err.message ? err.message : err);
+    }
+  };
+
+  const fetchPosts = async () => {
+    try {
+      const resp = await fetch(
+        "https://academics.newtonschool.co/api/v1/reddit/post?limit=100",
+        {
+          headers: {
+            projectID: "y6yyb0r40hr5",
+          },
+        }
+      );
+      if (!resp.ok) return;
+      const result = await resp.json();
+      setPostResult(result.data);
+    } catch (err) {
       console.log(err.message ? err.message : err);
     }
   };
@@ -61,13 +81,18 @@ export default function Home() {
   useEffect(() => {
     setTheme(isDark ? themeData.dark : themeData.light), [isDark];
     fetchPopularCommunities();
+    fetchPosts();
   }, []);
 
   return (
     <>
       <LoginNavComp theme={theme} />
       <div className={style.homePageContainer}>
-        <HomeRightComp theme={theme} popularCommunities={popularCommunities} />
+        <HomeRightComp
+          theme={theme}
+          popularCommunities={popularCommunities}
+          postResult={postResult}
+        />
         <HomeLeftComp theme={theme} />
       </div>
     </>
