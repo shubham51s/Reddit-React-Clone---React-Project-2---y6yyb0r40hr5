@@ -4,6 +4,8 @@ import HomeLeftComp from "./components/HomeComponents/homeLeftComp";
 import HomeRightComp from "./components/HomeComponents/homeRightComp";
 import LoginNavComp from "./components/NavBar/LoggedOut";
 import style from "./homepage.module.css";
+import LogoutNavComp from "./components/NavBar/LoggedIn";
+import LoginComp from "./components/userLoginComponents";
 
 export default function Home() {
   const [isDark, setIsDark] = useState(false);
@@ -25,6 +27,10 @@ export default function Home() {
       popularCommunitiesTxt: "#576F76",
       communityTxtClr: "#2A3C42",
       sortBtmBorderClr: "#0000001a",
+      redditLogo: "orangered",
+      linkColor: "#0045AC",
+      lineBg: "#D6D6D6",
+      btnBg: "#D93A00",
     },
     dark: {
       currTheme: "Dark",
@@ -39,6 +45,10 @@ export default function Home() {
       popularCommunitiesTxt: "#82959B",
       communityTxtClr: "#B8C5C9",
       sortBtmBorderClr: "#ffffff1a",
+      redditLogo: "white",
+      linkColor: "#0045AC",
+      lineBg: "#303030",
+      btnBg: "#D93A00",
     },
   };
 
@@ -86,7 +96,10 @@ export default function Home() {
 
   return (
     <>
-      <LoginNavComp theme={theme} />
+      {/* <LoginNavComp theme={theme} /> */}
+
+      <LoginComp theme={theme} />
+      <LogoutNavComp theme={theme} />
       <div className={style.homePageContainer}>
         <HomeRightComp
           theme={theme}

@@ -1,0 +1,1241 @@
+.mainContainer {
+  position: fixed;
+  z-index: 4;
+  top: 0;
+  right: 0;
+  left: 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.5;
+}
+
+.headerContainer {
+  padding: 0;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  pointer-events: auto;
+  margin-left: calc(0px - (50vw - 50%));
+  margin-right: calc(0px - (50vw - 50%));
+  display: block;
+  unicode-bidi: isolate;
+}
+
+.navContent {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  margin-top: 0;
+  border-top-width: 0;
+  border-right-width: 0;
+  border-left-width: 0;
+  border-bottom-width: 0.0625rem;
+  height: 56px;
+  border-style: solid;
+  unicode-bidi: isolate;
+  pointer-events: auto;
+}
+
+.redditLogoMain {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-right: 1.5rem;
+  gap: 0.5rem;
+  unicode-bidi: isolate;
+}
+
+.logoContent {
+  display: flex;
+  align-items: center;
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  text-decoration-line: none;
+  text-decoration: none;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.logoMain {
+  display: flex;
+  align-items: center;
+  padding-right: 0;
+}
+
+@media (min-width: 960px) {
+  .logoMain {
+    padding-right: 0.5rem;
+  }
+}
+
+.redditLogoName {
+  display: none;
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  .redditLogoName {
+    display: flex;
+  }
+}
+
+.logoName {
+  font-size: 12px;
+}
+
+.redditSearchMain {
+  display: flex;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  justify-content: stretch;
+  width: 100%;
+  height: 40px;
+  unicode-bidi: isolate;
+}
+
+.searchContent {
+  display: flex;
+  justify-content: stretch;
+  width: 100%;
+  unicode-bidi: isolate;
+}
+
+@media (min-width: 1416px) {
+  .searchContent {
+    display: flex;
+    position: absolute;
+    height: 40px;
+    top: 0.5rem;
+    right: 0;
+    left: 0;
+    pointer-events: none;
+  }
+}
+
+.searchInnerMain {
+  display: flex;
+  width: 100%;
+  /* justify-content: stretch; */
+  unicode-bidi: isolate;
+}
+
+@media (min-width: 1200px) {
+  .searchInnerMain {
+    width: 560px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    pointer-events: auto;
+  }
+}
+
+.searchInputMain {
+  display: inline;
+  transform: translate3d(var(0px), var(0), 0) rotate(var(0)) skewX(var(0))
+    skewY(var(0)) scaleX(var(1)) scaleY(var(1));
+  max-width: 750px;
+}
+
+.searchBarMain {
+  border-radius: 1.25rem;
+  width: inherit;
+  box-sizing: border-box;
+  unicode-bidi: isolate;
+}
+
+.isolate {
+  unicode-bidi: isolate;
+}
+
+.inputForm {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-top: 0em;
+  unicode-bidi: isolate;
+  border-radius: 1.25rem;
+}
+
+.searchInner {
+  display: inline-flex;
+  appearance: none;
+  outline: transparent solid 2px;
+  outline-offset: 2px;
+  padding: 0px;
+  background-color: transparent;
+  border-style: none;
+  flex: 1 1 0%;
+  width: 100%;
+  margin: 0px;
+  position: relative;
+}
+
+.searchLabel {
+  display: flex;
+  flex-grow: 1;
+  position: relative;
+  cursor: default;
+}
+
+.labelContainer {
+  display: inline-flex;
+  position: relative;
+  height: 2.5rem;
+  flex: 1 1 0%;
+  padding: 0;
+  border-color: transparent;
+  box-shadow: none;
+  border: var(0.125rem) solid var(transparent);
+  padding-right: 1rem;
+  padding-left: 1rem;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: var(624.9375rem);
+  unicode-bidi: isolate;
+}
+
+.leadingIcon {
+  display: inline-flex;
+  font-size: 1rem;
+  margin-right: 0.5rem;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+  transform: translateY(0px);
+  transition: transform 150ms ease 0s;
+  width: 100%;
+  padding: var(0.5rem) 0;
+}
+
+.clearIcon {
+  display: flex;
+  align-items: center;
+  height: 2rem;
+  width: 2rem;
+  flex-shrink: 0;
+}
+.inputSearch {
+  font: inherit;
+  padding: 0px;
+  background: 0px 0px;
+  border: none;
+  outline: 0px;
+  width: 100%;
+  text-overflow: ellipsis;
+  padding-block: 1px;
+  padding-inline: 2px;
+}
+
+.searchResultMain {
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: calc(100vh - var(56px) - 15px - 10px);
+  unicode-bidi: isolate;
+}
+
+.trendingTxt {
+  display: flex;
+  align-items: center;
+  margin-top: 0.75rem;
+  margin-left: 1rem;
+  unicode-bidi: isolate;
+}
+
+.trendingResultMain {
+  display: block;
+  padding: 0px;
+  list-style-type: none;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+  unicode-bidi: isolate;
+}
+
+.tredingList {
+  list-style-type: none;
+  margin-top: 0px;
+  position: relative;
+  display: list-item;
+  text-align: -webkit-match-parent;
+  unicode-bidi: isolate;
+}
+
+.tredingListLink {
+  position: relative;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 0;
+  padding-right: 16px;
+  outline-offset: -1px;
+  text-decoration-line: none;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  /* padding-left: 1rem; */
+}
+
+.trendingListLeft {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-shrink: 1;
+  min-width: 0px;
+}
+
+.tredingListLeftInner {
+  display: flex;
+  flex-direction: column;
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+  justify-content: center;
+  flex-shrink: 1;
+  min-width: 0px;
+}
+
+.trendingListHeading {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.trendingHeadingMain {
+  display: inline-block;
+  line-height: 1.25rem;
+  height: 1.25rem;
+  margin-left: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.trendingHeading {
+  font-weight: 700;
+}
+
+.trendingListContent {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.trendingListContentMain {
+  display: inline-block;
+  padding-bottom: 0.5rem;
+  min-height: 40px;
+  margin-left: 0.25rem;
+}
+
+.trendingListTxt {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.trendingListCommunity {
+  display: flex;
+  unicode-bidi: isolate;
+}
+
+.loaded {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 16px;
+  height: 16px;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+  border-radius: inherit;
+  unicode-bidi: isolate;
+}
+
+.trendingCommunityImg {
+  display: inline-block;
+  border-radius: 624.938rem;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.25rem;
+}
+
+.trendingListRight {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.trendingListImg {
+  width: 100%;
+  height: 100%;
+}
+
+.trendingImgMain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1.5rem;
+}
+
+.trendingImgContent {
+  display: inline-block;
+  object-fit: cover;
+  border-radius: 0.25rem;
+  margin-right: 0.25rem;
+}
+
+.loadedImg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 96px;
+  height: 72px;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+  border-radius: inherit;
+  unicode-bidi: isolate;
+}
+
+.trendingImg {
+  width: 100%;
+  height: 100%;
+}
+
+.userSearchResult {
+  display: block;
+  padding: 0px;
+  /* padding-left: 1rem; */
+  padding-right: 1rem;
+  list-style-type: none;
+  min-width: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+  unicode-bidi: isolate;
+}
+
+.communitiesTxt {
+  font-weight: 600;
+  margin-top: 0.5rem;
+  /* margin-left: 1rem; */
+  unicode-bidi: isolate;
+}
+
+.userInputList {
+  display: list-item;
+  text-align: -webkit-match-parent;
+  unicode-bidi: isolate;
+  position: relative;
+  list-style-type: none;
+  margin-top: 0px;
+}
+
+.userInputLink {
+  position: relative;
+  padding-right: 16px;
+  outline-offset: -1px;
+  text-decoration-line: none;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  /* padding-left: 1rem; */
+  gap: 0.5rem;
+  justify-content: space-between;
+  cursor: pointer;
+  display: flex;
+}
+
+.userInputContent {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-shrink: 1;
+  min-width: 0px;
+}
+
+.userShrink0 {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.communityLogoMain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+}
+
+.communityLogoContent {
+  line-height: 1rem;
+  font-size: 1.25rem;
+}
+
+.communityProfileMain {
+  display: flex;
+  position: static;
+  border-radius: 624.938rem;
+  justify-content: center;
+  align-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  /* margin-left: 0.25rem; */
+}
+
+.profileLoaded {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  overflow: hidden;
+  border-radius: inherit;
+  unicode-bidi: isolate;
+}
+
+.communityProfile {
+  width: 100%;
+  height: 100%;
+}
+
+.aboutCommunityMain {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 1;
+  min-width: 0px;
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+  justify-content: center;
+}
+
+.communityNameMain {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.communityName {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.membersMain {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.membersTxtMain {
+  display: inline-block;
+}
+
+.redditRightMain {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-left: 1.5rem;
+  gap: 0.5rem;
+  unicode-bidi: isolate;
+}
+
+.leftNavMain {
+  display: flex;
+  height: 40px;
+  unicode-bidi: isolate;
+}
+
+.advertizeMain {
+  display: contents;
+}
+
+.advertizeTab {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .advertizeTab {
+    display: block;
+  }
+}
+
+.adevertizeLink {
+  display: inline-flex;
+  width: 2.5rem;
+  padding: 0 calc(var(0.5rem) - var(0.0625rem, 0px));
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font: 1.25rem;
+  line-height: calc(var(2.5rem) - (2 * var(0.0625rem, 0px)));
+  text-decoration: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background: var(transparent);
+  height: 2.5rem;
+  text-align: center;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.createLink {
+  display: inline-flex;
+  align-items: center;
+  text-decoration-line: none;
+  padding: 0 calc(var(0.5rem) - var(0.0625rem, 0px));
+  padding-right: 0.875rem;
+  padding-left: 0.625rem;
+  justify-content: center;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: calc(var(2.5rem) - (2 * var(0.0625rem, 0px)));
+  text-decoration: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background-color: transparent;
+  height: 2.5rem;
+  text-align: center;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.adevertizeIconMain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.messageMain {
+  display: contents;
+}
+
+.createPostMain {
+  display: contents;
+}
+
+.createIconMain {
+  display: flex;
+  margin-right: 0.5rem;
+}
+
+.createTxt {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.notificationMain {
+  display: contents;
+}
+
+.userProfileMain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  unicode-bidi: isolate;
+}
+
+.disFlex {
+  display: flex;
+  pointer-events: auto;
+}
+
+.userProfileContent {
+  display: inline-block;
+  position: relative;
+}
+
+.userProfileBtn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  padding: 0 calc(var(0.5rem) - var(0.0625rem, 0px));
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  overflow: visible;
+  max-width: 40px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font: 1.25rem;
+  line-height: calc(var(2.5rem) - (2 * var(0.0625rem, 0px)));
+  text-decoration: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background: transparent;
+  height: 2.5rem;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.profileBtnCtr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inlineFlex {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profileBtnInner {
+  display: inline-block;
+  position: relative;
+  border-radius: 624.9375rem;
+  width: 2rem;
+  height: 2rem;
+}
+
+.profileImg {
+  margin-bottom: 0;
+  border-radius: 624.9375rem;
+  max-width: 100%;
+}
+
+.userProfileNav {
+  min-width: 256px;
+  unicode-bidi: isolate;
+}
+
+.profileOptionsMain {
+  display: block;
+  padding: 0;
+  width: 100%;
+  margin: 0;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  list-style-type: none;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+  unicode-bidi: isolate;
+  pointer-events: auto;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+  unicode-bidi: isolate;
+}
+
+.userProfileList {
+  position: relative;
+  list-style-type: none;
+  margin-top: 0;
+  display: list-item;
+  text-align: -webkit-match-parent;
+  unicode-bidi: isolate;
+}
+
+.userProfileLink {
+  display: flex;
+  gap: 0.5rem;
+  position: relative;
+  justify-content: space-between;
+  padding-right: 16px;
+  outline-offset: -1px;
+  text-decoration-line: none;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.viewProfileMain {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.profileImgMain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+}
+
+.text20 {
+  line-height: 1rem;
+  font-size: 1.25rem;
+}
+
+.userProfileImgMain {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.userProfileImg {
+  display: inline-block;
+  border-radius: 624.9375rem;
+  width: 2rem;
+  height: 2rem;
+  position: relative;
+}
+
+.showProfileImg {
+  margin-bottom: 0;
+  border-radius: 624.9375rem;
+  max-width: 100%;
+}
+
+.viewProfileContent {
+  display: flex;
+  flex-direction: column;
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+  justify-content: center;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.viewProfileTxt {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.userName {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.darkModeMain {
+  margin-top: 0;
+  position: relative;
+  list-style-type: none;
+  display: list-item;
+  text-align: -webkit-match-parent;
+  unicode-bidi: isolate;
+}
+
+.darkModeContent {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  padding-right: 16px;
+  outline-offset: -1px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  gap: 0.5rem;
+  unicode-bidi: isolate;
+}
+
+.darkModeLeftMain {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.darkModeToggleMain {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.darkModeToggleCtr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1.5rem;
+}
+
+.modeToggle {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin: 0;
+  position: relative;
+}
+
+.toggleIconMain {
+  border-radius: 624.9375rem;
+  box-shadow: var(inset 0 0.0625rem 0.125rem 0 #00000021);
+  height: 2rem;
+  vertical-align: middle;
+  width: 3rem;
+  padding: 0.125rem;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.knob {
+  border-radius: 624.9375rem;
+  filter: drop-shadow(rgba(0, 0, 0, 0.15) 0px 1px 4px);
+  display: block;
+  height: 87.5%;
+  position: absolute;
+  transform: translateX(0px);
+  transition: transform 0.3s ease 0s;
+  width: var(calc(2rem - (0.125rem * 2)));
+}
+
+.darkModeIconMain {
+  display: flex;
+  line-height: 1rem;
+  font-size: 1.25rem;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+}
+
+.darkModeTxtMain {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 1;
+  min-width: 0;
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+  justify-content: center;
+}
+
+.text14 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.navRight {
+  display: flex;
+  padding-left: 1.5rem;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.rightContent {
+  display: contents;
+}
+
+.getAppMain {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .getAppMain {
+    display: block;
+  }
+}
+
+.getAppBtn {
+  display: inline-flex;
+  padding-right: 0.875rem;
+  padding-left: 0.625rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 999px;
+  border: 0.0625rem solid transparent;
+  cursor: pointer;
+  line-height: calc(var(2.5rem) - (2 * var(0.0625rem, 0px)));
+  text-decoration: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  height: 2.5rem;
+  padding: 0 calc(var(0.5rem) - var(0.0625rem, 0px));
+  text-align: center;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.hide {
+  display: none;
+}
+
+.getAppBtnL {
+  background-color: #eaedef;
+  color: #000000;
+}
+
+.getAppBtnD {
+  background-color: #1a282d;
+  color: #ffffff;
+}
+
+.btnCtr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.getAppCode {
+  display: flex;
+  margin-right: 0.5rem;
+}
+
+.getAppName {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  opacity: 0.8;
+  font-weight: 700;
+}
+
+.loginLink {
+  display: inline-flex;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background-color: #d93a00;
+  color: #ffffff;
+  height: 2.5rem;
+  padding: 0 calc(var(0.5rem) - var(0.0625rem, 0px));
+  text-align: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  text-decoration: none;
+  border-radius: 999px;
+}
+
+.loginCtr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  line-height: calc(var(2.5rem) - (2 * var(0.0625rem, 0px)));
+  white-space: nowrap;
+  color: #ffffff;
+  text-align: center;
+  text-decoration: none;
+}
+
+.loginTxt {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.rightMenu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+}
+
+.rightMenuBtn {
+  display: inline-flex;
+  width: 2.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  min-width: 40px;
+  background-color: transparent;
+  border: none;
+}
+
+.dotItemCtr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.dotIconL {
+  color: #0f1a1c;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.dotIconD {
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.userDrawerContent {
+  min-width: 256px;
+}
+
+.userDrawerL {
+  background-color: #ffffff;
+}
+
+.userDrawerD {
+  background-color: #0f1a1c;
+}
+
+.userDrawer {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  list-style-type: none;
+}
+
+.userDrawerList {
+  margin-top: 0;
+  position: relative;
+  list-style-type: none;
+}
+
+.loginLink {
+  display: flex;
+  padding-right: 16px;
+  outline-offset: -1px;
+  text-decoration-line: none;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  gap: 0.5rem;
+  justify-content: space-between;
+  cursor: pointer;
+  position: relative;
+}
+
+.loginLinkL {
+  color: #0f1a1c;
+}
+
+.loginLinkD {
+  color: #f2f4f5;
+}
+
+.linkContent {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.drawerListIcon {
+  line-height: 1rem;
+  font-size: 1.25rem;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+}
+
+.drawerListName {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 1;
+  min-width: 0;
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+  justify-content: center;
+}
+
+.drawerListTxt {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.shrink {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.navLeft {
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+  padding-right: 1.5rem;
+  gap: 0.5rem;
+}
+
+.redditLogo {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  text-decoration-line: none;
+}
+
+.redditLogoIcon {
+  display: flex;
+  padding-right: 0;
+}
+
+@media (min-width: 960px) {
+  .redditLogoIcon {
+    padding-right: 0.5rem;
+  }
+}
+
+.redditLogoLink {
+  text-decoration: none;
+  width: 120px;
+}
+
+.redditName {
+  font-weight: 700;
+  text-decoration: none;
+  font-weight: bolder;
+  font-size: 24px;
+  margin-left: 15px;
+  height: 22px;
+  display: none;
+}
+
+@media (min-width: 960px) {
+  .redditName {
+    display: block;
+  }
+}
+
+.redditDarkLogo {
+  color: white;
+}
+
+.redditLightLogo {
+  color: orangered;
+}
+
+.redditIcon {
+  width: 32px;
+  height: 32px;
+}

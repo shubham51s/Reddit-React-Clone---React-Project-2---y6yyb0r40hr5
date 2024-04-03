@@ -6,8 +6,7 @@ import ThumbDownOutlinedIcon from "@mui/icons-material/ThumbDownOutlined";
 import { useScrollTrigger } from "@mui/material";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 
-function CommentsComp({ theme }) {
-  const [voteValue, setVoteValue] = useState(566);
+function CommentsComp({ theme, likeCount, commentCount }) {
   const [upVote, setUpVote] = useState(false);
   const [downVote, setDownVote] = useState(false);
 
@@ -42,17 +41,19 @@ function CommentsComp({ theme }) {
               className={style.upvoteBtnInner}
               onClick={(e) => handleUpvote(e)}
             >
-              <ThumbUpOutlinedIcon />
+              <ThumbUpOutlinedIcon
+                style={{ color: upVote ? "orangered" : "" }}
+              />
             </span>
           </button>
           {!upVote && !downVote && (
-            <span className={style.voteCount}>{voteValue}</span>
+            <span className={style.voteCount}>{likeCount}</span>
           )}{" "}
           {upVote && !downVote && (
-            <span className={style.voteCount}>{`${voteValue + 1}`}</span>
+            <span className={style.voteCount}>{`${likeCount + 1}`}</span>
           )}{" "}
           {!upVote && downVote && (
-            <span className={style.voteCount}>{`${voteValue - 1}`}</span>
+            <span className={style.voteCount}>{`${likeCount - 1}`}</span>
           )}
           <button
             className={style.voteBtn}
@@ -62,7 +63,9 @@ function CommentsComp({ theme }) {
               className={style.downvoteBtnInner}
               onClick={(e) => handleDownVote(e)}
             >
-              <ThumbDownOutlinedIcon />
+              <ThumbDownOutlinedIcon
+                style={{ color: downVote ? "blue" : "" }}
+              />
             </span>
           </button>
         </span>
@@ -76,7 +79,7 @@ function CommentsComp({ theme }) {
             <ModeCommentOutlinedIcon style={{ fontSize: "20px" }} />
           </span>
           {/* need to add comments later */}
-          <span className={style.commentValue}>{`105`}</span>
+          <span className={style.commentValue}>{commentCount}</span>
         </span>
       </span>
     </div>

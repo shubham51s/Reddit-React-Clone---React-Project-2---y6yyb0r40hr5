@@ -23,94 +23,106 @@ function HomeRightComp({ theme, popularCommunities, postResult }) {
           <div>
             <div className={style.flexColmn}>
               {/* card list */}
-              <article className={style.widthFull}>
-                {/* list here maybe */}
-                <div
-                  className={style.postListMain}
-                  style={{ backgroundColor: theme.bgColor }}
-                >
-                  {/* <CommentsComp theme={theme} /> */}
-                  <span className={style.creditBar}>
-                    <span className={style.creditBarLeft}>
-                      <span className={style.aboutCommunity}>
-                        <span
-                          className={style.aboutCommunityContent}
-                          style={{ color: theme.communityTxtClr }}
-                        >
-                          <div className={style.communityImgMain}>
-                            <div className={style.communityImgContent}>
-                              <div className={style.imgLogo}>
-                                <img
-                                  className={style.communityImg}
-                                  // need to add community img later
-                                  src={`https://styles.redditmedia.com/t5_2rnjo/styles/communityIcon_sn55eqgnhpw61.jpg?format=pjpg&s=29fe9bb3e92caba7c4551f50b5e04a578e8a7900`}
-                                  alt={`r/ipl icon`}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          <span className={style.communityName}>
-                            {/* need to add name later */}
-                            {`r/ipl`}
+              {postResult.length >= 1 &&
+                postResult.map((item) => (
+                  <article className={style.widthFull} key={item._id}>
+                    {/* list here maybe */}
+                    <div
+                      className={style.postListMain}
+                      style={{ backgroundColor: theme.bgColor }}
+                    >
+                      <span className={style.creditBar}>
+                        <span className={style.creditBarLeft}>
+                          <span className={style.aboutCommunity}>
+                            {item.channel && (
+                              <span
+                                className={style.aboutCommunityContent}
+                                style={{ color: theme.communityTxtClr }}
+                              >
+                                <div className={style.communityImgMain}>
+                                  <div className={style.communityImgContent}>
+                                    <div className={style.imgLogo}>
+                                      <img
+                                        className={style.communityImg}
+                                        // need to add community img later
+                                        src={item.channel.image}
+                                        alt={item.channel.name}
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                                <span className={style.communityName}>
+                                  {/* need to add name later */}
+                                  {item.channel.name}
+                                </span>
+                              </span>
+                            )}
+                            {/* need to add on hover content here */}
+                            {/* <div></div> */}
+                          </span>
+                          <span
+                            className={style.dot}
+                            style={{ color: theme.popularCommunitiesTxt }}
+                          >
+                            •
+                          </span>
+                          <span
+                            className={style.postTimeMain}
+                            style={{ color: theme.popularCommunitiesTxt }}
+                          >
+                            {/* need to add date later */}
+                            <div>3 days ago</div>
                           </span>
                         </span>
-                        {/* need to add on hover content here */}
-                        {/* <div></div> */}
+                        <span className={style.creditBarRight}>
+                          <JoinBtnComp />
+                        </span>
                       </span>
                       <span
-                        className={style.dot}
+                        className={style.postTitle}
                         style={{ color: theme.popularCommunitiesTxt }}
+                        //  need to add heading later
                       >
-                        •
+                        {item.content}
                       </span>
-                      <span
-                        className={style.postTimeMain}
-                        style={{ color: theme.popularCommunitiesTxt }}
+                      <div
+                        className={style.postMediaMain}
+                        style={{ backgroundColor: theme.bgColor }}
                       >
-                        {/* need to add date later */}
-                        <div>3 days ago</div>
-                      </span>
-                    </span>
-                    <span className={style.creditBarRight}>
-                      <JoinBtnComp />
-                    </span>
-                  </span>
-                  <span
-                    className={style.postTitle}
-                    style={{ color: theme.popularCommunitiesTxt }}
-                    //  need to add heading later
-                  >{`Blud is the weakest batsman in the team`}</span>
-                  <div
-                    className={style.postMediaMain}
-                    style={{ backgroundColor: theme.bgColor }}
-                  >
-                    <div
-                      className={style.imgBorder}
-                      style={{ borderColor: theme.sortBtmBorderClr }}
-                    ></div>
-                    <div className={style.postMediaContent}>
-                      <div className={style.imgContents}>
-                        <div className={style.mediaLightBox}>
-                          <img
-                            className={style.mediaImg}
-                            src={`https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Pollock_to_Hussey.jpg/1200px-Pollock_to_Hussey.jpg`}
-                          />
-                          <img
-                            className={style.mediaImgMain}
-                            src={`https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Pollock_to_Hussey.jpg/1200px-Pollock_to_Hussey.jpg`}
-                            alt={`alt="r/ipl - Blud is the weakest batsman in the team"`}
-                          />
+                        <div
+                          className={style.imgBorder}
+                          style={{ borderColor: theme.sortBtmBorderClr }}
+                        ></div>
+                        <div className={style.postMediaContent}>
+                          <div className={style.imgContents}>
+                            {item.images && (
+                              <div className={style.mediaLightBox}>
+                                <img
+                                  className={style.mediaImg}
+                                  src={item.images[0]}
+                                />
+                                <img
+                                  className={style.mediaImgMain}
+                                  src={item.images[0]}
+                                  alt={item.content}
+                                />
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
+                      <CommentsComp
+                        theme={theme}
+                        likeCount={item.likeCount}
+                        commentCount={item.commentCount}
+                      />
                     </div>
-                  </div>
-                  <CommentsComp theme={theme} />
-                </div>
-                <hr
-                  className={style.cardBtmBorder}
-                  style={{ borderBottomColor: theme.sortBtmBorderClr }}
-                />
-              </article>
+                    <hr
+                      className={style.cardBtmBorder}
+                      style={{ borderBottomColor: theme.sortBtmBorderClr }}
+                    />
+                  </article>
+                ))}
             </div>
           </div>
         </main>
