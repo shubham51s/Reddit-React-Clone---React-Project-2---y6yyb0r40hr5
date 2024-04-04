@@ -23,6 +23,8 @@ export const ThemeProvider = ({ children }) => {
       redditLogo: "orangered",
       linkColor: "#0045AC",
       lineBg: "#D6D6D6",
+      commentClr: "#131313",
+      headingClr: "#F2F4F5",
     },
     dark: {
       currTheme: "Dark",
@@ -40,6 +42,8 @@ export const ThemeProvider = ({ children }) => {
       redditLogo: "white",
       linkColor: "#0045AC",
       lineBg: "#303030",
+      commentClr: "#F2F2F2",
+      headingClr: "#F2F4F5",
     },
   };
 
