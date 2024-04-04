@@ -1,9 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Link from "next/link";
 import style from "./popularcommunities.module.css";
+import ThemeContext from "@/app/contexts/ThemeContext";
 
-function PopularComunitiesComp({ theme, popularCommunities }) {
+function PopularComunitiesComp({ popularCommunities }) {
+  const { theme, setTheme } = useContext(ThemeContext);
+
   const [isShowMore, setIsShowMore] = useState(true);
 
   return (

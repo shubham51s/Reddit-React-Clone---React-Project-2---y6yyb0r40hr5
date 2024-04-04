@@ -1,4 +1,4 @@
-import React, { startTransition, useState } from "react";
+import React, { startTransition, useContext, useState } from "react";
 import style from "./homerightocomp.module.css";
 import Link from "next/link";
 import PopularComunitiesComp from "./popularCommunitiesComp";
@@ -7,9 +7,11 @@ import ViewAgendaOutlinedIcon from "@mui/icons-material/ViewAgendaOutlined";
 import SortComp from "../sortContainer";
 import JoinBtnComp from "./joinButton";
 import CommentsComp from "./voteNcomments";
+import ThemeContext from "@/app/contexts/ThemeContext";
 
-function HomeRightComp({ theme, popularCommunities, postResult }) {
-  console.log("Post data: ", postResult);
+function HomeRightComp({ popularCommunities, postResult }) {
+  const { theme, setTheme } = useContext(ThemeContext);
+
   return (
     <div className={style.mainContainer}>
       <div className={style.mainContent}>

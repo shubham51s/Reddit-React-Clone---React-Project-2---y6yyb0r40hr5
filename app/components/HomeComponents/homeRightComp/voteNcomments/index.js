@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import style from "./commentsvote.module.css";
 import { TheaterComedy } from "@mui/icons-material";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbDownOutlinedIcon from "@mui/icons-material/ThumbDownOutlined";
 import { useScrollTrigger } from "@mui/material";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
+import ThemeContext from "@/app/contexts/ThemeContext";
 
-function CommentsComp({ theme, likeCount, commentCount }) {
+function CommentsComp({ likeCount, commentCount }) {
+  const { theme, setTheme } = useContext(ThemeContext);
+
   const [upVote, setUpVote] = useState(false);
   const [downVote, setDownVote] = useState(false);
 

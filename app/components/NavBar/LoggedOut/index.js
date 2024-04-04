@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import style from "./loggedoutnav.module.css";
 import Link from "next/link";
 import RedditIcon from "@mui/icons-material/Reddit";
@@ -9,8 +9,11 @@ import QrCodeScannerIcon from "@mui/icons-material/QrCodeScanner";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { BorderColor } from "@mui/icons-material";
+import ThemeContext from "@/app/contexts/ThemeContext";
 
-function LoginNavComp({ theme }) {
+function LoginNavComp() {
+  const { theme, setTheme } = useContext(ThemeContext);
+
   const [isDark, setIsDark] = useState(false);
   const [isDrawer, setIsDrawer] = useState(false);
 

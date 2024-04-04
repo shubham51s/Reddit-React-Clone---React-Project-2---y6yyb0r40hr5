@@ -1,11 +1,14 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { use, useContext, useState } from "react";
 import style from "./homeleftcomp.module.css";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import { colors } from "@mui/material";
 import OutboundOutlinedIcon from "@mui/icons-material/OutboundOutlined";
+import ThemeContext from "@/app/contexts/ThemeContext";
 
-function HomeLeftComp({ theme }) {
+function HomeLeftComp() {
+  const { theme, setTheme } = useContext(ThemeContext);
+
   const [activeTab, setActiveTab] = useState(1);
 
   return (

@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import style from "./sortcomponent.module.css";
 import Link from "next/link";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ViewAgendaOutlinedIcon from "@mui/icons-material/ViewAgendaOutlined";
+import ThemeContext from "@/app/contexts/ThemeContext";
 
-function SortComp({ theme }) {
+function SortComp() {
+  const { theme, setTheme } = useContext(ThemeContext);
+
   const [sortValue, setSortValue] = useState(1);
   const [cardValue, setCardValue] = useState(1);
 
