@@ -4,7 +4,7 @@ const { createContext, useState } = require("react");
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [isLightTheme, setIsLightTheme] = useState(false);
+  const [isLightTheme, setIsLightTheme] = useState(true);
 
   const themeData = {
     light: {

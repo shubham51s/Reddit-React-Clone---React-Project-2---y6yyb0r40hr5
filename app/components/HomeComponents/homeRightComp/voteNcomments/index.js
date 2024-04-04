@@ -6,16 +6,20 @@ import ThumbDownOutlinedIcon from "@mui/icons-material/ThumbDownOutlined";
 import { useScrollTrigger } from "@mui/material";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import ThemeContext from "@/app/contexts/ThemeContext";
+import UserContext from "@/app/contexts/LoginContext";
 
 function CommentsComp({ likeCount, commentCount }) {
   const { theme, setTheme } = useContext(ThemeContext);
+  const { isLoggedIn, setUserLoginModal } = useContext(UserContext);
 
   const [upVote, setUpVote] = useState(false);
   const [downVote, setDownVote] = useState(false);
 
   const handleUpvote = (e) => {
     e.stopPropagation();
-    if (!upVote) {
+    if (!isLoggedIn) {
+      setUserLoginModal(true);
+    } else if (!upVote) {
       setUpVote(true);
       setDownVote(false);
     }
@@ -23,9 +27,18 @@ function CommentsComp({ likeCount, commentCount }) {
 
   const handleDownVote = (e) => {
     e.stopPropagation();
-    if (!downVote) {
+    if (!isLoggedIn) {
+      setUserLoginModal(true);
+    } else if (!downVote) {
       setDownVote(true);
       setUpVote(false);
+    }
+  };
+
+  const handleComments = (e) => {
+    e.stopPropagation();
+    if (!isLoggedIn) {
+      setUserLoginModal(true);
     }
   };
 
@@ -77,7 +90,7 @@ function CommentsComp({ likeCount, commentCount }) {
         className={style.commentsMain}
         style={{ color: theme.activeNavClr, background: theme.activeNavBg }}
       >
-        <span className={style.commentCtr}>
+        <span className={style.commentCtr} onClick={(e) => handleComments(e)}>
           <span className={style.commentIconMain}>
             <ModeCommentOutlinedIcon style={{ fontSize: "20px" }} />
           </span>

@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import style from "./joinbutton.module.css";
+import UserContext from "@/app/contexts/LoginContext";
 
 function JoinBtnComp() {
+  const { isLoggedIn, setUserLoginModal } = useContext(UserContext);
   const [isJoined, setIsJoined] = useState(false);
 
   const handleJoinBtn = () => {
-    setIsJoined(!isJoined);
+    if (!isLoggedIn) {
+      setUserLoginModal(true);
+    } else setIsJoined(!isJoined);
   };
 
   return (

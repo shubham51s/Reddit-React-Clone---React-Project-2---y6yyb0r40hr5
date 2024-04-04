@@ -23,9 +23,11 @@ import Slider from "@mui/material/Slider";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ThemeContext from "@/app/contexts/ThemeContext";
+import UserContext from "@/app/contexts/LoginContext";
 
 function LogoutNavComp() {
   const { theme, setTheme } = useContext(ThemeContext);
+  const { setUserLoginModal } = useContext(UserContext);
 
   const [isDrawer, setIsDrawer] = useState(false);
 
@@ -264,7 +266,11 @@ function LogoutNavComp() {
         </span>
       </span>
       <span className={style.rightContent}>
-        <Link href="/" className={style.loginLink}>
+        <Link
+          href="/"
+          className={style.loginLink}
+          onClick={() => setUserLoginModal(true)}
+        >
           <span className={style.loginCtr}>
             <span className={style.loginTxt}>Log In</span>
           </span>

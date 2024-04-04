@@ -9,11 +9,11 @@ import { SetMeal } from "@mui/icons-material";
 import ThemeContext from "@/app/contexts/ThemeContext";
 import UserContext from "@/app/contexts/LoginContext";
 
-function LoginComp({ userLoginModal, setUserLoginModal }) {
+function LoginComp() {
+  const { loggedUserInfo, setUserLoginModal, setLoggedUserInfo } =
+    useContext(UserContext);
   const { theme, setTheme } = useContext(ThemeContext);
-  const { loggedUserInfo, setLoggedUserInfo } = useContext(UserContext);
 
-  const { currTheme } = useContext(ThemeContext);
   const [isLogin, setIsLogin] = useState(true);
   const [newUser, setNewUser] = useState(false);
   const [userName, setUserName] = useState("");
@@ -64,7 +64,7 @@ function LoginComp({ userLoginModal, setUserLoginModal }) {
       setUserEmail("");
       setUserPass("");
       setUserName("");
-      setIsError("signup successfull");
+      setIsLogin(true);
     } catch (err) {
       console.log(err.message ? err.message : err);
       setIsError("Please enter valid details");
@@ -97,11 +97,9 @@ function LoginComp({ userLoginModal, setUserLoginModal }) {
       const { token } = result;
       const name = result.data.name;
       const email = result.data.email;
-
       localStorage.setItem("authToken", token);
       localStorage.setItem("userName", name);
       localStorage.setItem("userEmail", email);
-
       setLoggedUserInfo(result.data);
       setJwtToken(token);
       setUserEmail("");

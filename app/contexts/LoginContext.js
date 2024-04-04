@@ -5,17 +5,25 @@ const { createContext, useState } = require("react");
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
+  const [userLoginModal, setUserLoginModal] = useState(false);
   const [loggedUserInfo, setLoggedUserInfo] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("userName") ? true : false
+  );
 
   return (
     <UserContext.Provider
       value={{
-        loggedUserInfo,
-        setLoggedUserInfo,
         userLoginModal,
         setUserLoginModal,
+        loggedUserInfo,
+        setLoggedUserInfo,
+        isLoggedIn,
+        setIsLoggedIn,
       }}
-    ></UserContext.Provider>
+    >
+      {children}
+    </UserContext.Provider>
   );
 };
 
