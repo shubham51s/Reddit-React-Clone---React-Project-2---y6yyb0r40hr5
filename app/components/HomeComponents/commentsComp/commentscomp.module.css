@@ -508,6 +508,7 @@
 .addCommentContainer {
   padding-left: 1rem;
   padding-right: 1rem;
+  margin-bottom: 1rem;
 }
 
 .voteContainer {
@@ -537,6 +538,438 @@
   }
 }
 
+.addCommentMain {
+  display: flex;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .addCommentMain {
+    width: fit-content;
+  }
+}
+
+.addCommentBtn {
+  display: inline-flex;
+  padding-right: 0.875rem;
+  padding-left: 0.625rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-radius: 999px;
+  border: 0.0625rem solid #00000080;
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: calc(2.5rem - (2 * 0.0625rem));
+  text-decoration: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background-color: transparent;
+  height: 2.5rem;
+  padding: 0 calc(0.5rem - 0.0625rem);
+  text-align: center;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.addCommentBtn:hover {
+  border: 0.0625rem solid #120f0ff3;
+}
+
+@media (min-width: 768px) {
+  .addCommentBtn {
+    width: auto;
+  }
+}
+
+.addCmntCtr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.addCommentLogoMain {
+  display: flex;
+  margin-right: 0.2rem;
+}
+
+.addCmntTxt {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
 .commentTreeContainer {
   unicode-bidi: isolate;
+}
+
+.loginAddCmntContainer {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-top: 10px;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .loginAddCmntContainer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.triggerAddCmntBtn {
+  display: inline-block;
+  letter-spacing: -0.025em;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-width: 0.0625rem;
+  border-style: solid;
+  cursor: text;
+  width: 100%;
+  height: auto;
+  text-align: left;
+  border-radius: 999px;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.loginAddCmntMain {
+  margin: 0;
+}
+
+.cmntWidthFull {
+  width: 100%;
+  position: relative;
+  border-width: 0.0625rem;
+  border-style: solid;
+  border-color: #00000033;
+  border-radius: 1.25rem;
+}
+
+.cmntWidthFull:hover {
+  border-color: #00000080;
+}
+
+.addComntInput {
+  position: relative;
+  user-select: text;
+  white-space: pre-wrap;
+  word-break: break-word;
+  outline: transparent solid 2px;
+  outline-offset: 2px;
+  line-height: 1.25rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  overflow-y: auto;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+  resize: vertical;
+  min-height: 44px;
+}
+
+.cancelBtnMain {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 999px;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  margin-left: 5px;
+}
+
+.cancelBtnCtr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cancelBtnTxt {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 8px;
+}
+
+.commentSubmitMain {
+  display: inline-flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 999px;
+  border: none;
+  text-decoration: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  color: #ffffff;
+  height: 2rem;
+  margin-left: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.commentTxt {
+  padding: 2px 5px;
+  color: white;
+}
+
+.commentInput {
+  width: 90%;
+  border: none;
+  outline: none;
+  height: 2rem;
+  background-color: inherit;
+}
+
+.addCmntMain {
+  border-radius: 1.25rem;
+  border-width: 0.0625rem;
+  border-style: solid;
+}
+
+.rteComposer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+}
+
+.addCmntsButton {
+  display: inline-flex;
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  cursor: pointer;
+  height: 2rem;
+  line-height: calc(2rem - (2 * 0.0625rem));
+  text-align: center;
+  text-overflow: ellipsis;
+  background-color: transparent;
+  border-radius: 999px;
+  overflow: hidden;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.submitCommentInner {
+  display: flex;
+  cursor: pointer;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.blockRelative {
+  display: block;
+  position: relative;
+}
+
+.commentBtnInner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gap5 {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.addCommentsIconMain {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  align-items: center;
+  margin-left: auto;
+}
+
+.commentTree {
+  padding-bottom: 0.5rem;
+}
+
+.commentAvtar {
+  white-space: nowrap;
+  padding-bottom: 2px;
+}
+
+.cmntAvtarCtr {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.commentAuthorAvtar {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.avtarLink {
+  display: flex;
+  align-items: center;
+  margin-right: 0.5rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+@media (min-width: 768px) {
+  .avtarLink {
+    margin-right: 0.75rem;
+  }
+}
+
+.avtarCtr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .avtarCtr {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+.avtarContent {
+  display: inline-block;
+  border-radius: 624.9375rem;
+  overflow: hidden;
+}
+
+.avtarImg {
+  width: 100%;
+  height: 100%;
+}
+
+.avtarIcon {
+  font-weight: 700;
+}
+
+.commentMeta {
+  display: flex;
+  margin-right: 0;
+  flex-direction: row;
+  align-items: center;
+  max-width: 100%;
+  font-size: 0.875rem;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  margin-left: 0.5rem;
+  white-space: nowrap;
+  min-width: 0;
+  padding-bottom: 8px;
+}
+
+.sameLine {
+  display: flex;
+  align-items: center;
+}
+
+.cmntMetaCtr {
+  display: flex;
+  padding-right: 0.5rem;
+  overflow: hidden;
+  align-items: center;
+}
+
+.comntMetaColmn {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.userDetailsMain {
+  display: flex;
+  flex-direction: row;
+  flex: none;
+  align-items: center;
+  flex-wrap: nowrap;
+  font-size: 0.875rem;
+}
+
+.userNameMain {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  overflow: hidden;
+  margin-right: 5px;
+}
+
+.userName {
+  font-weight: 700;
+  font-size: 0.8rem;
+  line-height: 1rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.commentTimingMain {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  display: flex;
+  margin-right: 0;
+  flex-direction: row;
+  align-items: center;
+  max-width: 100%;
+  margin-left: 5px;
+}
+
+.userCommentMain {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  padding-bottom: 0.25rem;
+  border-radius: 8px;
+  margin-left: 2.7rem;
+}
+
+.userCmntContent {
+  display: inline-block;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  max-width: 100%;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .userCmntContent {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
 }

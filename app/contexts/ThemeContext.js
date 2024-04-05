@@ -24,7 +24,11 @@ export const ThemeProvider = ({ children }) => {
       linkColor: "#0045AC",
       lineBg: "#D6D6D6",
       commentClr: "#131313",
-      headingClr: "#F2F4F5",
+      addCommentClr: "#0e0f0f",
+      addCommentBg: "#fafafa",
+      addCmntBtnClr: "#656769",
+      cancelBtnBg: "#e7e8e8",
+      commentSubBg: "#474849",
     },
     dark: {
       currTheme: "Dark",
@@ -43,7 +47,11 @@ export const ThemeProvider = ({ children }) => {
       linkColor: "#0045AC",
       lineBg: "#303030",
       commentClr: "#F2F2F2",
-      headingClr: "#F2F4F5",
+      addCommentClr: "#00111a",
+      addCommentBg: "#f7fbff",
+      addCmntBtnClr: "#006f96",
+      cancelBtnBg: "#d3ebfe",
+      commentSubBg: "#2a4682",
     },
   };
 

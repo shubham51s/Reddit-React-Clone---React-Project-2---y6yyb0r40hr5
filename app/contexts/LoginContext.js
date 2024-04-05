@@ -11,6 +11,8 @@ export const UserProvider = ({ children }) => {
     localStorage.getItem("userName") ? true : false
   );
 
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <UserContext.Provider
       value={{
