@@ -1,0 +1,157 @@
+.rulesContainer {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.rulesHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rulesHeadingTxt {
+  margin: 1em 0 0.5em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.rulesContent {
+  margin-top: -0.5rem;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+}
+
+.rulesList {
+  padding: 0;
+  background-color: transparent;
+  border-style: none;
+  border-radius: 0;
+  margin: 0;
+  border: none;
+}
+
+.rulesTitleMain {
+  display: list-item;
+  counter-increment: list-item 0;
+  list-style: inside disclosure-closed;
+  margin: 0;
+  list-style-type: none;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.rulesHeadingList {
+  display: list-item;
+  text-align: -webkit-match-parent;
+  unicode-bidi: isolate;
+  position: relative;
+  list-style-type: none;
+  margin-top: 0;
+}
+
+.rulesHeadingContent {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-right: 16px;
+  outline-offset: -1px;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 1rem;
+  cursor: pointer;
+}
+
+.rulesTitleLeft {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.serialMain {
+  display: flex;
+  line-height: 1rem;
+  font-size: 1.25rem;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+}
+
+.serialNo {
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.25rem;
+}
+
+.rulesTitle {
+  display: flex;
+  flex-direction: column;
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+  justify-content: center;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.txt14 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.ruleMainTxt {
+  display: flex;
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.rulesTitleRight {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.iconMain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1.5rem;
+}
+
+.rulesDetails {
+  transition-behavior: normal;
+  transition-duration: 222ms;
+  transition-timing-function: ease;
+  transition-delay: 0s;
+  transition-property: height;
+  overflow-y: visible;
+  margin-bottom: 0;
+}
+
+.detailsContent {
+  transition: opacity 222ms ease 0s;
+  display: block;
+  opacity: 1;
+}
+
+.translatableTxt {
+  margin-left: 2rem;
+  margin-bottom: 0.25rem;
+}
+
+.rulesContentMain {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: 0.875rem;
+}
+
+.rulesContentMain :first-child {
+  margin-top: 0;
+}

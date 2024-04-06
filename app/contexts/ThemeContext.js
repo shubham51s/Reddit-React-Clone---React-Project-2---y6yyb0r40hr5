@@ -29,6 +29,10 @@ export const ThemeProvider = ({ children }) => {
       addCmntBtnClr: "#656769",
       cancelBtnBg: "#e7e8e8",
       commentSubBg: "#474849",
+      commentBg: "#f4f5f6",
+      rulesClr: "#61686e",
+      communityHeading: "#32363a",
+      descriptionClr: "#61686e",
     },
     dark: {
       currTheme: "Dark",
@@ -52,6 +56,10 @@ export const ThemeProvider = ({ children }) => {
       addCmntBtnClr: "#006f96",
       cancelBtnBg: "#d3ebfe",
       commentSubBg: "#2a4682",
+      commentBg: "#F9FAFA",
+      rulesClr: "#576F76",
+      communityHeading: "#B8C5C9",
+      descriptionClr: "#82959B",
     },
   };
 

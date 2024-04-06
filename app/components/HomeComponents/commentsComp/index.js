@@ -9,22 +9,24 @@ import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutl
 import CommentsComp from "../homeRightComp/voteNcomments";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import UserContext from "@/app/contexts/LoginContext";
+import CommentRightComp from "./commentsRightComp";
 
 function ShowCommentsComp() {
   const { theme } = useContext(ThemeContext);
   const { setUserLoginModal, isLoggedIn } = useContext(UserContext);
-  const [commentResults, setCommentResults] = useState([]);
 
+  const [commentResults, setCommentResults] = useState([]);
   const [commentInput, setCommentInput] = useState("");
   const [isAddComment, setIsAddComment] = useState(false);
+  const [jwtToken, setJwtToken] = useState(
+    localStorage.getItem("authToken") ? localStorage.getItem("authToken") : ""
+  );
 
   const handleAddComment = () => {
     setUserLoginModal(true);
   };
 
   const postId = "64e6003b42b72201a6bcf7ba";
-  const jwtToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MGQ5ZmQ5NzJjNGFlMTY1OWVkYTZlYyIsImlhdCI6MTcxMjIyOTM1MywiZXhwIjoxNzQzNzY1MzUzfQ.GlM0RB8ahKs1OTxn1Zg7AFsS6dZdeYwmT9qBDWiSZWE";
 
   const fetchComments = async (postId, jwtToken) => {
     try {
@@ -46,6 +48,31 @@ function ShowCommentsComp() {
     }
   };
 
+  const postComment = async (commentInput) => {
+    try {
+      const comment = {
+        content: commentInput,
+      };
+
+      const resp = await fetch(
+        `https://academics.newtonschool.co/api/v1/reddit/comment/${postId}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: jwtToken,
+            projectID: "y6yyb0r40hr5",
+          },
+          body: JSON.stringify({ ...comment }),
+        }
+      );
+      if (!resp.json) return;
+      const result = await resp.json();
+      console.log(result);
+    } catch (err) {
+      console.log(err.message ? err.message : err);
+    }
+  };
+
   const handleCancelBtn = () => {
     setIsAddComment(false);
     setCommentInput("");
@@ -55,7 +82,16 @@ function ShowCommentsComp() {
     if (localStorage.getItem("authToken")) {
       fetchComments(postId, localStorage.getItem("authToken"));
     }
+    setJwtToken(
+      localStorage.getItem("authToken") ? localStorage.getItem("authToken") : ""
+    );
   }, []);
+
+  const handleSubmitComment = () => {
+    if (commentInput) {
+      postComment(commentInput);
+    }
+  };
 
   return (
     <div className={style.mainContainer}>
@@ -126,7 +162,22 @@ function ShowCommentsComp() {
                       {`10 hr. ago`}
                     </div>
                   </span>
-                  <div className={style.communityAbout}></div>
+                  <div className={style.communityAbout}>
+                    <span className={style.authorName}>
+                      <div className={style.authorWidthFull}>
+                        <div className={style.authorDetail}>
+                          <div className={style.postCreditBar}>
+                            <span
+                              className={style.authorNameTxt}
+                              style={{ color: theme.communityTxtClr }}
+                              // need to add author name later
+                            >{`SuspiciousFox3929`}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </span>
+                    <span></span>
+                  </div>
                 </div>
               </span>
               <span></span>
@@ -149,32 +200,7 @@ function ShowCommentsComp() {
               <div>
                 <div>
                   {/* need to arrow buttons later */}
-                  {/* <div className={style.imgArrowMain}>
-                    <div className={style.arrowContainer}>
-                      <span className={style.prevBtn}>
-                        <button className={style.prevButton}>
-                          <span className={style.arrowBtnCtr}>
-                            <span className={style.flex}>
-                              <ArrowBackIosNewOutlinedIcon
-                                style={{ fontSize: "18px" }}
-                              />
-                            </span>
-                          </span>
-                        </button>
-                      </span>
-                      <span className={style.nextBtn}>
-                        <button className={style.nextButton}>
-                          <span className={style.nextBtnCtr}>
-                            <span className={style.flex}>
-                              <ArrowForwardIosOutlinedIcon
-                                style={{ fontSize: "18px" }}
-                              />
-                            </span>
-                          </span>
-                        </button>
-                      </span>
-                    </div>
-                  </div> */}
+
                   <ul
                     className={style.postMediaMain}
                     // need to add translate later
@@ -197,23 +223,7 @@ function ShowCommentsComp() {
                         />
                       </div>
                     </li>
-                    {/* <li
-                      className={style.postMediaList}
-                      style={{ backgroundColor: "rgba(0, 0, 0, .2)" }}
-                    >
-                      <img
-                        className={style.backImg}
-                        src={`https://picsum.photos/seed/bnml91b/640/480`}
-                        alt={`post image`}
-                      />
-                      <div className={style.imgListMain}>
-                        <img
-                          className={style.postMedia}
-                          src={`https://picsum.photos/seed/bnml91b/640/480`}
-                          alt={`post image`}
-                        />
-                      </div>
-                    </li> */}
+                    {/* image list */}
                   </ul>
                 </div>
               </div>
@@ -298,6 +308,7 @@ function ShowCommentsComp() {
                         color: theme.activeNavClr,
                         opacity: commentInput ? 1 : 0.5,
                       }}
+                      onClick={handleSubmitComment}
                     >
                       <span className={style.cancelBtnCtr}>
                         <span className={style.submitCommentInner}>
@@ -399,7 +410,7 @@ function ShowCommentsComp() {
             </div>
           </div>
         </main>
-        <div className={style.rightContainer}></div>
+        <CommentRightComp />
       </div>
     </div>
   );
