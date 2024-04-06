@@ -10,7 +10,9 @@ import ShowCommentsComp from "./components/HomeComponents/commentsComp";
 
 function HomePage() {
   const { userLoginModal, setUserLoginModal } = useContext(UserContext);
-  const [showComments, setShowComments] = useState(true);
+  const [showComments, setShowComments] = useState(
+    sessionStorage.getItem("showComments") ? true : false
+  );
 
   const [popularCommunities, setPopularCommunities] = useState([]);
   const [postResult, setPostResult] = useState([]);
@@ -65,9 +67,10 @@ function HomePage() {
           <HomeRightComp
             popularCommunities={popularCommunities}
             postResult={postResult}
+            setShowComments={setShowComments}
           />
         )}
-        {showComments && <ShowCommentsComp />}
+        {showComments && <ShowCommentsComp setShowComments={setShowComments} />}
         <HomeLeftComp />
       </div>
     </>

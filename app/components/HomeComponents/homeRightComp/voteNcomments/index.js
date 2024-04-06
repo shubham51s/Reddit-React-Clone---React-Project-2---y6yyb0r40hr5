@@ -8,7 +8,7 @@ import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import ThemeContext from "@/app/contexts/ThemeContext";
 import UserContext from "@/app/contexts/LoginContext";
 
-function CommentsComp({ likeCount, commentCount }) {
+function CommentsComp({ likeCount, commentCount, setShowComments }) {
   const { theme, setTheme } = useContext(ThemeContext);
   const { isLoggedIn, setUserLoginModal } = useContext(UserContext);
 
@@ -39,6 +39,9 @@ function CommentsComp({ likeCount, commentCount }) {
     e.stopPropagation();
     if (!isLoggedIn) {
       setUserLoginModal(true);
+    } else {
+      setShowComments(true);
+      sessionStorage.setItem("showComments", "true");
     }
   };
 

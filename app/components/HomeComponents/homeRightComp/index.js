@@ -9,7 +9,7 @@ import JoinBtnComp from "./joinButton";
 import CommentsComp from "./voteNcomments";
 import ThemeContext from "@/app/contexts/ThemeContext";
 
-function HomeRightComp({ popularCommunities, postResult }) {
+function HomeRightComp({ popularCommunities, postResult, setShowComments }) {
   const { theme, setTheme } = useContext(ThemeContext);
 
   return (
@@ -117,6 +117,7 @@ function HomeRightComp({ popularCommunities, postResult }) {
                         theme={theme}
                         likeCount={item.likeCount}
                         commentCount={item.commentCount}
+                        setShowComments={setShowComments}
                       />
                     </div>
                     <hr

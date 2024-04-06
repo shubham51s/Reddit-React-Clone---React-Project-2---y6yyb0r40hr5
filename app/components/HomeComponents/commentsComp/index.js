@@ -11,7 +11,7 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import UserContext from "@/app/contexts/LoginContext";
 import CommentRightComp from "./commentsRightComp";
 
-function ShowCommentsComp() {
+function ShowCommentsComp({ setShowComments }) {
   const { theme } = useContext(ThemeContext);
   const { setUserLoginModal, isLoggedIn } = useContext(UserContext);
 
@@ -93,6 +93,11 @@ function ShowCommentsComp() {
     }
   };
 
+  const handleLeftArrowBtn = () => {
+    setShowComments(false);
+    sessionStorage.removeItem("showComments");
+  };
+
   return (
     <div className={style.mainContainer}>
       <div className={style.mainContent}>
@@ -110,6 +115,7 @@ function ShowCommentsComp() {
                       color: theme.activeNavClr,
                       backgroundColor: theme.activeNavBg,
                     }}
+                    onClick={handleLeftArrowBtn}
                   >
                     <span className={style.arrowBtnCtr}>
                       <span className={style.flex}>
