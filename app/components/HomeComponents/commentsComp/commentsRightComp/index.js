@@ -4,8 +4,10 @@ import style from "./commentsrightcomp.module.css";
 import { TheaterComedy } from "@mui/icons-material";
 import ThemeContext from "@/app/contexts/ThemeContext";
 import RulesComp from "./rulesComponent";
+import UserContext from "@/app/contexts/LoginContext";
 
 function CommentRightComp() {
+  const { isLoggedIn } = useContext(UserContext);
   const { theme } = useContext(ThemeContext);
   const [isJoined, setIsJoined] = useState(false);
   const [userData, setUserData] = useState([]);
@@ -35,13 +37,10 @@ function CommentRightComp() {
 
   const handleJoinBtn = () => {
     setIsJoined(!isJoined);
-    if (localStorage.getItem("authToken")) {
-      fetchUser(userId, localStorage.getItem("authToken"));
-    }
   };
 
   useEffect(() => {
-    if (localStorage.getItem("authToken")) {
+    if (isLoggedIn) {
       fetchUser(userId, localStorage.getItem("authToken"));
     }
   }, []);
@@ -54,87 +53,96 @@ function CommentRightComp() {
           style={{ backgroundColor: theme.commentBg }}
         >
           <div className={style.padding}>
-            <div className={style.aboutCommunityContainer}>
-              <div className={style.aboutCommunityMain}>
-                <div className={style.communityHeader}>
-                  <span className={style.communityHeadingMain}>
-                    <span className={style.communityLink}>
-                      <div
-                        className={style.prefixedName}
-                        style={{ textTransform: "lowercase" }}
-                      >
-                        {"r/"}
-                        {userData.name}
-                      </div>
+            {isLoggedIn && (
+              <div className={style.aboutCommunityContainer}>
+                <div className={style.aboutCommunityMain}>
+                  <div className={style.communityHeader}>
+                    <span className={style.communityHeadingMain}>
+                      <span className={style.communityLink}>
+                        <div
+                          className={style.prefixedName}
+                          style={{ textTransform: "lowercase" }}
+                        >
+                          {"r/"}
+                          {userData.name}
+                        </div>
+                      </span>
                     </span>
-                  </span>
-                  <div className={style.joinBtnMain}>
-                    <button
-                      className={style.joinBtn}
-                      onClick={handleJoinBtn}
-                    >{`${isJoined ? "Joined" : "Join"}`}</button>
+                    <div className={style.joinBtnMain}>
+                      <button
+                        className={style.joinBtn}
+                        onClick={handleJoinBtn}
+                      >{`${isJoined ? "Joined" : "Join"}`}</button>
+                    </div>
+                  </div>
+                  <div className={style.communityDetailsMain}>
+                    <h2
+                      className={style.communityHeading}
+                      style={{
+                        color: theme.communityHeading,
+                      }}
+                    >
+                      {"r/"}
+                      {userData.name}
+                    </h2>
+                    <div
+                      className={style.description}
+                      style={{ color: theme.descriptionClr }}
+                    >
+                      {userData.description}
+                    </div>
                   </div>
                 </div>
-                <div className={style.communityDetailsMain}>
-                  <h2
-                    className={style.communityHeading}
-                    style={{
-                      color: theme.communityHeading,
-                    }}
-                  >
-                    {"r/"}
-                    {userData.name}
+              </div>
+            )}
+            {isLoggedIn && (
+              <hr
+                className={style.btmBorder}
+                style={{ borderColor: theme.sortBtmBorderClr }}
+              />
+            )}
+            {isLoggedIn && (
+              <div
+                className={style.userFlairContainer}
+                style={{ color: theme.rulesClr }}
+              >
+                <div className={style.userFlairTxtMain}>
+                  <h2 className={style.nameHeading}>
+                    <div>User flair</div>
                   </h2>
-                  <div
-                    className={style.description}
-                    style={{ color: theme.descriptionClr }}
-                  >
-                    {userData.description}
-                  </div>
                 </div>
-              </div>
-            </div>
-            <hr
-              className={style.btmBorder}
-              style={{ borderColor: theme.sortBtmBorderClr }}
-            />
-            <div
-              className={style.userFlairContainer}
-              style={{ color: theme.rulesClr }}
-            >
-              <div className={style.userFlairTxtMain}>
-                <h2 className={style.nameHeading}>
-                  <div>User flair</div>
-                </h2>
-              </div>
-              <div className={style.userNameMain}>
-                <div className={style.nameInner}>
-                  <div className={style.userProfileMain}>
-                    <div className={style.profileContent}>
-                      <div className={style.profileInner}>
-                        <div className={style.loaded}>
-                          <img
-                            className={style.profilePicture}
-                            src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_0.png"
-                            alt={`${localStorage.getItem("userName")}`}
-                          />
+                <div className={style.userNameMain}>
+                  <div className={style.nameInner}>
+                    <div className={style.userProfileMain}>
+                      <div className={style.profileContent}>
+                        <div className={style.profileInner}>
+                          <div className={style.loaded}>
+                            <img
+                              className={style.profilePicture}
+                              src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_0.png"
+                              alt={`${localStorage.getItem("userName")}`}
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className={style.userNameContent}>
-                    <div
-                      className={style.authorUsername}
-                      style={{ color: theme.descriptionClr }}
-                    >{`${localStorage.getItem("userName")}`}</div>
+                    <div className={style.userNameContent}>
+                      <div
+                        className={style.authorUsername}
+                        style={{ color: theme.descriptionClr }}
+                      >{`${localStorage.getItem("userName")}`}</div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <hr
-              className={style.btmBorder}
-              style={{ borderColor: theme.sortBtmBorderClr }}
-            />
+            )}
+            {isLoggedIn && (
+              <hr
+                className={style.btmBorder}
+                style={{ borderColor: theme.sortBtmBorderClr }}
+              />
+            )}
+
             <div
               className={style.rulesContainer}
               style={{ color: theme.rulesClr }}

@@ -114,7 +114,6 @@ function HomeRightComp({ popularCommunities, postResult, setShowComments }) {
                         </div>
                       </div>
                       <CommentsComp
-                        theme={theme}
                         likeCount={item.likeCount}
                         commentCount={item.commentCount}
                         setShowComments={setShowComments}
