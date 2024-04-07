@@ -24,10 +24,12 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ThemeContext from "@/app/contexts/ThemeContext";
 import UserContext from "@/app/contexts/LoginContext";
+import { ST } from "next/dist/shared/lib/utils";
 
 function LogoutNavComp() {
   const { theme, setTheme } = useContext(ThemeContext);
   const { setUserLoginModal } = useContext(UserContext);
+  const [loginUserDrawer, setLoginUserDrawer] = useState(false);
 
   const [isDrawer, setIsDrawer] = useState(false);
 
@@ -35,8 +37,10 @@ function LogoutNavComp() {
   const [isInputClicked, setIsInputClicked] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const inputRef = useRef(null);
+  const loginRef = useRef(null);
+  const buttonRef = useRef(null);
   const [userProfile, setUserProfile] = useState(false);
-  const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const [userLoggedIn, setUserLoggedIn] = useState(true);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -45,10 +49,23 @@ function LogoutNavComp() {
       }
     };
 
+    const handleLoginOutside = (e) => {
+      if (
+        loginRef.current &&
+        !loginRef.current.contains(e.target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(e.target)
+      ) {
+        setLoginUserDrawer(false);
+      }
+    };
+
     document.body.addEventListener("click", handleClickOutside);
+    document.body.addEventListener("click", handleLoginOutside);
 
     return () => {
       document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("click", handleLoginOutside);
     };
   }, []);
 
@@ -60,256 +77,10 @@ function LogoutNavComp() {
     setUserInput(e.target.value);
   };
 
-  const LoggedInRightTabs = () => (
-    <div className={style.redditRightMain}>
-      <div className={style.leftNavMain}>
-        <span className={style.advertizeMain}>
-          <span className={style.advertizeTab}>
-            <span
-              className={style.adevertizeLink}
-              style={{ color: theme.navTabColor }}
-            >
-              <span className={style.adevertizeIconMain}>
-                <span className={style.flex}>
-                  <AdsClickIcon />
-                </span>
-              </span>
-            </span>
-          </span>
-        </span>
-        <span className={style.messageMain}>
-          <span className={style.advertizeTab}>
-            <span
-              className={style.adevertizeLink}
-              style={{ color: theme.navTabColor }}
-            >
-              <span className={style.adevertizeIconMain}>
-                <span className={style.flex}>
-                  <TextsmsOutlinedIcon />
-                </span>
-              </span>
-            </span>
-          </span>
-        </span>
-        <span className={style.createPostMain}>
-          <span className={style.advertizeTab}>
-            <span
-              className={style.createLink}
-              style={{ color: theme.navTabColor }}
-            >
-              <span className={style.adevertizeIconMain}>
-                <span className={style.createIconMain}>
-                  <AddOutlinedIcon style={{ fontSize: "1.6rem" }} />
-                </span>
-                <span className={style.createTxt}>Create</span>
-              </span>
-            </span>
-          </span>
-        </span>
-        <span className={style.notificationMain}>
-          <span className={style.advertizeTab}>
-            <span
-              className={style.adevertizeLink}
-              style={{ color: theme.navTabColor }}
-            >
-              <span className={style.adevertizeIconMain}>
-                <span className={style.flex}>
-                  <NotificationsNoneOutlinedIcon />
-                </span>
-              </span>
-            </span>
-          </span>
-        </span>
-      </div>
-      <div className={style.userProfileMain}>
-        <div className={style.disFlex}>
-          <span
-            className={style.userProfileContent}
-            style={{ color: theme.activeNavClr }}
-          >
-            <button
-              className={style.userProfileBtn}
-              style={{ color: theme.navTabColor }}
-            >
-              <span className={style.profileBtnCtr}>
-                <span className={style.flex}>
-                  <span className={style.inlineFlex}>
-                    <span className={style.profileBtnInner}>
-                      <img
-                        className={style.profileImg}
-                        src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_0.png"
-                        alt="profile image"
-                      />
-                    </span>
-                  </span>
-                </span>
-              </span>
-            </button>
-          </span>
-          {/* below is onclick */}
-          <div
-            className={style.userProfileNav}
-            style={{
-              display: userProfile ? "block" : "none",
-              backgroundColor: theme.bgColor,
-            }}
-          >
-            <ul className={style.profileOptionsMain}>
-              <li className={style.userProfileList}>
-                <span
-                  className={style.userProfileLink}
-                  style={{ color: theme.navTabColor }}
-                >
-                  <span className={style.viewProfileMain}>
-                    <span className={style.profileImgMain}>
-                      <span className={style.text20}>
-                        <div>
-                          <span className={style.userProfileImgMain}>
-                            <span className={style.userProfileImg}>
-                              <img
-                                className={style.showProfileImg}
-                                src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_0.png"
-                                alt="user profile"
-                              />
-                            </span>
-                          </span>
-                        </div>
-                      </span>
-                    </span>
-                    <span className={style.viewProfileContent}>
-                      <span className={style.viewProfileTxt}>View Profile</span>
-                      <span
-                        className={style.userName}
-                        style={{ color: theme.popularCommunitiesTxt }}
-                      >
-                        {"u/ProfessionalDrag3552"}
-                      </span>
-                    </span>
-                  </span>
-                  <span></span>
-                </span>
-              </li>
-              <li className={style.darkModeMain}>
-                <div
-                  className={style.darkModeContent}
-                  style={{ color: theme.navTabColor }}
-                >
-                  <span className={style.darkModeLeftMain}>
-                    <span className={style.darkModeIconMain}>
-                      <ModeNightOutlinedIcon />
-                    </span>
-                    <span className={style.darkModeTxtMain}>
-                      <span className={style.text14}>Dark Mode</span>
-                    </span>
-                  </span>
-                  <span className={style.darkModeToggleMain}>
-                    <span className={style.darkModeToggleCtr}>
-                      <div className={style.modeToggle}>
-                        <span className={style.toggleIconMain}>
-                          <span className={style.knob}>
-                            <FormGroup>
-                              <FormControlLabel
-                                control={
-                                  <IOSSwitch sx={{ m: 1 }} defaultChecked />
-                                }
-                              />
-                            </FormGroup>
-                          </span>
-                        </span>
-                      </div>
-                    </span>
-                  </span>
-                </div>
-              </li>
-              <li className={style.darkModeMain}>
-                <div
-                  className={style.darkModeContent}
-                  style={{ color: theme.navTabColor }}
-                >
-                  <span className={style.darkModeLeftMain}>
-                    <span className={style.darkModeIconMain}>
-                      <LogoutOutlinedIcon />
-                    </span>
-                    <span className={style.darkModeTxtMain}>
-                      <span className={style.text14}>Log Out</span>
-                    </span>
-                  </span>
-                  <span className={style.darkModeToggleMain}></span>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  const LoggedOutTabs = () => (
-    <div className={style.navRight}>
-      <span className={style.rightContent}></span>
-      <span className={style.rightContent}>
-        <span className={style.getAppMain}>
-          <button
-            className={style.getAppBtn}
-            style={{
-              backgroundColor: theme.activeNavBg,
-              color: theme.activeNavClr,
-            }}
-          >
-            <span className={style.btnCtr}>
-              <span className={style.getAppCode}>
-                <QrCodeScannerIcon style={{ fontSize: "18px" }} />
-              </span>
-              <span className={style.getAppName}>Get app</span>
-            </span>
-          </button>
-        </span>
-      </span>
-      <span className={style.rightContent}>
-        <Link
-          href="/"
-          className={style.loginLink}
-          onClick={() => setUserLoginModal(true)}
-        >
-          <span className={style.loginCtr}>
-            <span className={style.loginTxt}>Log In</span>
-          </span>
-        </Link>
-      </span>
-      <div className={style.rightMenu}>
-        <button className={style.rightMenuBtn}>
-          <span className={style.dotItemCtr}>
-            <span className={style.flex}>
-              <MoreHorizIcon
-                className={style.dotIconD}
-                style={{ color: theme.navTabColor }}
-              />
-            </span>
-          </span>
-        </button>
-        <div className={`${isDrawer ? style.userDrawerContent : style.hide}`}>
-          {/* need to add drawer logic */}
-          <ul style={{ color: theme.navTabColor }}>
-            <li className={style.userDrawerList}>
-              <span style={{ color: theme.navTabColor }}>
-                <span className={style.linkContent}>
-                  <span className={style.drawerListIcon}>
-                    <ExitToAppIcon />
-                  </span>
-                  <span className={style.drawerListName}>
-                    <span className={style.drawerListTxt}>
-                      Log In / Sign Up
-                    </span>
-                  </span>
-                </span>
-                <span className={style.shrink}></span>
-              </span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  );
+  const handleUserBtnClick = (e) => {
+    e.stopPropagation();
+    setLoginUserDrawer(!loginUserDrawer);
+  };
 
   return (
     <div className={style.mainContainer}>
@@ -585,8 +356,274 @@ function LogoutNavComp() {
             </div>
           </div>
           {/* here */}
-          {userLoggedIn && <LoggedInRightTabs />}
-          {!userLoggedIn && <LoggedOutTabs />}
+          {userLoggedIn && (
+            <div className={style.redditRightMain}>
+              <div className={style.leftNavMain}>
+                <span className={style.advertizeMain}>
+                  <span className={style.advertizeTab}>
+                    <span
+                      className={style.adevertizeLink}
+                      style={{ color: theme.navTabColor }}
+                    >
+                      <span className={style.adevertizeIconMain}>
+                        <span className={style.flex}>
+                          <AdsClickIcon />
+                        </span>
+                      </span>
+                    </span>
+                  </span>
+                </span>
+                <span className={style.messageMain}>
+                  <span className={style.advertizeTab}>
+                    <span
+                      className={style.adevertizeLink}
+                      style={{ color: theme.navTabColor }}
+                    >
+                      <span className={style.adevertizeIconMain}>
+                        <span className={style.flex}>
+                          <TextsmsOutlinedIcon />
+                        </span>
+                      </span>
+                    </span>
+                  </span>
+                </span>
+                <span className={style.createPostMain}>
+                  <span className={style.advertizeTab}>
+                    <span
+                      className={style.createLink}
+                      style={{ color: theme.navTabColor }}
+                    >
+                      <span className={style.adevertizeIconMain}>
+                        <span className={style.createIconMain}>
+                          <AddOutlinedIcon style={{ fontSize: "1.6rem" }} />
+                        </span>
+                        <span className={style.createTxt}>Create</span>
+                      </span>
+                    </span>
+                  </span>
+                </span>
+                <span className={style.notificationMain}>
+                  <span className={style.advertizeTab}>
+                    <span
+                      className={style.adevertizeLink}
+                      style={{ color: theme.navTabColor }}
+                    >
+                      <span className={style.adevertizeIconMain}>
+                        <span className={style.flex}>
+                          <NotificationsNoneOutlinedIcon />
+                        </span>
+                      </span>
+                    </span>
+                  </span>
+                </span>
+              </div>
+              <div className={style.userProfileContainer}>
+                <div className={style.profileContent}>
+                  <div
+                    className={style.navProfile}
+                    style={{ color: theme.activeNavClr }}
+                  >
+                    <button
+                      className={style.userProfileButton}
+                      onClick={(e) => handleUserBtnClick(e)}
+                      ref={buttonRef}
+                    >
+                      <span className={style.userProfileBtnCtr}>
+                        <span className={style.userProfileFlex}>
+                          <span className={style.profileTabInner}>
+                            <span className={style.profileImgOuter}>
+                              <img
+                                className={style.userProfileImage}
+                                src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_0.png"
+                                alt="user profile picture"
+                              />
+                            </span>
+                          </span>
+                        </span>
+                      </span>
+                    </button>
+                  </div>
+                  {loginUserDrawer && (
+                    <div
+                      className={style.userProfileContent}
+                      style={{ backgroundColor: theme.bgColor }}
+                      ref={loginRef}
+                    >
+                      <ul className={style.userProfileContentMain}>
+                        <li className={style.userProfileListMain}>
+                          <span
+                            className={style.userProfileLink}
+                            style={{ color: theme.navTabColor }}
+                          >
+                            <span className={style.userProfileInner}>
+                              <span className={style.userProfileIconMain}>
+                                <span className={style.profileIconInner}>
+                                  <div>
+                                    <span className={style.profileIconCtr}>
+                                      <span className={style.userIconCircle}>
+                                        <img
+                                          className={style.userProfilePicture}
+                                          src="	https://www.redditstatic.com/avatars/defaults/v2/avatar_default_0.png"
+                                          alt="user profile picture"
+                                        />
+                                      </span>
+                                    </span>
+                                  </div>
+                                </span>
+                              </span>
+                              <span className={style.userNameContent}>
+                                <span className={style.viewProfileTxt}>
+                                  View Profile
+                                </span>
+                                <span
+                                  className={style.userNameTxt}
+                                  style={{ color: theme.popularCommunitiesTxt }}
+                                >
+                                  {/* need to add user name later */}
+                                  u/ProfessionalDrag3552
+                                </span>
+                              </span>
+                            </span>
+                            <span></span>
+                          </span>
+                        </li>
+                        <li className={style.loginUserList}>
+                          <div
+                            className={style.loginUserListContent}
+                            style={{ color: theme.navTabColor }}
+                          >
+                            <span className={style.userListLeft}>
+                              <span className={style.userListIconContent}>
+                                <ModeNightOutlinedIcon />
+                              </span>
+                              <span className={style.userListNameMain}>
+                                <span className={style.userListNameTxt}>
+                                  Dark Mode
+                                </span>
+                                <span></span>
+                              </span>
+                            </span>
+                            <span className={style.userListRight}>
+                              <span className={style.userListToggler}>
+                                <div className={style.darkModeSwitch}>
+                                  <span
+                                    className={style.switchInput}
+                                    style={{
+                                      backgroundColor: theme.activeNavBg,
+                                    }}
+                                  >
+                                    <IOSSwitch />
+                                  </span>
+                                </div>
+                              </span>
+                            </span>
+                          </div>
+                        </li>
+                        <li className={style.logOutList}>
+                          <div
+                            className={style.loginUserListContent}
+                            style={{ color: theme.navTabColor }}
+                          >
+                            <span className={style.userListLeft}>
+                              <span className={style.userListIconContent}>
+                                <ExitToAppIcon />
+                              </span>
+                              <span className={style.userListNameMain}>
+                                <span className={style.userListNameTxt}>
+                                  Log Out
+                                </span>
+                                <span></span>
+                              </span>
+                            </span>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+          {!userLoggedIn && (
+            <div className={style.navRight}>
+              <span className={style.rightContent}></span>
+              <span className={style.rightContent}>
+                <span className={style.getAppMain}>
+                  <button
+                    className={style.getAppBtn}
+                    style={{
+                      backgroundColor: theme.activeNavBg,
+                      color: theme.activeNavClr,
+                    }}
+                  >
+                    <span className={style.btnCtr}>
+                      <span className={style.getAppCode}>
+                        <QrCodeScannerIcon style={{ fontSize: "18px" }} />
+                      </span>
+                      <span className={style.getAppName}>Get app</span>
+                    </span>
+                  </button>
+                </span>
+              </span>
+              <span className={style.rightContent}>
+                <Link
+                  href="/"
+                  className={style.loginLink}
+                  onClick={() => setUserLoginModal(true)}
+                >
+                  <span className={style.loginCtr}>
+                    <span className={style.loginTxt}>Log In</span>
+                  </span>
+                </Link>
+              </span>
+              <div className={style.loginDrawerMain}>
+                <div className={style.loginDrawerContent}>
+                  <div
+                    className={style.userDrawerLogoMain}
+                    style={{ color: theme.activeNavClr }}
+                  >
+                    <button
+                      className={style.drawerButton}
+                      style={{ color: theme.navTabColor }}
+                    >
+                      <span className={style.drawerBtnCenter}>
+                        <span className={style.drawerButtonInnerFlex}>
+                          <MoreHorizIcon />
+                        </span>
+                      </span>
+                    </button>
+                  </div>
+                  {/* below is onclick content */}
+                  <div
+                    className={style.userDrawerContent}
+                    style={{ backgroundColor: theme.bgColor }}
+                  >
+                    <ul className={style.drawerContentMain}>
+                      <li className={style.drawerList}>
+                        <span
+                          className={style.drawerListLink}
+                          style={{ color: theme.navTabColor }}
+                        >
+                          <span className={style.drawerListInner}>
+                            <span className={style.userListIconMain}>
+                              <ExitToAppIcon />
+                            </span>
+                            <span className={style.userListTxtMain}>
+                              <span className={style.userListTxt}>
+                                Log In / Sign Up
+                              </span>
+                              <span></span>
+                            </span>
+                          </span>
+                          <span></span>
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </nav>
       </header>
     </div>
