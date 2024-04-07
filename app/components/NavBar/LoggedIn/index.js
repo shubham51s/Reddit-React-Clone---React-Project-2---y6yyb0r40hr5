@@ -28,7 +28,8 @@ import { ST } from "next/dist/shared/lib/utils";
 
 function LogoutNavComp() {
   const { theme, setTheme } = useContext(ThemeContext);
-  const { setUserLoginModal } = useContext(UserContext);
+  const { setUserLoginModal, setIsLoggedIn, isLoggedIn } =
+    useContext(UserContext);
   const [loginUserDrawer, setLoginUserDrawer] = useState(false);
 
   const [isDrawer, setIsDrawer] = useState(false);
@@ -80,6 +81,14 @@ function LogoutNavComp() {
   const handleUserBtnClick = (e) => {
     e.stopPropagation();
     setLoginUserDrawer(!loginUserDrawer);
+  };
+
+  const handleLogoutBtnClick = (e) => {
+    e.stopPropagation();
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("userName");
+    setIsLoggedIn(false);
   };
 
   return (
@@ -356,7 +365,7 @@ function LogoutNavComp() {
             </div>
           </div>
           {/* here */}
-          {userLoggedIn && (
+          {isLoggedIn && (
             <div className={style.redditRightMain}>
               <div className={style.leftNavMain}>
                 <span className={style.advertizeMain}>
@@ -480,7 +489,7 @@ function LogoutNavComp() {
                                   style={{ color: theme.popularCommunitiesTxt }}
                                 >
                                   {/* need to add user name later */}
-                                  u/ProfessionalDrag3552
+                                  {localStorage.getItem("userName")}
                                 </span>
                               </span>
                             </span>
@@ -519,7 +528,10 @@ function LogoutNavComp() {
                             </span>
                           </div>
                         </li>
-                        <li className={style.logOutList}>
+                        <li
+                          className={style.logOutList}
+                          onClick={(e) => handleLogoutBtnClick(e)}
+                        >
                           <div
                             className={style.loginUserListContent}
                             style={{ color: theme.navTabColor }}
@@ -544,7 +556,7 @@ function LogoutNavComp() {
               </div>
             </div>
           )}
-          {!userLoggedIn && (
+          {!isLoggedIn && (
             <div className={style.navRight}>
               <span className={style.rightContent}></span>
               <span className={style.rightContent}>
@@ -576,52 +588,6 @@ function LogoutNavComp() {
                   </span>
                 </Link>
               </span>
-              <div className={style.loginDrawerMain}>
-                <div className={style.loginDrawerContent}>
-                  <div
-                    className={style.userDrawerLogoMain}
-                    style={{ color: theme.activeNavClr }}
-                  >
-                    <button
-                      className={style.drawerButton}
-                      style={{ color: theme.navTabColor }}
-                    >
-                      <span className={style.drawerBtnCenter}>
-                        <span className={style.drawerButtonInnerFlex}>
-                          <MoreHorizIcon />
-                        </span>
-                      </span>
-                    </button>
-                  </div>
-                  {/* below is onclick content */}
-                  <div
-                    className={style.userDrawerContent}
-                    style={{ backgroundColor: theme.bgColor }}
-                  >
-                    <ul className={style.drawerContentMain}>
-                      <li className={style.drawerList}>
-                        <span
-                          className={style.drawerListLink}
-                          style={{ color: theme.navTabColor }}
-                        >
-                          <span className={style.drawerListInner}>
-                            <span className={style.userListIconMain}>
-                              <ExitToAppIcon />
-                            </span>
-                            <span className={style.userListTxtMain}>
-                              <span className={style.userListTxt}>
-                                Log In / Sign Up
-                              </span>
-                              <span></span>
-                            </span>
-                          </span>
-                          <span></span>
-                        </span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
             </div>
           )}
         </nav>

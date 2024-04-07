@@ -1030,6 +1030,7 @@
   box-sizing: border-box;
   text-decoration: none;
   border-radius: 999px;
+  margin-right: 0.5rem;
 }
 
 .loginCtr {
@@ -1545,6 +1546,7 @@
 
 .userNameTxt {
   font-size: 0.75rem;
+  font-size: 0.85rem;
   line-height: 1rem;
 }
 

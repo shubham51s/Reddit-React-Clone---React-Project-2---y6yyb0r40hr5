@@ -10,8 +10,12 @@ import ThemeContext from "@/app/contexts/ThemeContext";
 import UserContext from "@/app/contexts/LoginContext";
 
 function LoginComp() {
-  const { loggedUserInfo, setUserLoginModal, setLoggedUserInfo } =
-    useContext(UserContext);
+  const {
+    loggedUserInfo,
+    setUserLoginModal,
+    setLoggedUserInfo,
+    setIsLoggedIn,
+  } = useContext(UserContext);
   const { theme, setTheme } = useContext(ThemeContext);
 
   const [isLogin, setIsLogin] = useState(true);
@@ -20,7 +24,6 @@ function LoginComp() {
   const [userEmail, setUserEmail] = useState("");
   const [userPass, setUserPass] = useState("");
   const [isError, setIsError] = useState("");
-  const [jwtToken, setJwtToken] = useState("");
 
   const handleEmailChange = (e) => {
     setUserEmail(e.target.value);
@@ -101,9 +104,9 @@ function LoginComp() {
       localStorage.setItem("userName", name);
       localStorage.setItem("userEmail", email);
       setLoggedUserInfo(result.data);
-      setJwtToken(token);
       setUserEmail("");
       setUserPass("");
+      setIsLoggedIn(true);
       setUserLoginModal(false);
     } catch (err) {
       setIsError("User not found !");
