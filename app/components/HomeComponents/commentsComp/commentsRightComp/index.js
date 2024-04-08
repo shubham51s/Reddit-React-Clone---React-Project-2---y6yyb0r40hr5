@@ -12,8 +12,6 @@ function CommentRightComp() {
   const [isJoined, setIsJoined] = useState(false);
   const [userData, setUserData] = useState([]);
 
-  const userId = "64e5ef9e467bbeae5d846e0b";
-
   const fetchUser = async (userId, token) => {
     try {
       const resp = await fetch(
@@ -40,8 +38,11 @@ function CommentRightComp() {
   };
 
   useEffect(() => {
-    if (isLoggedIn) {
-      fetchUser(userId, localStorage.getItem("authToken"));
+    if (isLoggedIn && sessionStorage.getItem("userChannelId")) {
+      fetchUser(
+        sessionStorage.getItem("userChannelId"),
+        localStorage.getItem("authToken")
+      );
     }
   }, []);
 

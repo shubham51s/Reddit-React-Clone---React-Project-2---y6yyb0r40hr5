@@ -11,7 +11,8 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import UserContext from "@/app/contexts/LoginContext";
 import CommentRightComp from "./commentsRightComp";
 
-function ShowCommentsComp({ setShowComments }) {
+function ShowCommentsComp({ setShowComments, setImgUrl, setImgUrl }) {
+  // need to add full image when clicked on image
   const { theme } = useContext(ThemeContext);
   const { setUserLoginModal, isLoggedIn } = useContext(UserContext);
 
@@ -263,72 +264,75 @@ function ShowCommentsComp({ setShowComments }) {
             </div>
           )}
           {/* when user is logged in */}
-          <div
-            className={style.loginAddCmntContainer}
-            style={{
-              color: theme.addCommentClr,
-              backgroundColor: theme.addCommentBg,
-            }}
-          >
-            <div>
-              {/* <div></div> */}
-              {!isAddComment && (
-                <div className={style.initialAdd}>
-                  <button
-                    className={style.triggerAddCmntBtn}
-                    style={{
-                      color: theme.addCmntBtnClr,
-                      backgroundColor: theme.addCommentBg,
-                      borderColor: theme.borderColor,
-                    }}
-                    onClick={() => setIsAddComment(true)}
-                  >
-                    Add a comment
-                  </button>
-                </div>
-              )}
-              {isAddComment && (
-                <div className={style.loginAddCmntMain}>
-                  <div className={style.cmntWidthFull}>
-                    <div className={style.addComntInput}>
-                      <input
-                        className={style.commentInput}
-                        type="text"
-                        value={commentInput}
-                        onChange={(e) => setCommentInput(e.target.value)}
-                      />
-                    </div>
+          {isLoggedIn && (
+            <div
+              className={style.loginAddCmntContainer}
+              style={{
+                color: theme.addCommentClr,
+                backgroundColor: theme.addCommentBg,
+              }}
+            >
+              <div>
+                {/* <div></div> */}
+                {!isAddComment && (
+                  <div className={style.initialAdd}>
                     <button
-                      className={style.cancelBtnMain}
-                      style={{ backgroundColor: theme.cancelBtnBg }}
-                      onClick={handleCancelBtn}
-                    >
-                      <span className={style.cancelBtnCtr}>
-                        <span className={style.cancelBtnTxt}>Cancel</span>
-                      </span>
-                    </button>
-                    <button
-                      className={style.commentSubmitMain}
+                      className={style.triggerAddCmntBtn}
                       style={{
-                        backgroundColor: theme.commentSubBg,
-                        color: theme.activeNavClr,
-                        opacity: commentInput ? 1 : 0.5,
+                        color: theme.addCmntBtnClr,
+                        backgroundColor: theme.addCommentBg,
+                        borderColor: theme.borderColor,
                       }}
-                      onClick={handleSubmitComment}
+                      onClick={() => setIsAddComment(true)}
                     >
-                      <span className={style.cancelBtnCtr}>
-                        <span className={style.submitCommentInner}>
-                          <span className={style.blockRelative}>
-                            <span className={style.commentTxt}>Comment</span>
-                          </span>
-                        </span>
-                      </span>
+                      Add a comment
                     </button>
                   </div>
-                </div>
-              )}
+                )}
+                {isAddComment && (
+                  <div className={style.loginAddCmntMain}>
+                    <div className={style.cmntWidthFull}>
+                      <div className={style.addComntInput}>
+                        <input
+                          className={style.commentInput}
+                          type="text"
+                          value={commentInput}
+                          onChange={(e) => setCommentInput(e.target.value)}
+                        />
+                      </div>
+                      <button
+                        className={style.cancelBtnMain}
+                        style={{ backgroundColor: theme.cancelBtnBg }}
+                        onClick={handleCancelBtn}
+                      >
+                        <span className={style.cancelBtnCtr}>
+                          <span className={style.cancelBtnTxt}>Cancel</span>
+                        </span>
+                      </button>
+                      <button
+                        className={style.commentSubmitMain}
+                        style={{
+                          backgroundColor: theme.commentSubBg,
+                          color: theme.activeNavClr,
+                          opacity: commentInput ? 1 : 0.5,
+                        }}
+                        onClick={handleSubmitComment}
+                      >
+                        <span className={style.cancelBtnCtr}>
+                          <span className={style.submitCommentInner}>
+                            <span className={style.blockRelative}>
+                              <span className={style.commentTxt}>Comment</span>
+                            </span>
+                          </span>
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
+          )}
+
           <div className={style.commentTreeContainer}>
             <div>
               <div

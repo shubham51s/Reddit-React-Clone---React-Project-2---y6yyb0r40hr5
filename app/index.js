@@ -7,12 +7,16 @@ import HomeRightComp from "./components/HomeComponents/homeRightComp";
 import HomeLeftComp from "./components/HomeComponents/homeLeftComp";
 import UserContext from "./contexts/LoginContext";
 import ShowCommentsComp from "./components/HomeComponents/commentsComp";
+import FullImgComp from "./components/HomeComponents/fullImageComp";
 
 function HomePage() {
   const { userLoginModal, setUserLoginModal } = useContext(UserContext);
   const [showComments, setShowComments] = useState(
     sessionStorage.getItem("showComments") ? true : false
   );
+
+  const [imageOnly, setImgOnly] = useState(false);
+  const [imageUrl, setImgUrl] = useState("");
 
   const [popularCommunities, setPopularCommunities] = useState([]);
   const [postResult, setPostResult] = useState([]);
@@ -60,6 +64,8 @@ function HomePage() {
 
   return (
     <>
+      {imageOnly && <FullImgComp imageUrl={imageUrl} setImgOnly={setImgOnly} />}
+
       {userLoginModal && <LoginComp />}
       <LogoutNavComp />
       <div className={style.homePageContainer}>
@@ -68,9 +74,17 @@ function HomePage() {
             popularCommunities={popularCommunities}
             postResult={postResult}
             setShowComments={setShowComments}
+            setImgOnly={setImgOnly}
+            setImgUrl={setImgUrl}
           />
         )}
-        {showComments && <ShowCommentsComp setShowComments={setShowComments} />}
+        {showComments && (
+          <ShowCommentsComp
+            setShowComments={setShowComments}
+            setImgOnly={setImgOnly}
+            setImgUrl={setImgUrl}
+          />
+        )}
         <HomeLeftComp />
       </div>
     </>

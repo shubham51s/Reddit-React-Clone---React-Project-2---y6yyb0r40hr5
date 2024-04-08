@@ -9,8 +9,20 @@ import JoinBtnComp from "./joinButton";
 import CommentsComp from "./voteNcomments";
 import ThemeContext from "@/app/contexts/ThemeContext";
 
-function HomeRightComp({ popularCommunities, postResult, setShowComments }) {
+function HomeRightComp({
+  popularCommunities,
+  postResult,
+  setShowComments,
+  setImgOnly,
+  setImgUrl,
+}) {
   const { theme, setTheme } = useContext(ThemeContext);
+
+  const handleImageClick = (e, url) => {
+    e.stopPropagation;
+    setImgUrl(url);
+    setImgOnly(true);
+  };
 
   return (
     <div className={style.mainContainer}>
@@ -98,7 +110,12 @@ function HomeRightComp({ popularCommunities, postResult, setShowComments }) {
                         <div className={style.postMediaContent}>
                           <div className={style.imgContents}>
                             {item.images && (
-                              <div className={style.mediaLightBox}>
+                              <div
+                                className={style.mediaLightBox}
+                                onClick={(e) =>
+                                  handleImageClick(e, item.images[0])
+                                }
+                              >
                                 <img
                                   className={style.mediaImg}
                                   src={item.images[0]}
@@ -113,11 +130,14 @@ function HomeRightComp({ popularCommunities, postResult, setShowComments }) {
                           </div>
                         </div>
                       </div>
-                      <CommentsComp
-                        likeCount={item.likeCount}
-                        commentCount={item.commentCount}
-                        setShowComments={setShowComments}
-                      />
+                      {item.channel && (
+                        <CommentsComp
+                          likeCount={item.likeCount}
+                          commentCount={item.commentCount}
+                          setShowComments={setShowComments}
+                          userId={item.channel._id}
+                        />
+                      )}
                     </div>
                     <hr
                       className={style.cardBtmBorder}
