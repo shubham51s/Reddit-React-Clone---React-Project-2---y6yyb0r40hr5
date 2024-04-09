@@ -1,0 +1,1220 @@
+.headerContainer {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  position: fixed;
+  right: 0px;
+  left: 0px;
+  top: 0px;
+  height: 48px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  z-index: 80;
+}
+
+.mainContainer {
+  display: inline-flex;
+  flex-direction: row;
+  flex-grow: 1;
+  padding: 0 20px;
+  box-sizing: border-box;
+  align-items: center;
+  border-bottom-width: 1px;
+  border-bottom: solid;
+}
+
+.headerLeftContent {
+  display: inline-flex;
+  flex-direction: row;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.logoMain {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.logoTxt {
+  display: none;
+  font-size: 22px;
+  font-weight: 700;
+  margin-left: 5px;
+}
+
+@media (min-width: 1070px) {
+  .logoTxt {
+    display: block;
+  }
+}
+
+.createPostMain {
+  position: relative;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-sizing: border-box;
+  height: 36px;
+  min-width: 72px;
+}
+
+@media (min-width: 995px) {
+  .createPostMain {
+    width: 270px;
+  }
+}
+
+.createPostBtn {
+  bottom: 0;
+  border-radius: 4px;
+  box-sizing: border-box;
+  height: 100%;
+  left: 0;
+  line-height: 34px;
+  overflow: hidden;
+  padding-left: 40px;
+  padding-right: 56px;
+  position: absolute;
+  text-align: left;
+  text-overflow: ellipsis;
+  top: 0;
+  white-space: nowrap;
+  background: transparent;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+}
+
+.createPostTxt {
+  display: none;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  font-weight: 400;
+}
+
+@media (min-width: 995px) {
+  .createPostTxt {
+    display: inline;
+  }
+}
+
+.addIconLogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  font-size: 20px;
+  height: 20px;
+  left: 10px;
+  margin-top: -10px;
+  font-weight: 400;
+  line-height: 20px;
+  width: 20px;
+  vertical-align: middle;
+  max-height: 20px;
+  max-width: 20px;
+  margin-left: 5px;
+}
+
+.downArrow {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  font-size: 20px;
+  font-weight: 400;
+  height: 20px;
+  line-height: 20px;
+  vertical-align: middle;
+  width: 20px;
+  margin-top: -10px;
+  pointer-events: none;
+}
+
+.createPostContent {
+  position: absolute;
+  right: 0;
+  top: 140%;
+  left: -1px;
+  width: 270px;
+  padding-bottom: 16px;
+  border: 1px solid;
+  border-radius: 0 0 4px 4px;
+  box-sizing: border-box;
+  margin-top: -1px;
+  max-height: 482px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.createPostContent:hover {
+  border: 1px solid #edeff1;
+}
+
+.feeds {
+  padding: 16px 24px 8px;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+
+.focusHome {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 24px;
+  position: relative;
+  cursor: pointer;
+}
+
+.focusHome:hover {
+  background-color: #edeff1;
+}
+
+.focusIcon {
+  flex-grow: 0;
+  height: 20px;
+  max-height: 20px;
+  max-width: 20px;
+  width: 20px;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 20px;
+  vertical-align: middle;
+  padding-bottom: 5px;
+}
+
+.focusTxt {
+  flex-grow: 1;
+  font-size: 14px;
+  line-height: 18px;
+  margin-left: 8px;
+  max-width: 208px;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.focusPopular {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 24px;
+  position: relative;
+  cursor: pointer;
+}
+
+.focusPopular:hover {
+  background-color: #edeff1;
+}
+
+.focusInbox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 24px;
+  position: relative;
+  cursor: pointer;
+}
+
+.focusInbox:hover {
+  background-color: #edeff1;
+}
+
+.focusCreatePost {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 24px;
+  position: relative;
+  cursor: pointer;
+}
+
+.focusCreatePost:hover {
+  background-color: #edeff1;
+}
+
+.focusNotificationInbox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 24px;
+  position: relative;
+  cursor: pointer;
+}
+
+.focusNotificationInbox:hover {
+  background-color: #edeff1;
+}
+
+.redditSearchMain {
+  display: flex;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  justify-content: stretch;
+  height: 40px;
+  unicode-bidi: isolate;
+}
+
+.searchContent {
+  display: flex;
+  justify-content: stretch;
+  width: 100%;
+  unicode-bidi: isolate;
+}
+
+@media (min-width: 1416px) {
+  .searchContent {
+    display: flex;
+    position: absolute;
+    height: 40px;
+    top: 0.5rem;
+    right: 0;
+    left: 0;
+    pointer-events: none;
+  }
+}
+
+.searchInnerMain {
+  display: flex;
+  width: 100%;
+  /* justify-content: stretch; */
+  unicode-bidi: isolate;
+}
+
+@media (min-width: 1200px) {
+  .searchInnerMain {
+    width: 560px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    pointer-events: auto;
+  }
+}
+
+.searchInputMain {
+  display: inline;
+  transform: translate3d(var(0px), var(0), 0) rotate(var(0)) skewX(var(0))
+    skewY(var(0)) scaleX(var(1)) scaleY(var(1));
+  max-width: 750px;
+}
+
+.searchBarMain {
+  border-radius: 1.25rem;
+  width: inherit;
+  box-sizing: border-box;
+  unicode-bidi: isolate;
+}
+
+.isolate {
+  unicode-bidi: isolate;
+}
+
+.inputForm {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-top: 0em;
+  unicode-bidi: isolate;
+  border-radius: 1.25rem;
+}
+
+.searchInner {
+  display: inline-flex;
+  appearance: none;
+  outline: transparent solid 2px;
+  outline-offset: 2px;
+  padding: 0px;
+  background-color: transparent;
+  border-style: none;
+  flex: 1 1 0%;
+  width: 100%;
+  margin: 0px;
+  position: relative;
+}
+
+.searchLabel {
+  display: flex;
+  flex-grow: 1;
+  position: relative;
+  cursor: default;
+}
+
+.labelContainer {
+  display: inline-flex;
+  position: relative;
+  height: 2.5rem;
+  flex: 1 1 0%;
+  padding: 0;
+  border-color: transparent;
+  box-shadow: none;
+  border: var(0.125rem) solid var(transparent);
+  padding-right: 1rem;
+  padding-left: 1rem;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: var(624.9375rem);
+  unicode-bidi: isolate;
+}
+
+.leadingIcon {
+  display: inline-flex;
+  font-size: 1rem;
+  margin-right: 0.5rem;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+  transform: translateY(0px);
+  transition: transform 150ms ease 0s;
+  width: 100%;
+  padding: var(0.5rem) 0;
+}
+
+.clearIcon {
+  display: flex;
+  align-items: center;
+  height: 2rem;
+  width: 2rem;
+  flex-shrink: 0;
+}
+.inputSearch {
+  font: inherit;
+  padding: 0px;
+  background: 0px 0px;
+  border: none;
+  outline: 0px;
+  width: 100%;
+  text-overflow: ellipsis;
+  padding-block: 1px;
+  padding-inline: 2px;
+}
+
+.searchResultMain {
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: calc(100vh - var(56px) - 15px - 10px);
+  unicode-bidi: isolate;
+}
+
+.trendingTxt {
+  display: flex;
+  align-items: center;
+  margin-top: 0.75rem;
+  margin-left: 1rem;
+  unicode-bidi: isolate;
+}
+
+.trendingResultMain {
+  display: block;
+  padding: 0px;
+  list-style-type: none;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+  unicode-bidi: isolate;
+}
+
+.tredingList {
+  list-style-type: none;
+  margin-top: 0px;
+  position: relative;
+  display: list-item;
+  text-align: -webkit-match-parent;
+  unicode-bidi: isolate;
+}
+
+.tredingListLink {
+  position: relative;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 0;
+  padding-right: 16px;
+  outline-offset: -1px;
+  text-decoration-line: none;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  /* padding-left: 1rem; */
+}
+
+.trendingListLeft {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-shrink: 1;
+  min-width: 0px;
+}
+
+.tredingListLeftInner {
+  display: flex;
+  flex-direction: column;
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+  justify-content: center;
+  flex-shrink: 1;
+  min-width: 0px;
+}
+
+.trendingListHeading {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.trendingHeadingMain {
+  display: inline-block;
+  line-height: 1.25rem;
+  height: 1.25rem;
+  margin-left: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.trendingHeading {
+  font-weight: 700;
+}
+
+.trendingListContent {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.trendingListContentMain {
+  display: inline-block;
+  padding-bottom: 0.5rem;
+  min-height: 40px;
+  margin-left: 0.25rem;
+}
+
+.trendingListTxt {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.trendingListCommunity {
+  display: flex;
+  unicode-bidi: isolate;
+}
+
+.loaded {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 16px;
+  height: 16px;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+  border-radius: inherit;
+  unicode-bidi: isolate;
+}
+
+.trendingCommunityImg {
+  display: inline-block;
+  border-radius: 624.938rem;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.25rem;
+}
+
+.trendingListRight {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.trendingListImg {
+  width: 100%;
+  height: 100%;
+}
+
+.trendingImgMain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1.5rem;
+}
+
+.trendingImgContent {
+  display: inline-block;
+  object-fit: cover;
+  border-radius: 0.25rem;
+  margin-right: 0.25rem;
+}
+
+.loadedImg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 96px;
+  height: 72px;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+  border-radius: inherit;
+  unicode-bidi: isolate;
+}
+
+.trendingImg {
+  width: 100%;
+  height: 100%;
+}
+
+.userSearchResult {
+  display: block;
+  padding: 0px;
+  /* padding-left: 1rem; */
+  padding-right: 1rem;
+  list-style-type: none;
+  min-width: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+  unicode-bidi: isolate;
+}
+
+.communitiesTxt {
+  font-weight: 600;
+  margin-top: 0.5rem;
+  /* margin-left: 1rem; */
+  unicode-bidi: isolate;
+}
+
+.userInputList {
+  display: list-item;
+  text-align: -webkit-match-parent;
+  unicode-bidi: isolate;
+  position: relative;
+  list-style-type: none;
+  margin-top: 0px;
+}
+
+.userInputLink {
+  position: relative;
+  padding-right: 16px;
+  outline-offset: -1px;
+  text-decoration-line: none;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  /* padding-left: 1rem; */
+  gap: 0.5rem;
+  justify-content: space-between;
+  cursor: pointer;
+  display: flex;
+}
+
+.profileLoaded {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  overflow: hidden;
+  border-radius: inherit;
+  unicode-bidi: isolate;
+}
+
+.communityLogoContent {
+  line-height: 1rem;
+  font-size: 1.25rem;
+}
+
+.communityProfileMain {
+  display: flex;
+  position: static;
+  border-radius: 624.938rem;
+  justify-content: center;
+  align-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  /* margin-left: 0.25rem; */
+}
+
+.aboutCommunityMain {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 1;
+  min-width: 0px;
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+  justify-content: center;
+}
+
+.communityNameMain {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.communityName {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.membersMain {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.membersTxtMain {
+  display: inline-block;
+}
+
+.userInputContent {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-shrink: 1;
+  min-width: 0px;
+}
+
+.userShrink0 {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.headerRightContent {
+  display: inline-flex;
+  flex-direction: row;
+  flex-grow: 0;
+  align-items: center;
+}
+
+.popularIconMain {
+  display: none;
+  flex-direction: row;
+  border-right: none;
+  padding-right: 0;
+  margin-right: 8px;
+  align-items: center;
+}
+
+@media (min-width: 788px) {
+  .popularIconMain {
+    display: flex;
+  }
+}
+
+.popularIconContent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.popularTabLink {
+  position: relative;
+  border-radius: 2px;
+  height: 32px;
+  padding: 0;
+  width: 32px;
+  cursor: pointer;
+}
+
+.popularIcon {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  right: 0;
+  top: 0;
+  font-size: 20px;
+  font-weight: 400;
+  height: 20px;
+  line-height: 20px;
+  vertical-align: middle;
+  width: 20px;
+}
+
+.rightSideMain {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.rightSideContent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.changeUsernameTooltip {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.changeUsernameTooltip {
+  display: none;
+  flex-direction: row;
+  align-items: center;
+}
+
+@media (min-width: 600px) {
+  .changeUsernameTooltip {
+    display: flex;
+  }
+}
+
+.messageIconMain {
+  height: 32px;
+}
+
+.messageLink {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 2px;
+}
+
+.messageIcon {
+  position: absolute;
+  width: 20px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  font-size: 20px;
+  font-weight: 400;
+  height: 20px;
+  line-height: 20px;
+  vertical-align: middle;
+}
+
+.notificationMain {
+  margin-left: 8px;
+  height: 32px;
+}
+
+.notificationBtn {
+  position: relative;
+  border-radius: 2px;
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: initial;
+  text-shadow: none;
+  display: inline-block;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.notificationBtnInner {
+  position: relative;
+  box-sizing: border-box;
+  height: 32px;
+  width: 32px;
+}
+
+.notificationIcon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  font-size: 20px;
+  font-weight: 400;
+  height: 20px;
+  line-height: 20px;
+  vertical-align: middle;
+  width: 20px;
+}
+
+.createIconMain {
+  margin-left: 8px;
+  height: 32px;
+}
+
+.createIconBtn {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 2px;
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.createIcon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  font-size: 20px;
+  font-weight: 400;
+  height: 20px;
+  line-height: 20px;
+  vertical-align: middle;
+  width: 20px;
+}
+
+.advertiseMain {
+  margin-left: 8px;
+  height: 32px;
+}
+
+.adLink {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  align-items: center;
+  background-color: #edeff1;
+  border-radius: 50px;
+  padding: 0;
+  height: 32px;
+  min-width: 32px;
+  cursor: pointer;
+}
+
+.adIcon {
+  margin-left: 7px;
+  font-size: 18px;
+  margin: 5px 5px 5px 7px;
+  font-weight: 400;
+  height: 20px;
+  line-height: 20px;
+  vertical-align: middle;
+  width: 20px;
+}
+
+.emptyIcon {
+  margin-left: 8px;
+  height: 32px;
+}
+
+.userDropdownId {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  text-align: left;
+  width: 100%;
+  align-items: center;
+  border-radius: 4px 4px 0 0;
+  outline: none;
+  border: 1px solid transparent;
+  padding: 2px 0;
+  min-height: 32px;
+  margin-left: 8px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.userDropdownId:hover {
+  border: 1px solid #edeff1;
+}
+
+.dropdownBtnInner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.userContentMain {
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+  text-align: left;
+  width: auto;
+  width: 32px;
+}
+
+@media (min-width: 1210px) {
+  .userContentMain {
+    width: 175px;
+  }
+}
+
+.btmArrow {
+  font-size: 20px;
+  font-weight: 400;
+  height: 20px;
+  line-height: 20px;
+  vertical-align: middle;
+  width: 20px;
+}
+
+.userProfileMain {
+  position: relative;
+  height: 100%;
+  margin-right: 5px;
+}
+
+.userNameMain {
+  display: none;
+}
+
+@media (min-width: 1210px) {
+  .userNameMain {
+    display: block;
+  }
+}
+
+.nameText {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  white-space: nowrap;
+  text-transform: capitalize;
+}
+
+.karma {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  color: #a8aaab;
+}
+
+.userMenuMain {
+  position: fixed;
+  right: 10px;
+  top: 45.2px;
+  border-radius: 4px;
+  border-top: 1px solid;
+  margin-top: 4px;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  width: 252px;
+  box-shadow: none;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 80;
+  max-height: 80%;
+  border: 1px solid;
+}
+
+.myStuffMain {
+  display: block;
+  height: 40px;
+  width: 100%;
+  color: #787c7e;
+  box-sizing: border-box;
+}
+
+.myStuffSection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+  padding: 0 20px;
+}
+
+.myStuffIconMain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 0%;
+  font-size: 20px;
+  height: 20px;
+  margin-right: 12px;
+  min-width: 20px;
+  width: 20px;
+}
+
+.profileIcon {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 20px;
+  vertical-align: middle;
+}
+
+.myStuffTxt {
+  flex: 1 1 100%;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  text-align: left;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.myStuffContent {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid;
+}
+
+.statusMain {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  border: 0;
+  padding-right: 16px;
+  padding-left: 52px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  background: transparent;
+  height: 40px;
+  width: 100%;
+}
+
+.statusMain:hover {
+  background-color: #edeff1;
+}
+
+.onlineStatus {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.userMain {
+  display: flex;
+  align-items: center;
+  padding-right: 16px;
+  padding-left: 52px;
+  box-sizing: border-box;
+  border: 0;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  height: 40px;
+  width: 100%;
+}
+
+.userMain:hover {
+  background-color: #edeff1;
+}
+
+.viewOptionsMain {
+  display: block;
+  height: 40px;
+  width: 100%;
+  color: #787c7e;
+  box-sizing: border-box;
+}
+
+.viewOptionsContent {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid;
+}
+
+.viewOptionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  background: transparent;
+  height: 40px;
+  width: 100%;
+  border: 0;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  padding-right: 16px;
+  padding-left: 52px;
+}
+
+.viewOptionBtn:hover {
+  background-color: #edeff1;
+}
+
+.logoutMain {
+  display: block;
+  height: 40px;
+  width: 100%;
+  border: 0;
+  cursor: pointer;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+.logoutContent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+  padding: 0 20px;
+}
+
+.logoutContent:hover {
+  background-color: #edeff1;
+}
+
+.logoutIconMain {
+  flex: 0 0;
+  font-size: 20px;
+  height: 20px;
+  margin-right: 12px;
+  min-width: 20px;
+  width: 20px;
+}
+
+.logutIcon {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 20px;
+  vertical-align: middle;
+}
+
+.logoutTxt {
+  flex: 1 1 100%;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: left;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-weight: 500;
+}
+
+.copyrightMain {
+  display: flex;
+  align-items: center;
+  height: unset;
+  width: 100%;
+  min-height: 40px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: none;
+}
+
+.copyrightTxt {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: #878a8c;
+}

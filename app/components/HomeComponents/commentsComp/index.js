@@ -11,7 +11,7 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import UserContext from "@/app/contexts/LoginContext";
 import CommentRightComp from "./commentsRightComp";
 
-function ShowCommentsComp({ setShowComments, setImgUrl, setImgUrl }) {
+function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
   // need to add full image when clicked on image
   const { theme } = useContext(ThemeContext);
   const { setUserLoginModal, isLoggedIn } = useContext(UserContext);
