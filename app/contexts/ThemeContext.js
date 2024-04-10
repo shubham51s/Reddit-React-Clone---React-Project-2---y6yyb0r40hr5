@@ -37,6 +37,13 @@ export const ThemeProvider = ({ children }) => {
       headerBg: "#FFFFFF",
       headerBorderClr: "#EDEFF1",
       arrowClr: "#878A8C",
+      submitPageBg: "#DAE0E6",
+      policyBg: "#FFFFFF",
+      policyClr: "#7c7c7c",
+      policyLinkClr: "#0079D3",
+      draftsClr: "#0079D3",
+      noificationBg: "#F6F7F8",
+      postBtnBg: "#0079D3",
     },
     dark: {
       currTheme: "Dark",
@@ -68,6 +75,13 @@ export const ThemeProvider = ({ children }) => {
       headerBg: "#1A1A1B",
       headerBorderClr: "#343536",
       arrowClr: "#818384",
+      submitPageBg: "#030303",
+      policyBg: "#1A1A1B",
+      policyClr: "#818384",
+      policyLinkClr: "#0079D3",
+      draftsClr: "#D7DADC",
+      noificationBg: "#272729",
+      postBtnBg: "#D7DADC",
     },
   };
 

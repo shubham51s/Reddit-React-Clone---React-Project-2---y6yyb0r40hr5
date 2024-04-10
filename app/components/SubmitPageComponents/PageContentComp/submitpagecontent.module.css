@@ -1,0 +1,29 @@
+.mainContainer {
+  transition: margin-top 0.3s ease;
+  padding-top: 48px;
+}
+
+.flexClmn {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 48px);
+}
+
+.zIndex {
+  z-index: 3;
+}
+
+.mainContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 0 auto;
+  box-sizing: border-box;
+  max-width: 1248px;
+}
+
+@media (min-width: 640px) {
+  .mainContent {
+    padding: 20px 24px;
+  }
+}
