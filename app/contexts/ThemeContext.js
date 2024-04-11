@@ -4,7 +4,9 @@ const { createContext, useState } = require("react");
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [isLightTheme, setIsLightTheme] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(
+    localStorage.getItem("darkModeIsActive") ? true : false
+  );
 
   const themeData = {
     light: {
@@ -86,11 +88,17 @@ export const ThemeProvider = ({ children }) => {
   };
 
   const [theme, setTheme] = useState(
-    isLightTheme ? themeData.light : themeData.dark
+    !isDarkMode ? themeData.light : themeData.dark
   );
 
+  const handleThemeChange = (isdark) => {
+    setTheme(isdark ? themeData.dark : themeData.light);
+  };
+
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
+    <ThemeContext.Provider
+      value={{ theme, setTheme, handleThemeChange, isDarkMode, setIsDarkMode }}
+    >
       {children}
     </ThemeContext.Provider>
   );

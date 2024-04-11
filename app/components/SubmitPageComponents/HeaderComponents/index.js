@@ -21,9 +21,13 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import UserContext from "@/app/contexts/LoginContext";
 
 function SubmitPageHeaderComp() {
-  const { theme } = useContext(ThemeContext);
+  const { theme, handleThemeChange, isDarkMode, setIsDarkMode } =
+    useContext(ThemeContext);
+  const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
+
   const userRef = useRef(null);
   const profileRef = useRef(null);
   const createPostRef = useRef(null);
@@ -35,6 +39,45 @@ function SubmitPageHeaderComp() {
   const [userDropdown, setUserDropdown] = useState(false);
   const [createPostDropdown, setCreatePostDropdown] = useState(false);
   const [onlineStatus, setOnlineStatus] = useState(false);
+
+  const handleUserDropdown = () => {
+    setUserDropdown(!userDropdown);
+  };
+
+  const handleCreatePostBtn = () => {
+    setCreatePostDropdown(!createPostDropdown);
+  };
+
+  const handleInputClick = () => {
+    setShowResults(true);
+  };
+
+  const handleUserSearch = (e) => {
+    setUserInput(e.target.value);
+  };
+
+  const handleThemes = (e) => {
+    handleThemeChange(e.target.checked);
+    setIsDarkMode(e.target.checked);
+    if (e.target.checked) {
+      localStorage.setItem("darkModeIsActive", "true");
+    } else {
+      localStorage.removeItem("darkModeIsActive");
+    }
+  };
+
+  const handleOnlineStatus = (e) => {
+    setOnlineStatus(e.target.checked);
+  };
+
+  // need to add use router hook later when user logged out it should naviagate to home page
+  const handleLogoutBtnClick = (e) => {
+    e.stopPropagation();
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("userName");
+    setIsLoggedIn(false);
+  };
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -75,22 +118,6 @@ function SubmitPageHeaderComp() {
       document.removeEventListener("click", handleCreatePostClick);
     };
   }, []);
-
-  const handleUserDropdown = () => {
-    setUserDropdown(!userDropdown);
-  };
-
-  const handleCreatePostBtn = () => {
-    setCreatePostDropdown(!createPostDropdown);
-  };
-
-  const handleInputClick = () => {
-    setShowResults(true);
-  };
-
-  const handleUserSearch = (e) => {
-    setUserInput(e.target.value);
-  };
 
   return (
     <header
@@ -513,7 +540,11 @@ function SubmitPageHeaderComp() {
                 {userDropdown && (
                   <div
                     className={style.userMenuMain}
-                    style={{ borderColor: theme.headerBorderClr }}
+                    style={{
+                      backgroundColor: theme.headerBg,
+                      borderColor: theme.headerBorderClr,
+                      color: theme.headerClr,
+                    }}
                     ref={userRef}
                   >
                     <div>
@@ -540,7 +571,10 @@ function SubmitPageHeaderComp() {
                             Online Status
                           </span>
                           <span>
-                            <IOSSwitch />
+                            <IOSSwitch
+                              value={onlineStatus}
+                              onChange={handleOnlineStatus}
+                            />
                           </span>
                         </button>
                         <span className={style.userMain}>
@@ -565,13 +599,17 @@ function SubmitPageHeaderComp() {
                         >
                           <span>Dark Mode</span>
                           <span>
-                            <IOSSwitch />
+                            <IOSSwitch
+                              checked={isDarkMode}
+                              onChange={handleThemes}
+                            />
                           </span>
                         </button>
                       </div>
                       <button
                         className={style.logoutMain}
                         style={{ color: theme.headerClr }}
+                        onClick={(e) => handleLogoutBtnClick(e)}
                       >
                         <span className={style.logoutContent}>
                           <span className={style.logoutIconMain}>

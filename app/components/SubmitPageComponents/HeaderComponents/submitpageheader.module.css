@@ -170,7 +170,7 @@
 }
 
 .focusHome:hover {
-  background-color: #edeff1;
+  background-color: #93969ab3;
 }
 
 .focusIcon {
@@ -208,7 +208,7 @@
 }
 
 .focusPopular:hover {
-  background-color: #edeff1;
+  background-color: #93969ab3;
 }
 
 .focusInbox {
@@ -221,7 +221,7 @@
 }
 
 .focusInbox:hover {
-  background-color: #edeff1;
+  background-color: #93969ab3;
 }
 
 .focusCreatePost {
@@ -234,7 +234,7 @@
 }
 
 .focusCreatePost:hover {
-  background-color: #edeff1;
+  background-color: #93969ab3;
 }
 
 .focusNotificationInbox {
@@ -247,7 +247,7 @@
 }
 
 .focusNotificationInbox:hover {
-  background-color: #edeff1;
+  background-color: #93969ab3;
 }
 
 .redditSearchMain {
@@ -890,7 +890,7 @@
   flex-direction: row;
   position: relative;
   align-items: center;
-  background-color: #edeff1;
+  background-color: #93969ab3;
   border-radius: 50px;
   padding: 0;
   height: 32px;
@@ -1089,7 +1089,7 @@
 }
 
 .statusMain:hover {
-  background-color: #edeff1;
+  background-color: #93969ab3;
 }
 
 .onlineStatus {
@@ -1113,7 +1113,7 @@
 }
 
 .userMain:hover {
-  background-color: #edeff1;
+  background-color: #93969ab3;
 }
 
 .viewOptionsMain {
@@ -1148,7 +1148,7 @@
 }
 
 .viewOptionBtn:hover {
-  background-color: #edeff1;
+  background-color: #93969ab3;
 }
 
 .logoutMain {
@@ -1170,7 +1170,7 @@
 }
 
 .logoutContent:hover {
-  background-color: #edeff1;
+  background-color: #93969ab3;
 }
 
 .logoutIconMain {
