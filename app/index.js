@@ -8,15 +8,16 @@ import HomeLeftComp from "./components/HomeComponents/homeLeftComp";
 import UserContext from "./contexts/LoginContext";
 import ShowCommentsComp from "./components/HomeComponents/commentsComp";
 import FullImgComp from "./components/HomeComponents/fullImageComp";
-
+import HomeLeftDrawerComp from "./components/HomeComponents/homeLeftComp/homeLeftDrawer";
+import ThemeContext from "./contexts/ThemeContext";
 function HomePage() {
-  const { userLoginModal, setUserLoginModal } = useContext(UserContext);
-  const [showComments, setShowComments] = useState(
-    sessionStorage.getItem("showComments") ? true : false
-  );
+  const { userLoginModal, setUserLoginModal, showComments, setShowComments } =
+    useContext(UserContext);
+  const { theme } = useContext(ThemeContext);
 
   const [imageOnly, setImgOnly] = useState(false);
   const [imageUrl, setImgUrl] = useState("");
+  const [isNavDrawer, setIsNavDrawer] = useState(false);
 
   const [popularCommunities, setPopularCommunities] = useState([]);
   const [postResult, setPostResult] = useState([]);
@@ -67,8 +68,14 @@ function HomePage() {
       {imageOnly && <FullImgComp imageUrl={imageUrl} setImgOnly={setImgOnly} />}
 
       {userLoginModal && <LoginComp />}
-      <LogoutNavComp />
-      <div className={style.homePageContainer}>
+      <LogoutNavComp
+        setIsNavDrawer={setIsNavDrawer}
+        isNavDrawer={isNavDrawer}
+      />
+      <div
+        className={style.homePageContainer}
+        style={{ backgroundColor: theme.bgColor }}
+      >
         {!showComments && (
           <HomeRightComp
             popularCommunities={popularCommunities}
@@ -86,6 +93,7 @@ function HomePage() {
           />
         )}
         <HomeLeftComp />
+        {isNavDrawer && <HomeLeftDrawerComp />}
       </div>
     </>
   );

@@ -1,24 +1,25 @@
 "use client";
-import React, { use, useContext, useState } from "react";
-import style from "./homeleftcomp.module.css";
+import React, { useContext, useRef, useState } from "react";
+import style from "./homeleftdrawercomp.module.css";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import { colors } from "@mui/material";
 import OutboundOutlinedIcon from "@mui/icons-material/OutboundOutlined";
 import ThemeContext from "@/app/contexts/ThemeContext";
 
-function HomeLeftComp() {
-  const { theme, setTheme } = useContext(ThemeContext);
-
+function HomeLeftDrawerComp() {
+  const { theme } = useContext(ThemeContext);
   const [activeTab, setActiveTab] = useState(1);
+  const drawerRef = useRef(null);
 
   return (
     <div
       className={style.mainContainer}
-      style={{ borderColor: theme.borderLine }}
+      style={{ borderRightColor: theme.borderColor }}
     >
-      <nav className={style.navContainer}>
-        {/* need to add other navigation tab */}
-        {/* need to add later */}
+      <nav
+        className={style.mainContainerInner}
+        style={{ backgroundColor: theme.bgColor }}
+      >
         <div>
           <li className={style.navList}>
             <span
@@ -70,4 +71,4 @@ function HomeLeftComp() {
   );
 }
 
-export default HomeLeftComp;
+export default HomeLeftDrawerComp;

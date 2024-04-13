@@ -26,8 +26,9 @@ import ThemeContext from "@/app/contexts/ThemeContext";
 import UserContext from "@/app/contexts/LoginContext";
 import { ST } from "next/dist/shared/lib/utils";
 import NavSearchComp from "./navSearchComp";
+import LeftNavDrawer from "./navDrawer";
 
-function LogoutNavComp() {
+function LogoutNavComp({ setIsNavDrawer, isNavDrawer }) {
   const { theme, handleThemeChange, isDarkMode, setIsDarkMode } =
     useContext(ThemeContext);
   const { setUserLoginModal, setIsLoggedIn, isLoggedIn } =
@@ -39,25 +40,6 @@ function LogoutNavComp() {
   const buttonRef = useRef(null);
   const [userProfile, setUserProfile] = useState(false);
   const [userLoggedIn, setUserLoggedIn] = useState(true);
-
-  useEffect(() => {
-    const handleLoginOutside = (e) => {
-      if (
-        loginRef.current &&
-        !loginRef.current.contains(e.target) &&
-        buttonRef.current &&
-        !buttonRef.current.contains(e.target)
-      ) {
-        setLoginUserDrawer(false);
-      }
-    };
-
-    document.body.addEventListener("click", handleLoginOutside);
-
-    return () => {
-      document.removeEventListener("click", handleLoginOutside);
-    };
-  }, []);
 
   const handleUserBtnClick = (e) => {
     e.stopPropagation();
@@ -90,9 +72,13 @@ function LogoutNavComp() {
       >
         <nav
           className={style.navContent}
-          style={{ borderColor: theme.borderColor }}
+          style={{ borderColor: theme.borderLine }}
         >
           <div className={style.navLeft}>
+            <LeftNavDrawer
+              setIsNavDrawer={setIsNavDrawer}
+              isNavDrawer={isNavDrawer}
+            />
             <Link href="/" className={style.redditLogoLink}>
               <span className={style.redditLogo}>
                 <span className={style.redditIcon}>

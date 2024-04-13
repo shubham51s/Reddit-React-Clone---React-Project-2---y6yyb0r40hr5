@@ -8,15 +8,17 @@ import SortComp from "../sortContainer";
 import JoinBtnComp from "./joinButton";
 import CommentsComp from "./voteNcomments";
 import ThemeContext from "@/app/contexts/ThemeContext";
+import UserContext from "@/app/contexts/LoginContext";
 
 function HomeRightComp({
   popularCommunities,
   postResult,
-  setShowComments,
   setImgOnly,
   setImgUrl,
 }) {
   const { theme, setTheme } = useContext(ThemeContext);
+  const { isLoggedIn } = useContext(UserContext);
+  const todaysDate = new Date();
 
   const handleImageClick = (e, url) => {
     e.stopPropagation;
@@ -40,10 +42,11 @@ function HomeRightComp({
               {postResult.length >= 1 &&
                 postResult.map((item) => (
                   <article className={style.widthFull} key={item._id}>
-                    {/* list here maybe */}
                     <div
                       className={style.postListMain}
-                      style={{ backgroundColor: theme.bgColor }}
+                      style={{
+                        backgroundColor: theme.bgColor,
+                      }}
                     >
                       <span className={style.creditBar}>
                         <span className={style.creditBarLeft}>
@@ -58,7 +61,6 @@ function HomeRightComp({
                                     <div className={style.imgLogo}>
                                       <img
                                         className={style.communityImg}
-                                        // need to add community img later
                                         src={item.channel.image}
                                         alt={item.channel.name}
                                       />
@@ -66,7 +68,6 @@ function HomeRightComp({
                                   </div>
                                 </div>
                                 <span className={style.communityName}>
-                                  {/* need to add name later */}
                                   {item.channel.name}
                                 </span>
                               </span>
@@ -84,8 +85,7 @@ function HomeRightComp({
                             className={style.postTimeMain}
                             style={{ color: theme.popularCommunitiesTxt }}
                           >
-                            {/* need to add date later */}
-                            <div>3 days ago</div>
+                            {item.createdAt}
                           </span>
                         </span>
                         <span className={style.creditBarRight}>
@@ -130,14 +130,12 @@ function HomeRightComp({
                           </div>
                         </div>
                       </div>
-                      {item.channel && (
-                        <CommentsComp
-                          likeCount={item.likeCount}
-                          commentCount={item.commentCount}
-                          setShowComments={setShowComments}
-                          userId={item.channel._id}
-                        />
-                      )}
+
+                      <CommentsComp
+                        upvote={item.likeCount}
+                        comments={item.commentCount}
+                        item={item}
+                      />
                     </div>
                     <hr
                       className={style.cardBtmBorder}
@@ -148,11 +146,9 @@ function HomeRightComp({
             </div>
           </div>
         </main>
-        {/* below div is optional need to show only when user not logged in */}
-        <PopularComunitiesComp
-          theme={theme}
-          popularCommunities={popularCommunities}
-        />
+        {!isLoggedIn && (
+          <PopularComunitiesComp popularCommunities={popularCommunities} />
+        )}
       </div>
     </div>
   );

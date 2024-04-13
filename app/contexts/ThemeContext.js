@@ -10,6 +10,7 @@ export const ThemeProvider = ({ children }) => {
 
   const themeData = {
     light: {
+      borderLine: "#00000033",
       currTheme: "Light",
       bgColor: "#ffffff",
       borderColor: "#00000033",
@@ -48,6 +49,7 @@ export const ThemeProvider = ({ children }) => {
       postBtnBg: "#0079D3",
     },
     dark: {
+      borderLine: "#ffffff33",
       currTheme: "Dark",
       bgColor: "#0B1416",
       borderColor: "#00000033",

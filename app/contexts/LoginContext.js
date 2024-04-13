@@ -10,8 +10,9 @@ export const UserProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem("userName") ? true : false
   );
-
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showComments, setShowComments] = useState(false);
+  const [postItem, setPostItem] = useState([]);
+  const myProjectId = "y6yyb0r40hr5";
 
   return (
     <UserContext.Provider
@@ -22,6 +23,11 @@ export const UserProvider = ({ children }) => {
         setLoggedUserInfo,
         isLoggedIn,
         setIsLoggedIn,
+        showComments,
+        setShowComments,
+        postItem,
+        setPostItem,
+        myProjectId,
       }}
     >
       {children}

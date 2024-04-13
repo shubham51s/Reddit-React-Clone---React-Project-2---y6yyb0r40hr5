@@ -8,12 +8,60 @@ import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import ThemeContext from "@/app/contexts/ThemeContext";
 import UserContext from "@/app/contexts/LoginContext";
 
-function CommentsComp({ likeCount, commentCount, setShowComments, userId }) {
+function CommentsComp({ upvote, comments, item }) {
   const { theme, setTheme } = useContext(ThemeContext);
-  const { isLoggedIn, setUserLoginModal } = useContext(UserContext);
+  const {
+    isLoggedIn,
+    setUserLoginModal,
+    setShowComments,
+    setPostItem,
+    myProjectId,
+  } = useContext(UserContext);
 
   const [upVote, setUpVote] = useState(false);
   const [downVote, setDownVote] = useState(false);
+
+  const makeUpvote = async (id, token) => {
+    console.log("id is: ", id, " token is : ", token);
+    try {
+      const resp = await fetch(
+        `https://academics.newtonschool.co/api/v1/reddit/like/${id}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: token,
+            projectID: "y6yyb0r40hr5",
+          },
+        }
+      );
+
+      const result = await resp.json();
+      console.log("upvote result: ", result);
+    } catch (err) {
+      console.log(err.message ? err.message : err);
+    }
+  };
+
+  const makeDownVote = async (id, token) => {
+    console.log("id: ", id, " token: ", token);
+    try {
+      const resp = await fetch(
+        `https://academics.newtonschool.co/api/v1/reddit/like/:${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: token,
+            projectID: "y6yyb0r40hr5",
+          },
+        }
+      );
+
+      const result = await resp.json();
+      console.log("downvote result: ", result);
+    } catch (err) {
+      console.log(err.message ? err.message : err);
+    }
+  };
 
   const handleUpvote = (e) => {
     e.stopPropagation();
@@ -22,6 +70,7 @@ function CommentsComp({ likeCount, commentCount, setShowComments, userId }) {
     } else if (!upVote) {
       setUpVote(true);
       setDownVote(false);
+      makeUpvote(item._id, localStorage.getItem("authToken"));
     }
   };
 
@@ -32,15 +81,14 @@ function CommentsComp({ likeCount, commentCount, setShowComments, userId }) {
     } else if (!downVote) {
       setDownVote(true);
       setUpVote(false);
+      makeDownVote(item._id, localStorage.getItem("authToken"));
     }
   };
 
   const handleComments = (e) => {
     e.stopPropagation();
-
+    setPostItem(item);
     setShowComments(true);
-    sessionStorage.setItem("showComments", "true");
-    sessionStorage.setItem("userChannelId", userId);
   };
 
   return (
@@ -64,13 +112,13 @@ function CommentsComp({ likeCount, commentCount, setShowComments, userId }) {
             </span>
           </button>
           {!upVote && !downVote && (
-            <span className={style.voteCount}>{likeCount}</span>
-          )}{" "}
+            <span className={style.voteCount}>{upvote}</span>
+          )}
           {upVote && !downVote && (
-            <span className={style.voteCount}>{`${likeCount + 1}`}</span>
-          )}{" "}
+            <span className={style.voteCount}>{`${upvote + 1}`}</span>
+          )}
           {!upVote && downVote && (
-            <span className={style.voteCount}>{`${likeCount - 1}`}</span>
+            <span className={style.voteCount}>{`${upvote - 1}`}</span>
           )}
           <button
             className={style.voteBtn}
@@ -96,7 +144,7 @@ function CommentsComp({ likeCount, commentCount, setShowComments, userId }) {
             <ModeCommentOutlinedIcon style={{ fontSize: "20px" }} />
           </span>
           {/* need to add comments later */}
-          <span className={style.commentValue}>{commentCount}</span>
+          <span className={style.commentValue}>{comments}</span>
         </span>
       </span>
     </div>
