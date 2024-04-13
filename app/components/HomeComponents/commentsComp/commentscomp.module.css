@@ -399,6 +399,7 @@
   transition-duration: 250ms;
   padding-left: 2rem;
   margin-bottom: 1rem;
+  cursor: pointer;
 }
 
 .postMediaList {

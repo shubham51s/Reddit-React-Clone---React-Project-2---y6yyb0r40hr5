@@ -7,12 +7,13 @@ import RulesComp from "./rulesComponent";
 import UserContext from "@/app/contexts/LoginContext";
 
 function CommentRightComp() {
-  const { isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, postItem } = useContext(UserContext);
   const { theme } = useContext(ThemeContext);
   const [isJoined, setIsJoined] = useState(false);
   const [userData, setUserData] = useState([]);
 
   const fetchUser = async (userId, token) => {
+    console.log("user id for reading about user: ", userId);
     try {
       const resp = await fetch(
         `https://academics.newtonschool.co/api/v1/reddit/channel/${userId}`,
@@ -54,7 +55,7 @@ function CommentRightComp() {
           style={{ backgroundColor: theme.commentBg }}
         >
           <div className={style.padding}>
-            {isLoggedIn && (
+            {isLoggedIn && userData && (
               <div className={style.aboutCommunityContainer}>
                 <div className={style.aboutCommunityMain}>
                   <div className={style.communityHeader}>

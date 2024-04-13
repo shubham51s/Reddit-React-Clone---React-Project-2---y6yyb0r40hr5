@@ -22,7 +22,6 @@ function CommentsComp({ upvote, comments, item }) {
   const [downVote, setDownVote] = useState(false);
 
   const makeUpvote = async (id, token) => {
-    console.log("id is: ", id, " token is : ", token);
     try {
       const resp = await fetch(
         `https://academics.newtonschool.co/api/v1/reddit/like/${id}`,
@@ -36,14 +35,12 @@ function CommentsComp({ upvote, comments, item }) {
       );
 
       const result = await resp.json();
-      console.log("upvote result: ", result);
     } catch (err) {
       console.log(err.message ? err.message : err);
     }
   };
 
   const makeDownVote = async (id, token) => {
-    console.log("id: ", id, " token: ", token);
     try {
       const resp = await fetch(
         `https://academics.newtonschool.co/api/v1/reddit/like/:${id}`,
@@ -57,7 +54,6 @@ function CommentsComp({ upvote, comments, item }) {
       );
 
       const result = await resp.json();
-      console.log("downvote result: ", result);
     } catch (err) {
       console.log(err.message ? err.message : err);
     }
@@ -88,6 +84,10 @@ function CommentsComp({ upvote, comments, item }) {
   const handleComments = (e) => {
     e.stopPropagation();
     setPostItem(item);
+    sessionStorage.setItem("postId", item._id);
+    if (item.channel) {
+      sessionStorage.setItem("userChannelId", item.channel._id);
+    }
     setShowComments(true);
   };
 

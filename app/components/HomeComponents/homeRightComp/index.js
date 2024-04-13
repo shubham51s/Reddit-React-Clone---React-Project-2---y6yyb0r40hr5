@@ -17,7 +17,7 @@ function HomeRightComp({
   setImgUrl,
 }) {
   const { theme, setTheme } = useContext(ThemeContext);
-  const { isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, setPostItem } = useContext(UserContext);
   const todaysDate = new Date();
 
   const handleImageClick = (e, url) => {
