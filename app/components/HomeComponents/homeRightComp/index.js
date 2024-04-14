@@ -16,6 +16,7 @@ function HomeRightComp({
   postResult,
   setImgOnly,
   setImgUrl,
+  setPostResult,
 }) {
   const { theme, setTheme } = useContext(ThemeContext);
   const { isLoggedIn, setPostItem } = useContext(UserContext);
@@ -91,7 +92,7 @@ function HomeRightComp({
                           </span>
                         </span>
                         <span className={style.creditBarRight}>
-                          <JoinBtnComp />
+                          <JoinBtnComp item={item} />
                         </span>
                       </span>
                       <span
@@ -137,6 +138,7 @@ function HomeRightComp({
                         upvote={item.likeCount}
                         comments={item.commentCount}
                         item={item}
+                        setPostResult={setPostResult}
                       />
                     </div>
                     <hr

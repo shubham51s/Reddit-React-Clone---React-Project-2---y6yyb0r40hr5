@@ -8,7 +8,7 @@ import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import ThemeContext from "@/app/contexts/ThemeContext";
 import UserContext from "@/app/contexts/LoginContext";
 
-function CommentsComp({ upvote, comments, item }) {
+function CommentsComp({ upvote, comments, item, setPostResult }) {
   const { theme, setTheme } = useContext(ThemeContext);
   const {
     isLoggedIn,
@@ -20,6 +20,25 @@ function CommentsComp({ upvote, comments, item }) {
 
   const [upVote, setUpVote] = useState(false);
   const [downVote, setDownVote] = useState(false);
+
+  const fetchPosts = async (token) => {
+    try {
+      const resp = await fetch(
+        "https://academics.newtonschool.co/api/v1/reddit/post?limit=100",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            projectID: "y6yyb0r40hr5",
+          },
+        }
+      );
+      if (!resp.ok) return;
+      const result = await resp.json();
+      setPostResult(result.data);
+    } catch (err) {
+      console.log(err.message ? err.message : err);
+    }
+  };
 
   const makeUpvote = async (id, token) => {
     try {
@@ -35,6 +54,8 @@ function CommentsComp({ upvote, comments, item }) {
       );
 
       const result = await resp.json();
+      fetchPosts(token);
+      setDownVote(false);
     } catch (err) {
       console.log(err.message ? err.message : err);
     }
@@ -43,7 +64,7 @@ function CommentsComp({ upvote, comments, item }) {
   const makeDownVote = async (id, token) => {
     try {
       const resp = await fetch(
-        `https://academics.newtonschool.co/api/v1/reddit/like/:${id}`,
+        `https://academics.newtonschool.co/api/v1/reddit/like/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -54,6 +75,8 @@ function CommentsComp({ upvote, comments, item }) {
       );
 
       const result = await resp.json();
+      fetchPosts(token);
+      setDownVote(true);
     } catch (err) {
       console.log(err.message ? err.message : err);
     }
@@ -63,7 +86,7 @@ function CommentsComp({ upvote, comments, item }) {
     e.stopPropagation();
     if (!isLoggedIn) {
       setUserLoginModal(true);
-    } else if (!upVote) {
+    } else if (!item.isLiked) {
       setUpVote(true);
       setDownVote(false);
       makeUpvote(item._id, localStorage.getItem("authToken"));
@@ -74,10 +97,10 @@ function CommentsComp({ upvote, comments, item }) {
     e.stopPropagation();
     if (!isLoggedIn) {
       setUserLoginModal(true);
-    } else if (!downVote) {
-      setDownVote(true);
-      setUpVote(false);
+    } else if (item.isLiked) {
       makeDownVote(item._id, localStorage.getItem("authToken"));
+    } else {
+      setDownVote(true);
     }
   };
 
@@ -106,31 +129,35 @@ function CommentsComp({ upvote, comments, item }) {
               className={style.upvoteBtnInner}
               onClick={(e) => handleUpvote(e)}
             >
-              <ThumbUpOutlinedIcon
+              {item.isLiked && (
+                <ThumbUpOutlinedIcon style={{ color: "orangered" }} />
+              )}
+              {!item.isLiked && <ThumbUpOutlinedIcon />}
+              {/* <ThumbUpOutlinedIcon
                 style={{ color: upVote ? "orangered" : "" }}
-              />
+              /> */}
             </span>
           </button>
-          {!upVote && !downVote && (
-            <span className={style.voteCount}>{upvote}</span>
-          )}
-          {upVote && !downVote && (
-            <span className={style.voteCount}>{`${upvote + 1}`}</span>
-          )}
-          {!upVote && downVote && (
-            <span className={style.voteCount}>{`${upvote - 1}`}</span>
-          )}
+
+          <span className={style.voteCount}>{upvote}</span>
           <button
             className={style.voteBtn}
             style={{ color: theme.navTabColor, background: "transparent" }}
           >
-            <span
-              className={style.downvoteBtnInner}
-              onClick={(e) => handleDownVote(e)}
-            >
-              <ThumbDownOutlinedIcon
+            <span className={style.downvoteBtnInner}>
+              {item.isDisliked && (
+                <ThumbDownOutlinedIcon style={{ color: "blue" }} />
+              )}
+
+              {!item.isDisliked && (
+                <ThumbDownOutlinedIcon
+                  style={{ color: downVote ? "blue" : "" }}
+                  onClick={(e) => handleDownVote(e)}
+                />
+              )}
+              {/* <ThumbDownOutlinedIcon
                 style={{ color: downVote ? "blue" : "" }}
-              />
+              /> */}
             </span>
           </button>
         </span>
