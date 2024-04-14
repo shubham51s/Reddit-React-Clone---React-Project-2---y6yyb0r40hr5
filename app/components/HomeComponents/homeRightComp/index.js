@@ -9,6 +9,7 @@ import JoinBtnComp from "./joinButton";
 import CommentsComp from "./voteNcomments";
 import ThemeContext from "@/app/contexts/ThemeContext";
 import UserContext from "@/app/contexts/LoginContext";
+import NoContentComp from "./noContent";
 
 function HomeRightComp({
   popularCommunities,
@@ -18,7 +19,6 @@ function HomeRightComp({
 }) {
   const { theme, setTheme } = useContext(ThemeContext);
   const { isLoggedIn, setPostItem } = useContext(UserContext);
-  const todaysDate = new Date();
 
   const handleImageClick = (e, url) => {
     e.stopPropagation;
@@ -35,6 +35,8 @@ function HomeRightComp({
             className={style.sortBtmBorder}
             style={{ borderBottomColor: theme.sortBtmBorderClr }}
           ></hr>
+          {/* when data is not avaiable */}
+          {postResult.length === 0 && <NoContentComp />}
           {/* card */}
           <div>
             <div className={style.flexColmn}>

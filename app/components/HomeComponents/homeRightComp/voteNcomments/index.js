@@ -28,7 +28,7 @@ function CommentsComp({ upvote, comments, item }) {
         {
           method: "POST",
           headers: {
-            Authorization: token,
+            Authorization: `Bearer ${token}`,
             projectID: "y6yyb0r40hr5",
           },
         }
@@ -47,7 +47,7 @@ function CommentsComp({ upvote, comments, item }) {
         {
           method: "DELETE",
           headers: {
-            Authorization: token,
+            Authorization: `Bearer ${token}`,
             projectID: "y6yyb0r40hr5",
           },
         }
