@@ -24,8 +24,6 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
     localStorage.getItem("authToken") ? localStorage.getItem("authToken") : ""
   );
 
-  console.log("post item: ", postItem);
-
   const handleAddComment = () => {
     setUserLoginModal(true);
   };
@@ -50,25 +48,31 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
     }
   };
 
-  const postComment = async (token, commentInput, postId) => {
+  const postComment = async (token, input, postId) => {
     try {
-      const comment = {
-        content: commentInput,
-      };
+      const formData = new URLSearchParams();
+      formData.append("content", input);
 
       const resp = await fetch(
         `https://academics.newtonschool.co/api/v1/reddit/comment/${postId}`,
         {
           method: "POST",
           headers: {
-            Authorization: token,
+            Authorization: `Bearer ${token}`,
             projectID: "y6yyb0r40hr5",
+            "Content-Type": "application/x-www-form-urlencoded",
           },
-          body: JSON.stringify({ ...comment }),
+          body: formData.toString(),
         }
       );
+
       if (!resp.json) return;
+
       const result = await resp.json();
+      fetchComments(
+        sessionStorage.getItem("postId"),
+        localStorage.getItem("authToken")
+      );
     } catch (err) {
       console.log(err.message ? err.message : err);
     }
