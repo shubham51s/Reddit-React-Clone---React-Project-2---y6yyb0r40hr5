@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import style from "./createnewpost.module.css";
 import ThemeContext from "@/app/contexts/ThemeContext";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -10,6 +10,8 @@ import FormatItalicIcon from "@mui/icons-material/FormatItalic";
 import AddIcon from "@mui/icons-material/Add";
 import CheckIcon from "@mui/icons-material/Check";
 import UserContext from "@/app/contexts/LoginContext";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
 
 function CreateNewPostComp() {
   const { isLoggedIn } = useContext(UserContext);
@@ -28,9 +30,36 @@ function CreateNewPostComp() {
   const [draftNum, setDraftNum] = useState(false);
   const [isPost, setIsPost] = useState(false);
   const [isSaveDraft, setIsSaveDraft] = useState(false);
+  const [channels, setChannels] = useState([]);
+  const [community, setCommunity] = useState(
+    localStorage.getItem("userName")
+      ? `u/${localStorage.getItem("userName")}`
+      : ""
+  );
+
+  const defaultUserName = localStorage.getItem("userName")
+    ? `u/${localStorage.getItem("userName")}`
+    : "";
+
+  const fetchPopularCommunities = async () => {
+    try {
+      const resp = await fetch(
+        "https://academics.newtonschool.co/api/v1/reddit/channel",
+        {
+          headers: {
+            projectID: "y6yyb0r40hr5",
+          },
+        }
+      );
+      if (!resp.ok) return;
+      const result = await resp.json();
+      setChannels(result.data);
+    } catch (err) {
+      console.log(err.message ? err.message : err);
+    }
+  };
 
   const addNewPost = async (token) => {
-    console.log("new post title: ", titleInp, " new post content: ", textInput);
     try {
       const formData = new FormData();
       formData.append("title", titleInp);
@@ -49,7 +78,6 @@ function CreateNewPostComp() {
       );
       if (!resp.ok) return;
       const result = await resp.json();
-      console.log("new post result: ", result);
     } catch (err) {
       console.log(err.message ? err.message : err);
     }
@@ -73,6 +101,16 @@ function CreateNewPostComp() {
       }
     }
   };
+
+  const [value, setValue] = useState("");
+
+  const handleChange = (event, newValue) => {
+    setCommunity(newValue);
+  };
+
+  useEffect(() => {
+    fetchPopularCommunities();
+  }, []);
 
   return (
     <div className={style.mainContainer}>
@@ -99,36 +137,24 @@ function CreateNewPostComp() {
           </button>
         </div>
         <div className={style.communityMain}>
-          <div
-            className={style.communityContent}
-            style={{
-              borderColor: theme.headerBorderClr,
-              backgroundColor: theme.headerBg,
-            }}
-          >
-            <div className={style.communityInner}>
-              <span
-                className={style.circle}
-                style={{ borderColor: theme.arrowClr }}
-              ></span>
-              {/* need to change community name later */}
-              {/* also need to add community list later */}
-              <div className={style.communityTxtMain}>
-                u/
-                <span style={{ textTransform: "capitalize" }}>
-                  {localStorage.getItem("userName")}
-                </span>
-              </div>
-              <div>
-                <span
-                  className={style.downArrow}
-                  style={{ color: theme.arrowClr }}
-                >
-                  <KeyboardArrowDownIcon />
-                </span>
-              </div>
-            </div>
-          </div>
+          {channels.length >= 1 && (
+            <Autocomplete
+              disablePortal
+              id="combo-box-demo"
+              value={community}
+              onChange={handleChange}
+              options={[
+                defaultUserName,
+                ...channels.map((channel) => channel.name),
+              ]}
+              sx={{
+                width: 300,
+                height: 50,
+                backgroundColor: theme.headerBg,
+              }}
+              renderInput={(params) => <TextField {...params} label="" />}
+            />
+          )}
         </div>
         <div
           className={style.createPostContent}
