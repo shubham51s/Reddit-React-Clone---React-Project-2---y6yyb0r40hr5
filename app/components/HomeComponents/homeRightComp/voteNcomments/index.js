@@ -8,7 +8,14 @@ import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import ThemeContext from "@/app/contexts/ThemeContext";
 import UserContext from "@/app/contexts/LoginContext";
 
-function CommentsComp({ upvote, comments, item, setPostResult }) {
+function CommentsComp({
+  upvote,
+  comments,
+  item,
+  setPostResult,
+  isLiked,
+  isDisliked,
+}) {
   const { theme, setTheme } = useContext(ThemeContext);
   const {
     isLoggedIn,
@@ -16,6 +23,7 @@ function CommentsComp({ upvote, comments, item, setPostResult }) {
     setShowComments,
     setPostItem,
     myProjectId,
+    showComments,
   } = useContext(UserContext);
 
   const [upVote, setUpVote] = useState(false);
@@ -84,34 +92,41 @@ function CommentsComp({ upvote, comments, item, setPostResult }) {
 
   const handleUpvote = (e) => {
     e.stopPropagation();
-    if (!isLoggedIn) {
-      setUserLoginModal(true);
-    } else if (!item.isLiked) {
-      setUpVote(true);
-      setDownVote(false);
-      makeUpvote(item._id, localStorage.getItem("authToken"));
+    if (!showComments) {
+      if (!isLoggedIn) {
+        setUserLoginModal(true);
+      } else if (!isLiked) {
+        setUpVote(true);
+        setDownVote(false);
+        makeUpvote(item._id, localStorage.getItem("authToken"));
+      }
     }
   };
 
   const handleDownVote = (e) => {
     e.stopPropagation();
-    if (!isLoggedIn) {
-      setUserLoginModal(true);
-    } else if (item.isLiked) {
-      makeDownVote(item._id, localStorage.getItem("authToken"));
-    } else {
-      setDownVote(true);
+    if (!showComments) {
+      if (!isLoggedIn) {
+        setUserLoginModal(true);
+      } else if (isLiked) {
+        makeDownVote(item._id, localStorage.getItem("authToken"));
+      } else {
+        setDownVote(true);
+      }
     }
   };
 
   const handleComments = (e) => {
     e.stopPropagation();
-    setPostItem(item);
-    sessionStorage.setItem("postId", item._id);
-    if (item.channel) {
-      sessionStorage.setItem("userChannelId", item.channel._id);
+    if (!showComments) {
+      setPostItem(item);
+
+      sessionStorage.setItem("postId", item._id);
+      if (item.channel) {
+        sessionStorage.setItem("userChannelId", item.channel._id);
+      }
+      setShowComments(true);
     }
-    setShowComments(true);
   };
 
   return (
@@ -129,13 +144,10 @@ function CommentsComp({ upvote, comments, item, setPostResult }) {
               className={style.upvoteBtnInner}
               onClick={(e) => handleUpvote(e)}
             >
-              {item.isLiked && (
+              {isLiked && (
                 <ThumbUpOutlinedIcon style={{ color: "orangered" }} />
               )}
-              {!item.isLiked && <ThumbUpOutlinedIcon />}
-              {/* <ThumbUpOutlinedIcon
-                style={{ color: upVote ? "orangered" : "" }}
-              /> */}
+              {!isLiked && <ThumbUpOutlinedIcon />}
             </span>
           </button>
 
@@ -145,11 +157,11 @@ function CommentsComp({ upvote, comments, item, setPostResult }) {
             style={{ color: theme.navTabColor, background: "transparent" }}
           >
             <span className={style.downvoteBtnInner}>
-              {item.isDisliked && (
+              {isDisliked && (
                 <ThumbDownOutlinedIcon style={{ color: "blue" }} />
               )}
 
-              {!item.isDisliked && (
+              {!isDisliked && (
                 <ThumbDownOutlinedIcon
                   style={{ color: downVote ? "blue" : "" }}
                   onClick={(e) => handleDownVote(e)}

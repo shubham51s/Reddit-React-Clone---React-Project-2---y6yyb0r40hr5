@@ -5,6 +5,7 @@ import ThemeContext from "@/app/contexts/ThemeContext";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import ClearIcon from "@mui/icons-material/Clear";
 import SearchIcon from "@mui/icons-material/Search";
+import { StyleOutlined } from "@mui/icons-material";
 
 function NavSearchComp() {
   const { theme } = useContext(ThemeContext);
@@ -12,18 +13,64 @@ function NavSearchComp() {
   const [isInputClicked, setIsInputClicked] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const inputRef = useRef(null);
+  const contentRef = useRef(null);
+  const [searchResults, setSearchResult] = useState([]);
+  const [trendingResults, setTrendingResults] = useState([]);
+
+  const fetchInputResult = async (input) => {
+    try {
+      const resp = await fetch(
+        `https://academics.newtonschool.co/api/v1/reddit/post?search={"content":"${input}"}`,
+        {
+          headers: {
+            projectID: "y6yyb0r40hr5",
+          },
+        }
+      );
+      if (!resp.ok) return;
+      const result = await resp.json();
+      setSearchResult(result.data);
+    } catch (err) {
+      console.log(err.message ? err.message : err);
+    }
+  };
+
+  const fetchTrendingResult = async () => {
+    try {
+      const resp = await fetch(
+        `https://academics.newtonschool.co/api/v1/reddit/post`,
+        {
+          headers: {
+            projectID: "y6yyb0r40hr5",
+          },
+        }
+      );
+      if (!resp.ok) return;
+      const result = await resp.json();
+      setTrendingResults(result.data);
+    } catch (err) {
+      console.log(err.message ? err.message : err);
+    }
+  };
 
   const handleUserSearch = (e) => {
     setUserInput(e.target.value);
+    fetchInputResult(e.target.value);
   };
 
-  const handleInputClick = () => {
+  const handleInputClick = (e) => {
     setShowResults(true);
   };
 
   useEffect(() => {
+    fetchTrendingResult();
     const handleClickOutside = (e) => {
-      if (inputRef.current && !inputRef.current.contains(e.target)) {
+      if (
+        contentRef.current &&
+        !contentRef.current.contains(e.target) &&
+        inputRef.current &&
+        !inputRef.current.contains(e.target)
+      ) {
         setShowResults(false);
       }
     };
@@ -96,6 +143,7 @@ function NavSearchComp() {
                 <div
                   className={style.searchResultMain}
                   style={{ backgroundColor: theme.bgColor }}
+                  ref={contentRef}
                 >
                   {!userInput && (
                     <div
@@ -113,77 +161,69 @@ function NavSearchComp() {
                   {!userInput && (
                     <ul className={style.trendingResultMain}>
                       {/* map below */}
-                      <li className={style.tredingList}>
-                        <span
-                          className={style.tredingListLink}
-                          style={{ color: theme.navTabColor }}
-                        >
-                          <span className={style.trendingListLeft}>
-                            <span className={style.tredingListLeftInner}>
-                              <span className={style.trendingListHeading}>
-                                <span className={style.trendingHeadingMain}>
-                                  <span
-                                    className={style.trendingHeading}
-                                    style={{
-                                      color: theme.communityTxtClr,
-                                    }}
-                                    //   heading list here
-                                  >{`April Fool's Day`}</span>
-                                </span>
-                              </span>
-                              <span
-                                className={style.trendingListContent}
-                                style={{
-                                  color: theme.popularCommunitiesTxt,
-                                }}
-                              >
-                                <span
-                                  className={style.trendingListContentMain}
-                                  style={{ color: theme.communityTxtClr }}
-                                >
-                                  <span className={style.trendingListTxt}>
-                                    {/* need to add community text later */}
-                                    {`Gmail revolutionized email 20 years ago. People thought it was Google's April Fool's Day joke.`}
-                                  </span>
+                      {trendingResults.length >= 1 &&
+                        trendingResults.map((item) => (
+                          <li className={style.tredingList} key={item._id}>
+                            <span
+                              className={style.tredingListLink}
+                              style={{ color: theme.navTabColor }}
+                            >
+                              <span className={style.trendingListLeft}>
+                                <span className={style.tredingListLeftInner}>
                                   <div
                                     className={style.trendingListCommunity}
                                     style={{
                                       color: theme.popularCommunitiesTxt,
                                     }}
                                   >
-                                    <div className={style.trendingCommunityImg}>
-                                      <div className={style.loaded}>
-                                        <img
-                                          className={style.trendingListImg}
-                                          // community image here
-                                          src={`https://b.thumbs.redditmedia.com/J_fCwTYJkoM-way-eaOHv8AOHoF_jNXNqOvPrQ7bINY.png`}
-                                          alt="name"
-                                        />
+                                    <div className={style.userCenter}>
+                                      <div
+                                        className={style.trendingCommunityImg}
+                                      >
+                                        <div className={style.loaded}>
+                                          <img
+                                            className={style.trendingListImg}
+                                            src={item.author.profileImage}
+                                          />
+                                        </div>
                                       </div>
+                                      <span>{item.author.name}</span>
                                     </div>
-                                    {/* need to add communit list here */}
-                                    <span>{`r/technology and more`}</span>
+                                  </div>
+                                  <span
+                                    className={style.trendingListContent}
+                                    style={{
+                                      color: theme.popularCommunitiesTxt,
+                                    }}
+                                  >
+                                    <span
+                                      className={style.trendingListContentMain}
+                                      style={{ color: theme.communityTxtClr }}
+                                    >
+                                      <span className={style.trendingListTxt}>
+                                        {item.content}
+                                      </span>
+                                    </span>
+                                  </span>
+                                </span>
+                              </span>
+                              <span className={style.trendingListRight}>
+                                <span className={style.trendingImgMain}>
+                                  <div className={style.trendingImgContent}>
+                                    <div className={style.loadedImg}>
+                                      <img
+                                        className={style.trendingImg}
+                                        //   need to add community image here
+                                        src={item.images[0]}
+                                        alt={`image`}
+                                      />
+                                    </div>
                                   </div>
                                 </span>
                               </span>
                             </span>
-                          </span>
-                          <span className={style.trendingListRight}>
-                            <span className={style.trendingImgMain}>
-                              <div className={style.trendingImgContent}>
-                                <div className={style.loadedImg}>
-                                  <img
-                                    className={style.trendingImg}
-                                    //   need to add community image here
-                                    src={`https://b.thumbs.redditmedia.com/YjroOtRK0Tb9jn_KjO7JNj73Kpc9c352UI_Q5YsVyWk.jpg`}
-                                    alt={`image`}
-                                  />
-                                </div>
-                              </div>
-                            </span>
-                          </span>
-                        </span>
-                      </li>
+                          </li>
+                        ))}
                     </ul>
                   )}
 
@@ -196,56 +236,69 @@ function NavSearchComp() {
                       >
                         Communities
                       </div>
-                      <li className={style.userInputList}>
-                        <span
-                          className={style.userInputLink}
-                          style={{ color: theme.navTabColor }}
-                        >
-                          <span className={style.userInputContent}>
-                            <span className={style.communityLogoMain}>
-                              <span className={style.communityLogoContent}>
-                                <div className={style.communityProfileMain}>
-                                  <div className={style.profileLoaded}>
-                                    <img
-                                      className={style.communityProfile}
-                                      // need to profile image later
-                                      src={`https://a.thumbs.redditmedia.com/8rHqHJ86uZ8iHfejG2zZbLX9ThOAZUzCVOwgms0KCq4.png`}
-                                      alt={`alt`}
-                                    />
+                      {searchResults.length >= 1 &&
+                        searchResults.map((item) => (
+                          <li className={style.tredingList} key={item._id}>
+                            <span
+                              className={style.tredingListLink}
+                              style={{ color: theme.navTabColor }}
+                            >
+                              <span className={style.trendingListLeft}>
+                                <span className={style.tredingListLeftInner}>
+                                  <div
+                                    className={style.trendingListCommunity}
+                                    style={{
+                                      color: theme.popularCommunitiesTxt,
+                                    }}
+                                  >
+                                    <div className={style.userCenter}>
+                                      <div
+                                        className={style.trendingCommunityImg}
+                                      >
+                                        <div className={style.loaded}>
+                                          <img
+                                            className={style.trendingListImg}
+                                            src={item.author.profileImage}
+                                          />
+                                        </div>
+                                      </div>
+                                      <span>{item.author.name}</span>
+                                    </div>
                                   </div>
-                                </div>
-                              </span>
-                            </span>
-                            <span className={style.aboutCommunityMain}>
-                              <span className={style.communityNameMain}>
-                                <span
-                                  className={style.communityName}
-                                  style={{ color: theme.communityTxtClr }}
-                                >
-                                  r/books
+                                  <span
+                                    className={style.trendingListContent}
+                                    style={{
+                                      color: theme.popularCommunitiesTxt,
+                                    }}
+                                  >
+                                    <span
+                                      className={style.trendingListContentMain}
+                                      style={{ color: theme.communityTxtClr }}
+                                    >
+                                      <span className={style.trendingListTxt}>
+                                        {item.content}
+                                      </span>
+                                    </span>
+                                  </span>
                                 </span>
                               </span>
-                              <span
-                                className={style.membersMain}
-                                style={{
-                                  color: theme.popularCommunitiesTxt,
-                                }}
-                              >
-                                <span
-                                  className={style.membersTxtMain}
-                                  style={{
-                                    color: theme.popularCommunitiesTxt,
-                                  }}
-                                >
-                                  {/* need to add members later */}
-                                  <span>{`24M`} members</span>
+                              <span className={style.trendingListRight}>
+                                <span className={style.trendingImgMain}>
+                                  <div className={style.trendingImgContent}>
+                                    <div className={style.loadedImg}>
+                                      <img
+                                        className={style.trendingImg}
+                                        //   need to add community image here
+                                        src={item.images[0]}
+                                        alt={`image`}
+                                      />
+                                    </div>
+                                  </div>
                                 </span>
                               </span>
                             </span>
-                          </span>
-                          <span className={style.userShrink0}></span>
-                        </span>
-                      </li>
+                          </li>
+                        ))}
                     </ul>
                   )}
                 </div>

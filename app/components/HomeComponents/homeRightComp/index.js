@@ -54,27 +54,42 @@ function HomeRightComp({
                       <span className={style.creditBar}>
                         <span className={style.creditBarLeft}>
                           <span className={style.aboutCommunity}>
-                            {item.channel && (
-                              <span
-                                className={style.aboutCommunityContent}
-                                style={{ color: theme.communityTxtClr }}
-                              >
-                                <div className={style.communityImgMain}>
-                                  <div className={style.communityImgContent}>
-                                    <div className={style.imgLogo}>
+                            <span
+                              className={style.aboutCommunityContent}
+                              style={{ color: theme.communityTxtClr }}
+                            >
+                              <div className={style.communityImgMain}>
+                                <div className={style.communityImgContent}>
+                                  <div className={style.imgLogo}>
+                                    {item.channel && (
                                       <img
                                         className={style.communityImg}
                                         src={item.channel.image}
                                         alt={item.channel.name}
                                       />
-                                    </div>
+                                    )}
+                                    {!item.channel && (
+                                      <img
+                                        className={style.communityImg}
+                                        src={item.author.profileImage}
+                                        alt={item.author.name}
+                                      />
+                                    )}
                                   </div>
                                 </div>
+                              </div>
+                              {item.channel && (
                                 <span className={style.communityName}>
                                   {item.channel.name}
                                 </span>
-                              </span>
-                            )}
+                              )}
+                              {!item.channel && (
+                                <span className={style.communityName}>
+                                  {item.author.name}
+                                </span>
+                              )}
+                            </span>
+
                             {/* need to add on hover content here */}
                             {/* <div></div> */}
                           </span>
@@ -139,6 +154,8 @@ function HomeRightComp({
                         comments={item.commentCount}
                         item={item}
                         setPostResult={setPostResult}
+                        isLiked={item.isLiked}
+                        isDisliked={item.isDisliked}
                       />
                     </div>
                     <hr

@@ -15,6 +15,7 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
   // need to add full image when clicked on image
   const { theme } = useContext(ThemeContext);
   const { setUserLoginModal, isLoggedIn, postItem } = useContext(UserContext);
+  const [postResult, setPostResult] = useState([]);
 
   const [commentResults, setCommentResults] = useState([]);
   const [commentInput, setCommentInput] = useState("");
@@ -22,6 +23,8 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
   const [jwtToken, setJwtToken] = useState(
     localStorage.getItem("authToken") ? localStorage.getItem("authToken") : ""
   );
+
+  console.log("post item: ", postItem);
 
   const handleAddComment = () => {
     setUserLoginModal(true);
@@ -253,7 +256,14 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
                 </div>
               </div>
               <div className={style.voteContainer}>
-                <CommentsComp />
+                <CommentsComp
+                  upvote={postItem.likeCount}
+                  comments={postItem.commentCount}
+                  item={postItem}
+                  isLiked={postItem.isLiked}
+                  isDisliked={postItem.isDisliked}
+                  setPostResult={setPostResult}
+                />
               </div>
             </div>
           )}

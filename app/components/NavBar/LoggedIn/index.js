@@ -40,6 +40,7 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer }) {
   const buttonRef = useRef(null);
   const [userProfile, setUserProfile] = useState(false);
   const [userLoggedIn, setUserLoggedIn] = useState(true);
+  const [openInbox, setOpenInbox] = useState(false);
 
   const handleUserBtnClick = (e) => {
     e.stopPropagation();
@@ -149,7 +150,11 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer }) {
                     </span>
                   </span>
                 </span>
-                <span className={style.notificationMain}>
+                <span
+                  className={style.notificationMain}
+                  onMouseEnter={() => setOpenInbox(true)}
+                  onMouseLeave={() => setOpenInbox(false)}
+                >
                   <span className={style.advertizeTab}>
                     <span
                       className={style.adevertizeLink}
@@ -163,6 +168,46 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer }) {
                     </span>
                   </span>
                 </span>
+                {openInbox && (
+                  <div
+                    className={style.notificationContent}
+                    style={{ borderColor: theme.borderLine }}
+                  >
+                    <div className={style.overflowHidden}>
+                      <div className={style.notificationTop}>
+                        <div className={style.contentHeading}>
+                          <div className={style.contentHeaderCtr}>
+                            <span className={style.headingSemibold}>
+                              Notifications
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className={style.notificationBtm}>
+                        <div className={style.notificationItmCtr}>
+                          <img
+                            className={style.notificationContentImg}
+                            src="	https://www.redditstatic.com/shreddit/assets/snoovatar-full-hi.png"
+                            alt="empty inbox image"
+                          />
+                          <p
+                            className={style.notificationTxt1}
+                            style={{ color: theme.navTabColor }}
+                          >
+                            Turn on email digest
+                          </p>
+                          <p
+                            className={style.notificationTxt2}
+                            style={{ color: theme.popularCommunitiesTxt }}
+                          >
+                            Stay in the loop on content from communities you
+                            love right in your email inbox.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
               <div className={style.userProfileContainer}>
                 <div className={style.profileContent}>
