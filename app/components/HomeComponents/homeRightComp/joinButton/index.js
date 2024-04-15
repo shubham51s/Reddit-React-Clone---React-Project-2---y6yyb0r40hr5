@@ -18,6 +18,7 @@ function JoinBtnComp({ item }) {
           },
         }
       );
+      if (!resp.ok) return;
       const result = await resp.json();
     } catch (err) {
       console.log(err.message ? err.message : err);
@@ -36,6 +37,7 @@ function JoinBtnComp({ item }) {
           },
         }
       );
+      if (!resp.ok) return;
       const result = await resp.json();
     } catch (err) {
       console.log(err.message ? err.message : err);

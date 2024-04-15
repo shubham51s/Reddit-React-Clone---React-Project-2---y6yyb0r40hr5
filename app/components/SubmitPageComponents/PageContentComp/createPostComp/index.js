@@ -9,8 +9,10 @@ import FormatBoldIcon from "@mui/icons-material/FormatBold";
 import FormatItalicIcon from "@mui/icons-material/FormatItalic";
 import AddIcon from "@mui/icons-material/Add";
 import CheckIcon from "@mui/icons-material/Check";
+import UserContext from "@/app/contexts/LoginContext";
 
 function CreateNewPostComp() {
+  const { isLoggedIn } = useContext(UserContext);
   const { theme } = useContext(ThemeContext);
   const [addText, setAddText] = useState(true);
   const [isFancyEditor, setIsFancyEditor] = useState(true);
@@ -27,6 +29,32 @@ function CreateNewPostComp() {
   const [isPost, setIsPost] = useState(false);
   const [isSaveDraft, setIsSaveDraft] = useState(false);
 
+  const addNewPost = async (token) => {
+    console.log("new post title: ", titleInp, " new post content: ", textInput);
+    try {
+      const formData = new FormData();
+      formData.append("title", titleInp);
+      formData.append("content", textInput);
+
+      const resp = await fetch(
+        "https://academics.newtonschool.co/api/v1/reddit/post/",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            projectID: "y6yyb0r40hr5",
+          },
+          body: formData,
+        }
+      );
+      if (!resp.ok) return;
+      const result = await resp.json();
+      console.log("new post result: ", result);
+    } catch (err) {
+      console.log(err.message ? err.message : err);
+    }
+  };
+
   const handleTitleInput = (e) => {
     setTitleInp(e.target.value);
     if (e.target.value.length >= 1) {
@@ -38,9 +66,16 @@ function CreateNewPostComp() {
     }
   };
 
+  const handleNewPost = () => {
+    if (isLoggedIn) {
+      if (titleInp.length >= 1 && textInput.length >= 1) {
+        addNewPost(localStorage.getItem("authToken"));
+      }
+    }
+  };
+
   return (
     <div className={style.mainContainer}>
-      {/* if required another div as 2 child for mainContainer */}
       <div>
         <div
           className={style.createPostMain}
@@ -363,6 +398,7 @@ function CreateNewPostComp() {
                         opacity: isPost ? "1" : "0.5",
                         cursor: isPost ? "pointer" : "not-allowed",
                       }}
+                      onClick={handleNewPost}
                     >
                       Post
                     </button>

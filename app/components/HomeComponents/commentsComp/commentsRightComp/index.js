@@ -12,8 +12,45 @@ function CommentRightComp() {
   const [isJoined, setIsJoined] = useState(false);
   const [userData, setUserData] = useState([]);
 
+  const followUser = async (id, token) => {
+    try {
+      const resp = await fetch(
+        `https://academics.newtonschool.co/api/v1/quora/follow/${id}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            projectID: "y6yyb0r40hr5",
+          },
+        }
+      );
+      if (!resp.ok) return;
+      const result = await resp.json();
+    } catch (err) {
+      console.log(err.message ? err.message : err);
+    }
+  };
+
+  const unfollowUser = async (id, token) => {
+    try {
+      const resp = await fetch(
+        `https://academics.newtonschool.co/api/v1/quora/follow/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            projectID: "y6yyb0r40hr5",
+          },
+        }
+      );
+      if (!resp.ok) return;
+      const result = await resp.json();
+    } catch (err) {
+      console.log(err.message ? err.message : err);
+    }
+  };
+
   const fetchUser = async (userId, token) => {
-    console.log("user id for reading about user: ", userId);
     try {
       const resp = await fetch(
         `https://academics.newtonschool.co/api/v1/reddit/channel/${userId}`,
@@ -36,6 +73,11 @@ function CommentRightComp() {
 
   const handleJoinBtn = () => {
     setIsJoined(!isJoined);
+    if (!isJoined) {
+      followUser(userData._id, localStorage.getItem("authToken"));
+    } else {
+      unfollowUser(userData._id, localStorage.getItem("authToken"));
+    }
   };
 
   useEffect(() => {

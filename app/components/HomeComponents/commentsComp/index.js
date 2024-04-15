@@ -67,8 +67,8 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
       );
 
       if (!resp.json) return;
-
       const result = await resp.json();
+      setIsAddComment(false);
       fetchComments(
         sessionStorage.getItem("postId"),
         localStorage.getItem("authToken")
