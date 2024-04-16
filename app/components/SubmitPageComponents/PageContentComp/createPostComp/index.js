@@ -33,12 +33,12 @@ function CreateNewPostComp() {
   const [channels, setChannels] = useState([]);
   const [community, setCommunity] = useState(
     localStorage.getItem("userName")
-      ? `u/${localStorage.getItem("userName")}`
+      ? { name: `u/${localStorage.getItem("userName")}`, _id: "1" }
       : ""
   );
 
   const defaultUserName = localStorage.getItem("userName")
-    ? `u/${localStorage.getItem("userName")}`
+    ? { name: `u/${localStorage.getItem("userName")}`, _id: "1" }
     : "";
 
   const fetchPopularCommunities = async () => {
@@ -83,6 +83,32 @@ function CreateNewPostComp() {
     }
   };
 
+  const addCommunityPost = async (token, channelId) => {
+    try {
+      const formData = new FormData();
+      formData.append("title", titleInp);
+      formData.append("content", textInput);
+      formData.append("channelId", channelId);
+
+      const resp = await fetch(
+        "https://academics.newtonschool.co/api/v1/reddit/post/",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            projectID: "y6yyb0r40hr5",
+          },
+          body: formData,
+        }
+      );
+      if (!resp.ok) return;
+      const result = await resp.json();
+      console.log("community post result: ", result);
+    } catch (err) {
+      console.log(err.message ? err.message : err);
+    }
+  };
+
   const handleTitleInput = (e) => {
     setTitleInp(e.target.value);
     if (e.target.value.length >= 1) {
@@ -96,8 +122,12 @@ function CreateNewPostComp() {
 
   const handleNewPost = () => {
     if (isLoggedIn) {
-      if (titleInp.length >= 1 && textInput.length >= 1) {
-        addNewPost(localStorage.getItem("authToken"));
+      if (titleInp.length >= 1) {
+        if (community.id === "1") {
+          addNewPost(localStorage.getItem("authToken"));
+        } else {
+          addCommunityPost(localStorage.getItem("authToken"), community.id);
+        }
       }
     }
   };
@@ -105,7 +135,9 @@ function CreateNewPostComp() {
   const [value, setValue] = useState("");
 
   const handleChange = (event, newValue) => {
-    setCommunity(newValue);
+    if (newValue !== null) {
+      setCommunity(newValue);
+    }
   };
 
   useEffect(() => {
@@ -145,8 +177,12 @@ function CreateNewPostComp() {
               onChange={handleChange}
               options={[
                 defaultUserName,
-                ...channels.map((channel) => channel.name),
+                ...channels.map((channel) => ({
+                  name: channel.name,
+                  id: channel._id,
+                })),
               ]}
+              getOptionLabel={(option) => option.name}
               sx={{
                 width: 300,
                 height: 50,
