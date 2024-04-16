@@ -125,7 +125,7 @@ function CreateNewPostComp() {
       if (titleInp.length >= 1) {
         if (community.id === "1") {
           addNewPost(localStorage.getItem("authToken"));
-        } else {
+        } else if (community.id) {
           addCommunityPost(localStorage.getItem("authToken"), community.id);
         }
       }

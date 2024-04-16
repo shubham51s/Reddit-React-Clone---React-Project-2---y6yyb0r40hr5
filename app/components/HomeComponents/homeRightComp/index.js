@@ -61,20 +61,43 @@ function HomeRightComp({
                               <div className={style.communityImgMain}>
                                 <div className={style.communityImgContent}>
                                   <div className={style.imgLogo}>
-                                    {item.channel && (
+                                    {item.channel && item.channel.image && (
                                       <img
                                         className={style.communityImg}
                                         src={item.channel.image}
                                         alt={item.channel.name}
                                       />
                                     )}
-                                    {!item.channel && (
-                                      <img
-                                        className={style.communityImg}
-                                        src={item.author.profileImage}
-                                        alt={item.author.name}
-                                      />
+                                    {item.channel && !item.channel.image && (
+                                      <span
+                                        className={style.channelLogo}
+                                        style={{
+                                          backgroundColor: theme.activeNavBg,
+                                        }}
+                                      >
+                                        {item.channel.name.charAt(0)}
+                                      </span>
                                     )}
+
+                                    {!item.channel &&
+                                      item.author.profileImage && (
+                                        <img
+                                          className={style.communityImg}
+                                          src={item.author.profileImage}
+                                          alt={item.author.name}
+                                        />
+                                      )}
+                                    {!item.channel &&
+                                      !item.author.profileImage && (
+                                        <span
+                                          className={style.channelLogo}
+                                          style={{
+                                            backgroundColor: theme.activeNavBg,
+                                          }}
+                                        >
+                                          {item.author.name.charAt(0)}
+                                        </span>
+                                      )}
                                   </div>
                                 </div>
                               </div>
@@ -127,7 +150,7 @@ function HomeRightComp({
                         ></div>
                         <div className={style.postMediaContent}>
                           <div className={style.imgContents}>
-                            {item.images && (
+                            {item.images[0] && (
                               <div
                                 className={style.mediaLightBox}
                                 onClick={(e) =>
