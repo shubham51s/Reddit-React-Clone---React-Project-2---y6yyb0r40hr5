@@ -1009,3 +1009,9 @@
     margin-right: 0.5rem;
   }
 }
+
+.itemAtEnd {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

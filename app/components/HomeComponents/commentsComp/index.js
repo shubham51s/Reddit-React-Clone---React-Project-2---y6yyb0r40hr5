@@ -10,9 +10,9 @@ import CommentsComp from "../homeRightComp/voteNcomments";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import UserContext from "@/app/contexts/LoginContext";
 import CommentRightComp from "./commentsRightComp";
+import DeleteCommentComp from "./deleteCommentComp";
 
 function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
-  // need to add full image when clicked on image
   const { theme } = useContext(ThemeContext);
   const { setUserLoginModal, isLoggedIn, postItem } = useContext(UserContext);
   const [postResult, setPostResult] = useState([]);
@@ -69,6 +69,7 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
       if (!resp.json) return;
       const result = await resp.json();
       setIsAddComment(false);
+      setCommentInput("");
       fetchComments(
         sessionStorage.getItem("postId"),
         localStorage.getItem("authToken")
@@ -376,75 +377,88 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
                 {commentResults &&
                   commentResults.map((item) => (
                     <div style={{ marginBottom: "10px" }}>
-                      <div className={style.sameLine}>
-                        <div className={style.commentAvtar}>
-                          <div className={style.cmntAvtarCtr}>
-                            <div className={style.commentAuthorAvtar}>
-                              <span className={style.avtarLink}>
-                                <div className={style.avtarCtr}>
-                                  {item.author_details && (
-                                    <div
-                                      className={style.avtarContent}
-                                      style={{
-                                        backgroundColor:
-                                          theme.showMoreBtnHoverBg,
-                                      }}
-                                    >
-                                      <div className={style.loaded}>
-                                        {/* need add user profile image if available else first letter from name */}
-                                        {item.author_details.profileImage && (
-                                          <img
-                                            className={style.avtarImg}
-                                            src={
-                                              item.author_details.profileImage
-                                            }
-                                          />
-                                        )}
-                                        {!item.author_details.profileImage && (
-                                          <span
-                                            className={style.avtarIcon}
-                                            style={{
-                                              textTransform: "capitalize",
-                                            }}
-                                          >
-                                            {item.author_details.name.charAt(0)}
-                                          </span>
-                                        )}
+                      <div className={style.itemAtEnd}>
+                        <div className={style.sameLine}>
+                          <div className={style.commentAvtar}>
+                            <div className={style.cmntAvtarCtr}>
+                              <div className={style.commentAuthorAvtar}>
+                                <span className={style.avtarLink}>
+                                  <div className={style.avtarCtr}>
+                                    {item.author_details && (
+                                      <div
+                                        className={style.avtarContent}
+                                        style={{
+                                          backgroundColor:
+                                            theme.showMoreBtnHoverBg,
+                                        }}
+                                      >
+                                        <div className={style.loaded}>
+                                          {item.author_details.profileImage && (
+                                            <img
+                                              className={style.avtarImg}
+                                              src={
+                                                item.author_details.profileImage
+                                              }
+                                            />
+                                          )}
+                                          {!item.author_details
+                                            .profileImage && (
+                                            <span
+                                              className={style.avtarIcon}
+                                              style={{
+                                                textTransform: "capitalize",
+                                              }}
+                                            >
+                                              {item.author_details.name.charAt(
+                                                0
+                                              )}
+                                            </span>
+                                          )}
+                                        </div>
                                       </div>
-                                    </div>
-                                  )}
-                                </div>
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className={style.commentMeta}>
-                          <div className={style.cmntMetaCtr}>
-                            <div className={style.comntMetaColmn}>
-                              <div className={style.userDetailsMain}>
-                                <div className={style.userNameMain}>
-                                  {item.author_details && (
-                                    <span
-                                      className={style.userName}
-                                      style={{ color: theme.navTabColor }}
-                                      // need to add username later
-                                    >
-                                      {item.author_details.name}
-                                    </span>
-                                  )}
-                                </div>
-                                <span className={style.dot}>•</span>
-                                <span
-                                  className={style.commentTimingMain}
-                                  style={{ color: theme.popularCommunitiesTxt }}
-                                >
-                                  {/* need to add timing later */}
-                                  {`6h ago`}
+                                    )}
+                                  </div>
                                 </span>
                               </div>
                             </div>
                           </div>
+                          <div className={style.commentMeta}>
+                            <div className={style.cmntMetaCtr}>
+                              <div className={style.comntMetaColmn}>
+                                <div className={style.userDetailsMain}>
+                                  <div className={style.userNameMain}>
+                                    {item.author_details && (
+                                      <span
+                                        className={style.userName}
+                                        style={{ color: theme.navTabColor }}
+                                      >
+                                        {item.author_details.name}
+                                      </span>
+                                    )}
+                                  </div>
+                                  <span className={style.dot}>•</span>
+                                  <span
+                                    className={style.commentTimingMain}
+                                    style={{
+                                      color: theme.popularCommunitiesTxt,
+                                    }}
+                                  >
+                                    {/* need to add timing later */}
+                                    {`6h ago`}
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
+                        {isLoggedIn &&
+                          item.author &&
+                          item.author === localStorage.getItem("userId") && (
+                            <DeleteCommentComp
+                              commentId={item._id}
+                              fetchComments={fetchComments}
+                            />
+                          )}
                       </div>
                       <div className={style.userCommentMain}>
                         <div className={style.userCmntContent}>

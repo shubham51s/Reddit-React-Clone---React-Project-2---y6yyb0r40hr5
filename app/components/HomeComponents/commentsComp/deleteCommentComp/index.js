@@ -1,21 +1,21 @@
 "use client";
 import React, { useContext, useEffect, useRef, useState } from "react";
-import style from "./viewmorecom.module.css";
+import style from "./deletecommentcomp.module.css";
 import ThemeContext from "@/app/contexts/ThemeContext";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 
-function ViewMoreOptionComp({ postId, setPostResult }) {
+function DeleteCommentComp({ commentId, fetchComments }) {
   const { theme } = useContext(ThemeContext);
   const [showContent, setShowContent] = useState(false);
   const menuRef = useRef(null);
   const contentRef = useRef(null);
 
-  const deletePost = async (id, token) => {
+  const deleteUserComment = async (id, token, postId) => {
     try {
       const resp = await fetch(
-        `https://academics.newtonschool.co/api/v1/reddit/post/${id}`,
+        `https://academics.newtonschool.co/api/v1/reddit/comment/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -24,26 +24,8 @@ function ViewMoreOptionComp({ postId, setPostResult }) {
           },
         }
       );
-      fetchLoggedInPosts(token);
-    } catch (err) {
-      console.log(err.message ? err.message : err);
-    }
-  };
 
-  const fetchLoggedInPosts = async (token) => {
-    try {
-      const resp = await fetch(
-        "https://academics.newtonschool.co/api/v1/reddit/post?limit=100",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            projectID: "y6yyb0r40hr5",
-          },
-        }
-      );
-      if (!resp.ok) return;
-      const result = await resp.json();
-      setPostResult(result.data);
+      fetchComments(postId, token);
       setShowContent(false);
     } catch (err) {
       console.log(err.message ? err.message : err);
@@ -52,7 +34,11 @@ function ViewMoreOptionComp({ postId, setPostResult }) {
 
   const handleDeletePostClick = (e) => {
     e.stopPropagation();
-    deletePost(postId, localStorage.getItem("authToken"));
+    deleteUserComment(
+      commentId,
+      localStorage.getItem("authToken"),
+      sessionStorage.getItem("postId")
+    );
   };
 
   useEffect(() => {
@@ -116,23 +102,6 @@ function ViewMoreOptionComp({ postId, setPostResult }) {
                 <span></span>
               </div>
             </li>
-            <li className={style.listItem}>
-              <div
-                className={style.listItemMain}
-                style={{ color: theme.navTabColor }}
-              >
-                <span className={style.listContent}>
-                  <span className={style.iconMain}>
-                    <ModeEditOutlineOutlinedIcon />
-                  </span>
-                  <span className={style.listContentMain}>
-                    <span className={style.text14}>Edit Post</span>
-                    <span></span>
-                  </span>
-                </span>
-                <span></span>
-              </div>
-            </li>
           </div>
         )}
       </div>
@@ -140,4 +109,4 @@ function ViewMoreOptionComp({ postId, setPostResult }) {
   );
 }
 
-export default ViewMoreOptionComp;
+export default DeleteCommentComp;
