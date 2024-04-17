@@ -97,13 +97,14 @@ function LoginComp() {
         return;
       }
       const result = await resp.json();
-      console.log("login: ", result);
       const { token } = result;
       const name = result.data.name;
       const email = result.data.email;
+      const userId = result.data._id;
       localStorage.setItem("authToken", token);
       localStorage.setItem("userName", name);
       localStorage.setItem("userEmail", email);
+      localStorage.setItem("userId", userId);
       setLoggedUserInfo(result.data);
       setUserEmail("");
       setUserPass("");

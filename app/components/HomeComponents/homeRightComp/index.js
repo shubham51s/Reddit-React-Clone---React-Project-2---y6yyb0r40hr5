@@ -10,6 +10,7 @@ import CommentsComp from "./voteNcomments";
 import ThemeContext from "@/app/contexts/ThemeContext";
 import UserContext from "@/app/contexts/LoginContext";
 import NoContentComp from "./noContent";
+import ViewMoreOptionComp from "./viewMoreComp";
 
 function HomeRightComp({
   popularCommunities,
@@ -112,9 +113,6 @@ function HomeRightComp({
                                 </span>
                               )}
                             </span>
-
-                            {/* need to add on hover content here */}
-                            {/* <div></div> */}
                           </span>
                           <span
                             className={style.dot}
@@ -131,6 +129,16 @@ function HomeRightComp({
                         </span>
                         <span className={style.creditBarRight}>
                           <JoinBtnComp item={item} />
+                          {/* more button */}
+                          {isLoggedIn &&
+                            item.author &&
+                            item.author._id ===
+                              localStorage.getItem("userId") && (
+                              <ViewMoreOptionComp
+                                postId={item._id}
+                                setPostResult={setPostResult}
+                              />
+                            )}
                         </span>
                       </span>
                       <span
