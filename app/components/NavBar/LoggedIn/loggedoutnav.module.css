@@ -1593,7 +1593,7 @@
 }
 
 .userProfileListMain:hover {
-  background-color: #eaedef;
+  background-color: rgba(215, 220, 224, 0.3);
 }
 
 .userProfileLink {
@@ -1671,6 +1671,10 @@
   margin-top: 0;
 }
 
+.loginUserList:hover {
+  background-color: rgba(215, 220, 224, 0.3);
+}
+
 .logOutList {
   display: list-item;
   text-align: -webkit-match-parent;
@@ -1682,7 +1686,7 @@
 }
 
 .logOutList:hover {
-  background-color: #eaedef;
+  background-color: rgba(215, 220, 224, 0.3);
 }
 
 .loginUserListContent {

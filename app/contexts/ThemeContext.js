@@ -47,6 +47,7 @@ export const ThemeProvider = ({ children }) => {
       draftsClr: "#0079D3",
       noificationBg: "#F6F7F8",
       postBtnBg: "#0079D3",
+      createCommunityBg: "#ffffff",
     },
     dark: {
       borderLine: "#ffffff33",
@@ -86,6 +87,7 @@ export const ThemeProvider = ({ children }) => {
       draftsClr: "#D7DADC",
       noificationBg: "#272729",
       postBtnBg: "#D7DADC",
+      createCommunityBg: "#0F1A1C",
     },
   };
 

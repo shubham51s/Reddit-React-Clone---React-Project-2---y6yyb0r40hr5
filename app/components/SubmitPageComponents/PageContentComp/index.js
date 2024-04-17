@@ -8,7 +8,6 @@ import ThemeContext from "@/app/contexts/ThemeContext";
 
 function SubmitPageContentComp() {
   const { theme } = useContext(ThemeContext);
-
   return (
     <div className={style.mainContainer}>
       <div>

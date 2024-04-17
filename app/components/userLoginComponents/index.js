@@ -97,6 +97,7 @@ function LoginComp() {
         return;
       }
       const result = await resp.json();
+      console.log("login: ", result);
       const { token } = result;
       const name = result.data.name;
       const email = result.data.email;

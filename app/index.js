@@ -10,6 +10,7 @@ import ShowCommentsComp from "./components/HomeComponents/commentsComp";
 import FullImgComp from "./components/HomeComponents/fullImageComp";
 import HomeLeftDrawerComp from "./components/HomeComponents/homeLeftComp/homeLeftDrawer";
 import ThemeContext from "./contexts/ThemeContext";
+import CreateCommunityComp from "./components/createCommunityComponents";
 function HomePage() {
   const {
     userLoginModal,
@@ -17,6 +18,8 @@ function HomePage() {
     showComments,
     setShowComments,
     isLoggedIn,
+    createCommunityModal,
+    setCreateCommunityModal,
   } = useContext(UserContext);
   const { theme } = useContext(ThemeContext);
 
@@ -100,6 +103,7 @@ function HomePage() {
         setIsNavDrawer={setIsNavDrawer}
         isNavDrawer={isNavDrawer}
       />
+      {createCommunityModal && <CreateCommunityComp />}
       <div
         className={style.homePageContainer}
         style={{ backgroundColor: theme.bgColor }}

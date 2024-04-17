@@ -13,6 +13,7 @@ export const UserProvider = ({ children }) => {
   const [showComments, setShowComments] = useState(false);
   const [postItem, setPostItem] = useState([]);
   const myProjectId = "y6yyb0r40hr5";
+  const [createCommunityModal, setCreateCommunityModal] = useState(false);
 
   return (
     <UserContext.Provider
@@ -28,6 +29,8 @@ export const UserProvider = ({ children }) => {
         postItem,
         setPostItem,
         myProjectId,
+        createCommunityModal,
+        setCreateCommunityModal,
       }}
     >
       {children}
