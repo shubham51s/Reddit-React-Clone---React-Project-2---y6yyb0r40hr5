@@ -54,11 +54,13 @@ function NavSearchComp() {
   };
 
   const handleUserSearch = (e) => {
+    e.stopPropagation();
     setUserInput(e.target.value);
     fetchInputResult(e.target.value);
   };
 
   const handleInputClick = (e) => {
+    e.stopPropagation();
     setShowResults(true);
   };
 
@@ -77,7 +79,9 @@ function NavSearchComp() {
 
     document.body.addEventListener("click", handleClickOutside);
 
-    return document.removeEventListener("click", handleClickOutside);
+    return () => {
+      document.body.removeEventListener("click", handleClickOutside);
+    };
   }, []);
 
   return (

@@ -245,12 +245,6 @@
   }
 }
 
-@media (min-width: 1416px) {
-  .searchResultMain {
-    pointer-events: none;
-  }
-}
-
 .trendingTxt {
   display: flex;
   align-items: center;
@@ -1556,6 +1550,8 @@
   /* left: 1264px; */
   right: 10px;
   top: 56.5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
 }
 
 .userProfileContentMain {

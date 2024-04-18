@@ -65,6 +65,25 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer }) {
     }
   };
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        buttonRef.current &&
+        !buttonRef.current.contains(e.target) &&
+        loginRef.current &&
+        !loginRef.current.contains(e.target)
+      ) {
+        setLoginUserDrawer(false);
+      }
+    };
+
+    document.body.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.body.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className={style.mainContainer}>
       <header
