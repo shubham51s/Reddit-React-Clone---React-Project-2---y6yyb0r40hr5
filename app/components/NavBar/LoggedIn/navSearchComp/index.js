@@ -50,7 +50,6 @@ function NavSearchComp() {
       if (!resp.ok) return;
       const result = await resp.json();
       setTrendingResults(result.data);
-      console.log("trending results; ", result.data);
     } catch (err) {
       console.log(err.message ? err.message : err);
     }
@@ -69,7 +68,6 @@ function NavSearchComp() {
 
   const handleSelectedPost = (e, item) => {
     e.stopPropagation();
-    console.log("searched post item: ", item);
     setPostItem(item);
 
     sessionStorage.setItem("postId", item._id);

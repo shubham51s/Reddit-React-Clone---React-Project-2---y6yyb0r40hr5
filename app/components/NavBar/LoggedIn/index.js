@@ -27,8 +27,9 @@ import UserContext from "@/app/contexts/LoginContext";
 import { ST } from "next/dist/shared/lib/utils";
 import NavSearchComp from "./navSearchComp";
 import LeftNavDrawer from "./navDrawer";
+import Tooltip from "@mui/material/Tooltip";
 
-function LogoutNavComp({ setIsNavDrawer, isNavDrawer }) {
+function LogoutNavComp({ setIsNavDrawer, isNavDrawer, setIsGetRedditApp }) {
   const { theme, handleThemeChange, isDarkMode, setIsDarkMode } =
     useContext(ThemeContext);
   const { setUserLoginModal, setIsLoggedIn, isLoggedIn } =
@@ -38,6 +39,8 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer }) {
 
   const loginRef = useRef(null);
   const buttonRef = useRef(null);
+  const inboxBtnRef = useRef(null);
+  const inboxContentRef = useRef(null);
   const [userProfile, setUserProfile] = useState(false);
   const [userLoggedIn, setUserLoggedIn] = useState(true);
   const [openInbox, setOpenInbox] = useState(false);
@@ -65,6 +68,16 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer }) {
     }
   };
 
+  const handleNotificatoinClick = (e) => {
+    e.stopPropagation();
+    setOpenInbox(!openInbox);
+  };
+
+  const handleGetAppClick = (e) => {
+    e.stopPropagation();
+    setIsGetRedditApp(true);
+  };
+
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (
@@ -77,9 +90,22 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer }) {
       }
     };
 
+    const handleInboxClick = (e) => {
+      if (
+        inboxContentRef.current &&
+        !inboxContentRef.current.contains(e.target) &&
+        inboxBtnRef.current &&
+        !inboxBtnRef.current.contains(e.target)
+      ) {
+        setOpenInbox(false);
+      }
+    };
+
+    document.body.addEventListener("click", handleInboxClick);
     document.body.addEventListener("click", handleClickOutside);
 
     return () => {
+      document.body.removeEventListener("click", handleInboxClick);
       document.body.removeEventListener("click", handleClickOutside);
     };
   }, []);
@@ -99,25 +125,28 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer }) {
               setIsNavDrawer={setIsNavDrawer}
               isNavDrawer={isNavDrawer}
             />
+
             <Link href="/" className={style.redditLogoLink}>
-              <span className={style.redditLogo}>
-                <span className={style.redditIcon}>
-                  <RedditIcon
-                    style={{
-                      width: "42px",
-                      height: "42px",
-                      color: "orangered",
-                    }}
-                  />
+              <Tooltip title="Go to Reddit Home">
+                <span className={style.redditLogo}>
+                  <span className={style.redditIcon}>
+                    <RedditIcon
+                      style={{
+                        width: "42px",
+                        height: "42px",
+                        color: "orangered",
+                      }}
+                    />
+                  </span>
+                  <span
+                    className={style.redditName}
+                    style={{ color: theme.redditLogo }}
+                  >
+                    {/* responsiveness pending */}
+                    reddit
+                  </span>
                 </span>
-                <span
-                  className={style.redditName}
-                  style={{ color: theme.redditLogo }}
-                >
-                  {/* responsiveness pending */}
-                  reddit
-                </span>
-              </span>
+              </Tooltip>
             </Link>
           </div>
           {/* here is input */}
@@ -134,7 +163,9 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer }) {
                     >
                       <span className={style.adevertizeIconMain}>
                         <span className={style.flex}>
-                          <AdsClickIcon />
+                          <Tooltip title="Advertise on Reddit">
+                            <AdsClickIcon />
+                          </Tooltip>
                         </span>
                       </span>
                     </span>
@@ -148,7 +179,9 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer }) {
                     >
                       <span className={style.adevertizeIconMain}>
                         <span className={style.flex}>
-                          <TextsmsOutlinedIcon />
+                          <Tooltip title="Open chat">
+                            <TextsmsOutlinedIcon />
+                          </Tooltip>
                         </span>
                       </span>
                     </span>
@@ -160,29 +193,33 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer }) {
                       className={style.createLink}
                       style={{ color: theme.navTabColor }}
                     >
-                      <span className={style.adevertizeIconMain}>
-                        <span className={style.createIconMain}>
-                          <AddOutlinedIcon style={{ fontSize: "1.6rem" }} />
+                      <Tooltip title="Create post">
+                        <span className={style.adevertizeIconMain}>
+                          <span className={style.createIconMain}>
+                            <AddOutlinedIcon style={{ fontSize: "1.6rem" }} />
+                          </span>
+                          <span className={style.createTxt}>Create</span>
                         </span>
-                        <span className={style.createTxt}>Create</span>
-                      </span>
+                      </Tooltip>
                     </span>
                   </span>
                 </span>
-                <span
-                  className={style.notificationMain}
-                  onMouseEnter={() => setOpenInbox(true)}
-                  onMouseLeave={() => setOpenInbox(false)}
-                >
+                <span className={style.notificationMain}>
                   <span className={style.advertizeTab}>
                     <span
                       className={style.adevertizeLink}
                       style={{ color: theme.navTabColor }}
                     >
                       <span className={style.adevertizeIconMain}>
-                        <span className={style.flex}>
-                          <NotificationsNoneOutlinedIcon />
-                        </span>
+                        <Tooltip title="Open inbox">
+                          <span
+                            className={style.flex}
+                            onClick={(e) => handleNotificatoinClick(e)}
+                            ref={inboxBtnRef}
+                          >
+                            <NotificationsNoneOutlinedIcon />
+                          </span>
+                        </Tooltip>
                       </span>
                     </span>
                   </span>
@@ -191,6 +228,7 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer }) {
                   <div
                     className={style.notificationContent}
                     style={{ borderColor: theme.borderLine }}
+                    ref={inboxContentRef}
                   >
                     <div className={style.overflowHidden}>
                       <div className={style.notificationTop}>
@@ -242,13 +280,15 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer }) {
                       <span className={style.userProfileBtnCtr}>
                         <span className={style.userProfileFlex}>
                           <span className={style.profileTabInner}>
-                            <span className={style.profileImgOuter}>
-                              <img
-                                className={style.userProfileImage}
-                                src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_0.png"
-                                alt="user profile picture"
-                              />
-                            </span>
+                            <Tooltip title="Open profile menu">
+                              <span className={style.profileImgOuter}>
+                                <img
+                                  className={style.userProfileImage}
+                                  src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_0.png"
+                                  alt="user profile picture"
+                                />
+                              </span>
+                            </Tooltip>
                           </span>
                         </span>
                       </span>
@@ -372,26 +412,31 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer }) {
                       backgroundColor: theme.activeNavBg,
                       color: theme.activeNavClr,
                     }}
+                    onClick={(e) => handleGetAppClick(e)}
                   >
-                    <span className={style.btnCtr}>
-                      <span className={style.getAppCode}>
-                        <QrCodeScannerIcon style={{ fontSize: "18px" }} />
+                    <Tooltip title="Get the Reddit app">
+                      <span className={style.btnCtr}>
+                        <span className={style.getAppCode}>
+                          <QrCodeScannerIcon style={{ fontSize: "18px" }} />
+                        </span>
+                        <span className={style.getAppName}>Get app</span>
                       </span>
-                      <span className={style.getAppName}>Get app</span>
-                    </span>
+                    </Tooltip>
                   </button>
                 </span>
               </span>
               <span className={style.rightContent}>
-                <Link
-                  href="/"
-                  className={style.loginLink}
-                  onClick={() => setUserLoginModal(true)}
-                >
-                  <span className={style.loginCtr}>
-                    <span className={style.loginTxt}>Log In</span>
-                  </span>
-                </Link>
+                <Tooltip title="Log in Reddit">
+                  <Link
+                    href="/"
+                    className={style.loginLink}
+                    onClick={() => setUserLoginModal(true)}
+                  >
+                    <span className={style.loginCtr}>
+                      <span className={style.loginTxt}>Log In</span>
+                    </span>
+                  </Link>
+                </Tooltip>
               </span>
             </div>
           )}

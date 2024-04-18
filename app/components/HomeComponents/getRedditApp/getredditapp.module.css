@@ -1,0 +1,167 @@
+.mainContainer {
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: fit-content;
+  z-index: 1;
+  border-radius: 4px;
+  margin: auto;
+  padding: 1rem;
+  pointer-events: all;
+  max-width: 95vw;
+  max-height: 95vh;
+  overflow: auto;
+  box-shadow: rgba(26, 26, 27, 0.3) 0px 2px 15px 0px,
+    0 0 0 max(100vw, 100vh) #00000099;
+}
+
+.topContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 32px;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .topContainer {
+    min-width: 500px;
+  }
+}
+
+.heading {
+  margin: 0;
+  font-weight: 700;
+  margin-right: 0.5rem;
+}
+
+.closeBtnMain {
+  font-size: 32px;
+}
+
+.closeBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+  text-decoration: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  height: 2.5rem;
+  text-align: center;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.btnCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text20 {
+  display: flex;
+  font-size: 1.25rem;
+  line-height: 1.25rem;
+}
+
+.btmContainer {
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.scanTxtMain {
+  text-align: center;
+  padding: 1rem;
+  font-weight: 700;
+  max-width: 12rem;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.imageMain {
+  display: inline-block;
+}
+
+.loaded {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 200px;
+  height: 200px;
+  margin: auto;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.codeImg {
+  width: 100%;
+  height: 100%;
+}
+
+.optionsTxt {
+  text-align: center;
+  padding: 1rem;
+}
+
+.storeMain {
+  display: flex;
+  justify-content: center;
+  column-gap: 1rem;
+}
+
+.playStoreLink {
+  display: inline-block;
+}
+
+.playStoreLoaded {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+  overflow: hidden;
+  border-radius: inherit;
+  width: inherit;
+  height: inherit;
+}
+
+.playStoreImg {
+  width: 100%;
+  height: 100%;
+}
+
+.appStoreLink {
+  display: inline-block;
+}
+
+.appStoreLoaded {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+  overflow: hidden;
+  border-radius: inherit;
+  width: inherit;
+  height: inherit;
+}
+
+.appStoreImg {
+  width: 100%;
+  height: 100%;
+}

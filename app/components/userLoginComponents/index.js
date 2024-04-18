@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import style from "./userlogincomponent.module.css";
 import ClearIcon from "@mui/icons-material/Clear";
 import AppleIcon from "@mui/icons-material/Apple";
@@ -24,6 +24,7 @@ function LoginComp() {
   const [userEmail, setUserEmail] = useState("");
   const [userPass, setUserPass] = useState("");
   const [isError, setIsError] = useState("");
+  const loginRef = useRef(null);
 
   const handleEmailChange = (e) => {
     setUserEmail(e.target.value);
@@ -154,10 +155,25 @@ function LoginComp() {
     }
   };
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (loginRef.current && !loginRef.current.contains(e.target)) {
+        setUserLoginModal(false);
+      }
+    };
+
+    document.body.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.body.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div
       className={style.mainLoginContainer}
-      style={{ backgroundColor: theme.bgColor }}
+      style={{ backgroundColor: theme.createCommunityBg }}
+      ref={loginRef}
     >
       <div>
         <div className={style.clearIconContainer}>

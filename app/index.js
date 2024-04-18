@@ -11,6 +11,7 @@ import FullImgComp from "./components/HomeComponents/fullImageComp";
 import HomeLeftDrawerComp from "./components/HomeComponents/homeLeftComp/homeLeftDrawer";
 import ThemeContext from "./contexts/ThemeContext";
 import CreateCommunityComp from "./components/createCommunityComponents";
+import GetRedditComp from "./components/HomeComponents/getRedditApp";
 function HomePage() {
   const {
     userLoginModal,
@@ -26,7 +27,7 @@ function HomePage() {
   const [imageOnly, setImgOnly] = useState(false);
   const [imageUrl, setImgUrl] = useState("");
   const [isNavDrawer, setIsNavDrawer] = useState(false);
-
+  const [isGetRedditApp, setIsGetRedditApp] = useState(false);
   const [popularCommunities, setPopularCommunities] = useState([]);
   const [postResult, setPostResult] = useState([]);
 
@@ -99,9 +100,17 @@ function HomePage() {
       {imageOnly && <FullImgComp imageUrl={imageUrl} setImgOnly={setImgOnly} />}
 
       {userLoginModal && <LoginComp />}
+      {isGetRedditApp && (
+        <GetRedditComp
+          isGetRedditApp={isGetRedditApp}
+          setIsGetRedditApp={setIsGetRedditApp}
+        />
+      )}
+
       <LogoutNavComp
         setIsNavDrawer={setIsNavDrawer}
         isNavDrawer={isNavDrawer}
+        setIsGetRedditApp={setIsGetRedditApp}
       />
       {createCommunityModal && <CreateCommunityComp />}
       <div
