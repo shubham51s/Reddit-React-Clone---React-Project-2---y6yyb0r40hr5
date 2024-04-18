@@ -6,11 +6,12 @@ import ThemeContext from "@/app/contexts/ThemeContext";
 import RulesComp from "./rulesComponent";
 import UserContext from "@/app/contexts/LoginContext";
 
-function CommentRightComp() {
-  const { isLoggedIn, postItem } = useContext(UserContext);
+function CommentRightComp({ showUserName, setShowUserName }) {
+  const { isLoggedIn, postItem, showComments } = useContext(UserContext);
   const { theme } = useContext(ThemeContext);
   const [isJoined, setIsJoined] = useState(false);
   const [userData, setUserData] = useState([]);
+  const [userFollowed, setUserFollowed] = useState(false);
 
   const followUser = async (id, token) => {
     try {
@@ -80,14 +81,30 @@ function CommentRightComp() {
     }
   };
 
-  useEffect(() => {
-    if (isLoggedIn && sessionStorage.getItem("userChannelId")) {
-      fetchUser(
-        sessionStorage.getItem("userChannelId"),
-        localStorage.getItem("authToken")
-      );
+  const handleFollowBtn = () => {
+    setUserFollowed(!userFollowed);
+    if (!userFollowed) {
+      followUser(userData._id, localStorage.getItem("authToken"));
+    } else {
+      unfollowUser(userData._id, localStorage.getItem("authToken"));
     }
-  }, []);
+  };
+
+  useEffect(() => {
+    setUserFollowed(false);
+    setIsJoined(false);
+    if (
+      isLoggedIn &&
+      showComments &&
+      postItem.channel &&
+      postItem.channel._id
+    ) {
+      setShowUserName(false);
+      fetchUser(postItem.channel._id, localStorage.getItem("authToken"));
+    } else if (isLoggedIn && showComments && !postItem.channel) {
+      setShowUserName(true);
+    }
+  }, [postItem]);
 
   return (
     <div className={style.mainContainer}>
@@ -97,7 +114,7 @@ function CommentRightComp() {
           style={{ backgroundColor: theme.commentBg }}
         >
           <div className={style.padding}>
-            {isLoggedIn && userData && (
+            {isLoggedIn && userData && !showUserName && (
               <div className={style.aboutCommunityContainer}>
                 <div className={style.aboutCommunityMain}>
                   <div className={style.communityHeader}>
@@ -134,6 +151,30 @@ function CommentRightComp() {
                       style={{ color: theme.descriptionClr }}
                     >
                       {userData.description}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            {isLoggedIn && showUserName && (
+              <div
+                className={style.aboutCommunityContainer}
+                style={{ marginBottom: "20px", marginTop: "10px" }}
+              >
+                <div className={style.aboutCommunityMain}>
+                  <div className={style.communityHeader}>
+                    <span className={style.communityHeadingMain}>
+                      <span className={style.communityLink}>
+                        <div className={style.prefixedName}>
+                          {postItem.author.name}
+                        </div>
+                      </span>
+                    </span>
+                    <div className={style.joinBtnMain}>
+                      <button
+                        className={style.joinBtn}
+                        onClick={handleFollowBtn}
+                      >{`${userFollowed ? "Unfollow" : "Follow"}`}</button>
                     </div>
                   </div>
                 </div>

@@ -16,7 +16,7 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
   const { theme } = useContext(ThemeContext);
   const { setUserLoginModal, isLoggedIn, postItem } = useContext(UserContext);
   const [postResult, setPostResult] = useState([]);
-
+  const [showUserName, setShowUserName] = useState(false);
   const [commentResults, setCommentResults] = useState([]);
   const [commentInput, setCommentInput] = useState("");
   const [isAddComment, setIsAddComment] = useState(false);
@@ -104,17 +104,24 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
     setShowComments(false);
   };
 
+  const showChannelInfo = (e) => {
+    e.stopPropagation();
+    setShowUserName(false);
+  };
+
+  const showAuthorInfo = (e) => {
+    e.stopPropagation();
+    setShowUserName(true);
+  };
+
   useEffect(() => {
-    if (localStorage.getItem("authToken") && sessionStorage.getItem("postId")) {
-      fetchComments(
-        sessionStorage.getItem("postId"),
-        localStorage.getItem("authToken")
-      );
+    if (localStorage.getItem("authToken") && postItem._id) {
+      fetchComments(postItem._id, localStorage.getItem("authToken"));
     }
     setJwtToken(
       localStorage.getItem("authToken") ? localStorage.getItem("authToken") : ""
     );
-  }, []);
+  }, [postItem]);
 
   return (
     <div className={style.mainContainer}>
@@ -171,6 +178,7 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
                           <span
                             className={style.communityLink}
                             style={{ color: theme.communityTxtClr }}
+                            onClick={(e) => showChannelInfo(e)}
                           >
                             {postItem.channel.name}
                           </span>
@@ -198,6 +206,7 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
                                 <span
                                   className={style.authorNameTxt}
                                   style={{ color: theme.communityTxtClr }}
+                                  onClick={(e) => showAuthorInfo(e)}
                                 >
                                   {postItem.author.name}
                                 </span>
@@ -471,7 +480,10 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
             </div>
           </div>
         </main>
-        <CommentRightComp />
+        <CommentRightComp
+          showUserName={showUserName}
+          setShowUserName={setShowUserName}
+        />
       </div>
     </div>
   );

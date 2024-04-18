@@ -6,9 +6,11 @@ import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import ClearIcon from "@mui/icons-material/Clear";
 import SearchIcon from "@mui/icons-material/Search";
 import { StyleOutlined } from "@mui/icons-material";
+import UserContext from "@/app/contexts/LoginContext";
 
 function NavSearchComp() {
   const { theme } = useContext(ThemeContext);
+  const { setShowComments, setPostItem } = useContext(UserContext);
   const [userInput, setUserInput] = useState("");
   const [isInputClicked, setIsInputClicked] = useState(false);
   const [showResults, setShowResults] = useState(false);
@@ -48,6 +50,7 @@ function NavSearchComp() {
       if (!resp.ok) return;
       const result = await resp.json();
       setTrendingResults(result.data);
+      console.log("trending results; ", result.data);
     } catch (err) {
       console.log(err.message ? err.message : err);
     }
@@ -62,6 +65,19 @@ function NavSearchComp() {
   const handleInputClick = (e) => {
     e.stopPropagation();
     setShowResults(true);
+  };
+
+  const handleSelectedPost = (e, item) => {
+    e.stopPropagation();
+    console.log("searched post item: ", item);
+    setPostItem(item);
+
+    sessionStorage.setItem("postId", item._id);
+    if (item.channel) {
+      sessionStorage.setItem("userChannelId", item.channel._id);
+    }
+    setShowComments(true);
+    setShowResults(false);
   };
 
   useEffect(() => {
@@ -167,7 +183,11 @@ function NavSearchComp() {
                       {/* map below */}
                       {trendingResults.length >= 1 &&
                         trendingResults.map((item) => (
-                          <li className={style.tredingList} key={item._id}>
+                          <li
+                            className={style.tredingList}
+                            key={item._id}
+                            onClick={(e) => handleSelectedPost(e, item)}
+                          >
                             <span
                               className={style.tredingListLink}
                               style={{ color: theme.navTabColor }}
@@ -242,7 +262,11 @@ function NavSearchComp() {
                       </div>
                       {searchResults.length >= 1 &&
                         searchResults.map((item) => (
-                          <li className={style.tredingList} key={item._id}>
+                          <li
+                            className={style.tredingList}
+                            key={item._id}
+                            onClick={(e) => handleSelectedPost(e, item)}
+                          >
                             <span
                               className={style.tredingListLink}
                               style={{ color: theme.navTabColor }}
