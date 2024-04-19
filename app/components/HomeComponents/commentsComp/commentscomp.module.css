@@ -197,6 +197,18 @@
   height: 32px;
 }
 
+.nonPrfileUser {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
 .profileContentInner {
   display: inline-block;
   border-radius: 624.9375rem;

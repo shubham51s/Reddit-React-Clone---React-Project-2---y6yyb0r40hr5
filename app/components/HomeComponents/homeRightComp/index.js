@@ -129,7 +129,17 @@ function HomeRightComp({
                           </span>
                         </span>
                         <span className={style.creditBarRight}>
-                          <JoinBtnComp item={item} />
+                          {isLoggedIn &&
+                            item.author &&
+                            item.author._id != localStorage.getItem("userId") &&
+                            !item.channel && <JoinBtnComp item={item} />}
+
+                          {isLoggedIn && item.channel && (
+                            <JoinBtnComp item={item} />
+                          )}
+
+                          {!isLoggedIn && <JoinBtnComp item={item} />}
+
                           {/* more button */}
                           {isLoggedIn &&
                             item.author &&

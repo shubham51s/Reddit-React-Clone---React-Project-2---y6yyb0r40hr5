@@ -165,6 +165,15 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
                                   src={postItem.author.profileImage}
                                   alt={`profile image`}
                                 />
+                              )}{" "}
+                            {postItem.author &&
+                              !postItem.author.profileImage && (
+                                <span
+                                  className={style.nonPrfileUser}
+                                  style={{ backgroundColor: theme.activeNavBg }}
+                                >
+                                  {postItem.author.name[0]}
+                                </span>
                               )}
                           </div>
                         </div>
@@ -237,35 +246,33 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
                 ></div>
                 <div>
                   <div>
-                    {/* need to arrow buttons later */}
-
-                    <ul
-                      className={style.postMediaMain}
-                      // need to add translate later
-                      style={{ transform: `translate3d(${0}px, 0px, 0px)` }}
-                    >
-                      <li
-                        className={style.postMediaList}
-                        style={{ backgroundColor: "rgba(0, 0, 0, .2)" }}
+                    {postItem.images.length >= 1 && (
+                      <ul
+                        className={style.postMediaMain}
+                        style={{ transform: `translate3d(${0}px, 0px, 0px)` }}
                       >
-                        <img
-                          className={style.backImg}
-                          src={postItem.images[0]}
-                          alt={`post image`}
-                        />
-                        <div className={style.imgListMain}>
+                        <li
+                          className={style.postMediaList}
+                          style={{ backgroundColor: "rgba(0, 0, 0, .2)" }}
+                        >
                           <img
-                            className={style.postMedia}
+                            className={style.backImg}
                             src={postItem.images[0]}
                             alt={`post image`}
-                            onClick={(e) =>
-                              handleImageClick(e, postItem.images[0])
-                            }
                           />
-                        </div>
-                      </li>
-                      {/* image list */}
-                    </ul>
+                          <div className={style.imgListMain}>
+                            <img
+                              className={style.postMedia}
+                              src={postItem.images[0]}
+                              alt={`post image`}
+                              onClick={(e) =>
+                                handleImageClick(e, postItem.images[0])
+                              }
+                            />
+                          </div>
+                        </li>
+                      </ul>
+                    )}
                   </div>
                 </div>
               </div>

@@ -161,23 +161,42 @@ function CommentRightComp({ showUserName, setShowUserName }) {
                 className={style.aboutCommunityContainer}
                 style={{ marginBottom: "20px", marginTop: "10px" }}
               >
-                <div className={style.aboutCommunityMain}>
-                  <div className={style.communityHeader}>
-                    <span className={style.communityHeadingMain}>
-                      <span className={style.communityLink}>
-                        <div className={style.prefixedName}>
-                          {postItem.author.name}
-                        </div>
-                      </span>
-                    </span>
-                    <div className={style.joinBtnMain}>
-                      <button
-                        className={style.joinBtn}
-                        onClick={handleFollowBtn}
-                      >{`${userFollowed ? "Unfollow" : "Follow"}`}</button>
+                {postItem.author &&
+                  postItem.author._id === localStorage.getItem("userId") && (
+                    <div className={style.aboutCommunityMain}>
+                      <div className={style.communityHeader}>
+                        <span className={style.communityHeadingMain}>
+                          <span className={style.communityLink}>
+                            <div className={style.prefixedName}>
+                              Posted by you
+                            </div>
+                          </span>
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </div>
+                  )}
+
+                {postItem.author &&
+                  postItem.author._id != localStorage.getItem("userId") && (
+                    <div className={style.aboutCommunityMain}>
+                      <div className={style.communityHeader}>
+                        <span className={style.communityHeadingMain}>
+                          <span className={style.communityLink}>
+                            <div className={style.prefixedName}>
+                              {postItem.author.name}
+                            </div>
+                          </span>
+                        </span>
+
+                        <div className={style.joinBtnMain}>
+                          <button
+                            className={style.joinBtn}
+                            onClick={handleFollowBtn}
+                          >{`${userFollowed ? "Unfollow" : "Follow"}`}</button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
               </div>
             )}
             {isLoggedIn && (

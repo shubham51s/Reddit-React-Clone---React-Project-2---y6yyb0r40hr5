@@ -43,7 +43,7 @@ function CreateNewPostComp() {
     ? { _id: "1", name: `u/${localStorage.getItem("userName")}` }
     : "";
 
-  const [imgInput, setImgInput] = useState();
+  const [imgInput, setImgInput] = useState(null);
   const [showImg, setShowImg] = useState(true);
 
   const fetchPopularCommunities = async () => {
@@ -81,7 +81,7 @@ function CreateNewPostComp() {
     try {
       const formData = new FormData();
       formData.append("title", titleInp);
-      formData.append("content", textInput);
+      formData.append("content", titleInp);
       formData.append("images", imgInput ? imgInput : null);
 
       const resp = await fetch(
@@ -498,7 +498,7 @@ function CreateNewPostComp() {
                           <span
                             className={style.deleleImg}
                             style={{ backgroundColor: theme.activeNavBg }}
-                            onClick={(e) => setImgInput()}
+                            onClick={(e) => setImgInput(null)}
                           >
                             <DeleteOutlinedIcon />
                           </span>
