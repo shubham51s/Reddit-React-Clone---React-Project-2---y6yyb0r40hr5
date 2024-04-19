@@ -4,6 +4,7 @@ import Link from "next/link";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ViewAgendaOutlinedIcon from "@mui/icons-material/ViewAgendaOutlined";
 import ThemeContext from "@/app/contexts/ThemeContext";
+import Tooltip from "@mui/material/Tooltip";
 
 function SortComp() {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -23,62 +24,64 @@ function SortComp() {
     <div className={style.sortContainer}>
       <div>
         <div className={style.sortContent}>
-          <div className={style.sortOptionContainer}>
-            <select
-              className={style.sortOptionsMain}
-              style={{ color: theme.popularCommunitiesTxt }}
-              onChange={(e) => handleSorting(e.target.value)}
-            >
-              <option
-                className={style.optionList}
-                style={{
-                  color:
-                    sortValue === 1 ? theme.activeNavClr : theme.navTabColor,
-                  backgroundColor:
-                    sortValue === 1 ? theme.activeNavBg : "transparent",
-                }}
-                value={1}
+          <Tooltip title="View sort optinos">
+            <div className={style.sortOptionContainer}>
+              <select
+                className={style.sortOptionsMain}
+                style={{ color: theme.popularCommunitiesTxt }}
+                onChange={(e) => handleSorting(e.target.value)}
               >
-                Hot
-              </option>
-              <option
-                className={style.optionList}
-                style={{
-                  color:
-                    sortValue === 2 ? theme.activeNavClr : theme.navTabColor,
-                  backgroundColor:
-                    sortValue === 2 ? theme.activeNavBg : "transparent",
-                }}
-                value={2}
-              >
-                Best
-              </option>
-              <option
-                className={style.optionList}
-                style={{
-                  color:
-                    sortValue === 3 ? theme.activeNavClr : theme.navTabColor,
-                  backgroundColor:
-                    sortValue === 3 ? theme.activeNavBg : "transparent",
-                }}
-                value={3}
-              >
-                New
-              </option>
-              <option
-                className={style.optionList}
-                style={{
-                  color:
-                    sortValue === 4 ? theme.activeNavClr : theme.navTabColor,
-                  backgroundColor:
-                    sortValue === 4 ? theme.activeNavBg : "transparent",
-                }}
-                value={4}
-              >
-                Top
-              </option>
-            </select>
-          </div>
+                <option
+                  className={style.optionList}
+                  style={{
+                    color:
+                      sortValue === 1 ? theme.activeNavClr : theme.navTabColor,
+                    backgroundColor:
+                      sortValue === 1 ? theme.activeNavBg : "transparent",
+                  }}
+                  value={1}
+                >
+                  Hot
+                </option>
+                <option
+                  className={style.optionList}
+                  style={{
+                    color:
+                      sortValue === 2 ? theme.activeNavClr : theme.navTabColor,
+                    backgroundColor:
+                      sortValue === 2 ? theme.activeNavBg : "transparent",
+                  }}
+                  value={2}
+                >
+                  Best
+                </option>
+                <option
+                  className={style.optionList}
+                  style={{
+                    color:
+                      sortValue === 3 ? theme.activeNavClr : theme.navTabColor,
+                    backgroundColor:
+                      sortValue === 3 ? theme.activeNavBg : "transparent",
+                  }}
+                  value={3}
+                >
+                  New
+                </option>
+                <option
+                  className={style.optionList}
+                  style={{
+                    color:
+                      sortValue === 4 ? theme.activeNavClr : theme.navTabColor,
+                    backgroundColor:
+                      sortValue === 4 ? theme.activeNavBg : "transparent",
+                  }}
+                  value={4}
+                >
+                  Top
+                </option>
+              </select>
+            </div>
+          </Tooltip>
           <div className={style.viewSortContainer}>
             {/* card view pending */}
             <select

@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import style from "./createnewpost.module.css";
 import ThemeContext from "@/app/contexts/ThemeContext";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -12,8 +12,13 @@ import CheckIcon from "@mui/icons-material/Check";
 import UserContext from "@/app/contexts/LoginContext";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
+import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import { useRouter } from "next/navigation";
+import { keyframes } from "@emotion/react";
 
 function CreateNewPostComp() {
+  const router = useRouter();
   const { isLoggedIn } = useContext(UserContext);
   const { theme } = useContext(ThemeContext);
   const [addText, setAddText] = useState(true);
@@ -41,6 +46,9 @@ function CreateNewPostComp() {
     ? { name: `u/${localStorage.getItem("userName")}`, _id: "1" }
     : "";
 
+  const [imgInput, setImgInput] = useState();
+  const [showImg, setShowImg] = useState(true);
+
   const fetchPopularCommunities = async () => {
     try {
       const resp = await fetch(
@@ -64,6 +72,10 @@ function CreateNewPostComp() {
       const formData = new FormData();
       formData.append("title", titleInp);
       formData.append("content", textInput);
+      formData.append(
+        "images",
+        imgInput ? URL.createObjectURL(imgInput) : null
+      );
 
       const resp = await fetch(
         "https://academics.newtonschool.co/api/v1/reddit/post/",
@@ -78,6 +90,7 @@ function CreateNewPostComp() {
       );
       if (!resp.ok) return;
       const result = await resp.json();
+      router.push("/");
     } catch (err) {
       console.log(err.message ? err.message : err);
     }
@@ -87,7 +100,11 @@ function CreateNewPostComp() {
     try {
       const formData = new FormData();
       formData.append("title", titleInp);
-      formData.append("content", textInput);
+      formData.append("content", titleInp);
+      formData.append(
+        "images",
+        imgInput ? URL.createObjectURL(imgInput) : null
+      );
       formData.append("channelId", channelId);
 
       const resp = await fetch(
@@ -103,7 +120,7 @@ function CreateNewPostComp() {
       );
       if (!resp.ok) return;
       const result = await resp.json();
-      console.log("community post result: ", result);
+      router.push("/");
     } catch (err) {
       console.log(err.message ? err.message : err);
     }
@@ -143,6 +160,12 @@ function CreateNewPostComp() {
   useEffect(() => {
     fetchPopularCommunities();
   }, []);
+
+  const handleInputChange = (event) => {
+    if (event.target.files[0]) {
+      setImgInput(event.target.files[0]);
+    }
+  };
 
   return (
     <div className={style.mainContainer}>
@@ -257,7 +280,7 @@ function CreateNewPostComp() {
                 </div>
               </div>
             </div>
-            {!isFancyEditor && (
+            {!isFancyEditor && addText && (
               <div>
                 <div>
                   <div
@@ -300,7 +323,7 @@ function CreateNewPostComp() {
                 </div>
               </div>
             )}
-            {isFancyEditor && (
+            {isFancyEditor && addText && (
               <div>
                 <div className={style.posRelative}>
                   <div
@@ -380,6 +403,109 @@ function CreateNewPostComp() {
                               </div>
                             </div>
                           </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            {!imgInput && !addText && (
+              <div>
+                <div className={style.posRelative}>
+                  <div
+                    className={style.imgContainerMain}
+                    style={{
+                      backgroundColor: theme.headerBg,
+                      borderColor: theme.headerBorderClr,
+                    }}
+                  >
+                    <div>
+                      <div>
+                        <div>
+                          <div className={style.draftEditor}>
+                            <div className={style.editorContainer}>
+                              <div
+                                className={style.draftEditorContent}
+                                style={{
+                                  color: theme.headerClr,
+                                  backgroundColor: theme.headerBg,
+                                }}
+                              >
+                                <div className={style.imgUploadArea}>
+                                  Drag and Drop images or videos or{" "}
+                                  <label
+                                    className={style.uploadMediaBtn}
+                                    style={{
+                                      color: theme.activeNavClr,
+                                      backgroundColor: theme.activeNavBg,
+                                    }}
+                                  >
+                                    <span className={style.uploadMediaBtnCtr}>
+                                      <span className={style.uploadMediaFlex}>
+                                        <CloudUploadOutlinedIcon
+                                          style={{
+                                            color: theme.activeNavClr,
+                                          }}
+                                        />{" "}
+                                        <input
+                                          type="file"
+                                          accept="image/*"
+                                          onChange={handleInputChange}
+                                          style={{ display: "none" }}
+                                        />
+                                      </span>
+                                    </span>
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            {!addText && imgInput && (
+              <div>
+                <div className={style.posRelative}>
+                  <div
+                    className={style.imgContainerMain}
+                    style={{
+                      backgroundColor: theme.headerBg,
+                      borderColor: theme.headerBorderClr,
+                    }}
+                  >
+                    <div>
+                      <div>
+                        <div>
+                          <div className={style.draftEditor}>
+                            <div className={style.editorContainer}>
+                              <div
+                                className={style.draftEditorContent}
+                                style={{
+                                  color: theme.headerClr,
+                                  backgroundColor: theme.headerBg,
+                                }}
+                              >
+                                <div className={style.imgUploadArea}>
+                                  <img
+                                    className={style.uploadedImg}
+                                    src={URL.createObjectURL(imgInput)}
+                                  />
+                                </div>{" "}
+                              </div>
+                            </div>
+                          </div>
+                          <span
+                            className={style.deleleImg}
+                            style={{ backgroundColor: theme.activeNavBg }}
+                            onClick={(e) => setImgInput()}
+                          >
+                            <DeleteOutlinedIcon />
+                          </span>
                         </div>
                       </div>
                     </div>

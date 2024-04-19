@@ -28,8 +28,10 @@ import { ST } from "next/dist/shared/lib/utils";
 import NavSearchComp from "./navSearchComp";
 import LeftNavDrawer from "./navDrawer";
 import Tooltip from "@mui/material/Tooltip";
+import { useRouter } from "next/navigation";
 
 function LogoutNavComp({ setIsNavDrawer, isNavDrawer, setIsGetRedditApp }) {
+  const router = useRouter();
   const { theme, handleThemeChange, isDarkMode, setIsDarkMode } =
     useContext(ThemeContext);
   const { setUserLoginModal, setIsLoggedIn, isLoggedIn } =
@@ -194,7 +196,10 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer, setIsGetRedditApp }) {
                       style={{ color: theme.navTabColor }}
                     >
                       <Tooltip title="Create post">
-                        <span className={style.adevertizeIconMain}>
+                        <span
+                          className={style.adevertizeIconMain}
+                          onClick={(e) => router.push("submit")}
+                        >
                           <span className={style.createIconMain}>
                             <AddOutlinedIcon style={{ fontSize: "1.6rem" }} />
                           </span>

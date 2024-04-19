@@ -10,6 +10,7 @@ import CommentsComp from "./voteNcomments";
 import ThemeContext from "@/app/contexts/ThemeContext";
 import UserContext from "@/app/contexts/LoginContext";
 import NoContentComp from "./noContent";
+import Tooltip from "@mui/material/Tooltip";
 import ViewMoreOptionComp from "./viewMoreComp";
 
 function HomeRightComp({
