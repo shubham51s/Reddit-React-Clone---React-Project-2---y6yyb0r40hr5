@@ -144,16 +144,13 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer, setIsGetRedditApp }) {
                     className={style.redditName}
                     style={{ color: theme.redditLogo }}
                   >
-                    {/* responsiveness pending */}
                     reddit
                   </span>
                 </span>
               </Tooltip>
             </Link>
           </div>
-          {/* here is input */}
           <NavSearchComp />
-          {/* here */}
           {isLoggedIn && (
             <div className={style.redditRightMain}>
               <div className={style.leftNavMain}>

@@ -21,7 +21,7 @@ function CreateNewPostComp() {
   const router = useRouter();
   const { isLoggedIn } = useContext(UserContext);
   const { theme } = useContext(ThemeContext);
-  const [addText, setAddText] = useState(true);
+  const [addText, setAddText] = useState(false);
   const [isFancyEditor, setIsFancyEditor] = useState(true);
   const [titleInp, setTitleInp] = useState("");
   const [isBold, setIsBold] = useState(false);
@@ -196,10 +196,6 @@ function CreateNewPostComp() {
           </button>
         </div>
         <div className={style.communityMain}>
-          {/* {channels.length >= 1 && (
-            
-          )} */}
-          {/* autocomplete */}
           <Autocomplete
             disablePortal
             id="combo-box-demo"
@@ -207,7 +203,7 @@ function CreateNewPostComp() {
             getOptionLabel={(option) => option.name}
             value={community}
             onChange={handleCommunityChange}
-            sx={{ width: 300 }}
+            sx={{ width: 300, backgroundColor: theme.policyBg }}
             renderInput={(params) => <TextField {...params} />}
           />
         </div>
@@ -217,7 +213,6 @@ function CreateNewPostComp() {
         >
           <div className={style.selectContainer}>
             <div className={style.optionsMain}>
-              {/* need to change color and bg color according to selected type */}
               <button
                 className={style.postBtn}
                 style={{

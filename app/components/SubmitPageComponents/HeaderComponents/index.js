@@ -22,16 +22,21 @@ import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import UserContext from "@/app/contexts/LoginContext";
+import Tooltip from "@mui/material/Tooltip";
+import { useRouter } from "next/navigation";
+import NavSearchComp from "../../NavBar/LoggedIn/navSearchComp";
 
 function SubmitPageHeaderComp() {
   const { theme, handleThemeChange, isDarkMode, setIsDarkMode } =
     useContext(ThemeContext);
   const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
-
+  const router = useRouter();
   const userRef = useRef(null);
   const profileRef = useRef(null);
   const createPostRef = useRef(null);
   const createPostListRef = useRef(null);
+  const inboxBtnRef = useRef(null);
+  const inboxContentRef = useRef(null);
   const [userInput, setUserInput] = useState("");
   const [isInputClicked, setIsInputClicked] = useState(false);
   const [showResults, setShowResults] = useState(false);
@@ -39,6 +44,7 @@ function SubmitPageHeaderComp() {
   const [userDropdown, setUserDropdown] = useState(false);
   const [createPostDropdown, setCreatePostDropdown] = useState(false);
   const [onlineStatus, setOnlineStatus] = useState(false);
+  const [openInbox, setOpenInbox] = useState(false);
 
   const handleUserDropdown = () => {
     setUserDropdown(!userDropdown);
@@ -70,16 +76,24 @@ function SubmitPageHeaderComp() {
     setOnlineStatus(e.target.checked);
   };
 
-  // need to add use router hook later when user logged out it should naviagate to home page
   const handleLogoutBtnClick = (e) => {
     e.stopPropagation();
     localStorage.removeItem("userEmail");
     localStorage.removeItem("authToken");
     localStorage.removeItem("userName");
     setIsLoggedIn(false);
+    router.push("/");
+  };
+
+  const handleNotificatoinClick = (e) => {
+    e.stopPropagation();
+    setOpenInbox(!openInbox);
   };
 
   useEffect(() => {
+    if (!isLoggedIn) {
+      router.push("/");
+    }
     const handleClickOutside = (e) => {
       if (inputRef.current && !inputRef.current.contains(e.target)) {
         setShowResults(false);
@@ -108,14 +122,27 @@ function SubmitPageHeaderComp() {
       }
     };
 
+    const handleInboxClick = (e) => {
+      if (
+        inboxContentRef.current &&
+        !inboxContentRef.current.contains(e.target) &&
+        inboxBtnRef.current &&
+        !inboxBtnRef.current.contains(e.target)
+      ) {
+        setOpenInbox(false);
+      }
+    };
+
     document.body.addEventListener("click", handleClickOutside);
     document.body.addEventListener("click", handleUserClick);
     document.body.addEventListener("click", handleCreatePostClick);
+    document.body.addEventListener("click", handleInboxClick);
 
     return () => {
-      document.removeEventListener("click", handleClickOutside);
-      document.removeEventListener("click", handleUserClick);
-      document.removeEventListener("click", handleCreatePostClick);
+      document.body.removeEventListener("click", handleClickOutside);
+      document.body.removeEventListener("click", handleUserClick);
+      document.body.removeEventListener("click", handleCreatePostClick);
+      document.body.removeEventListener("click", handleInboxClick);
     };
   }, []);
 
@@ -132,12 +159,12 @@ function SubmitPageHeaderComp() {
         }}
       >
         <div className={style.headerLeftContent}>
-          <span className={style.logoMain}>
-            <RedditIcon style={{ fontSize: "34px", color: "orangered" }} />
-            <span className={style.logoTxt} style={{ color: theme.redditLogo }}>
-              reddit
+          <Tooltip title="Go to Reddit Home">
+            <span className={style.logoMain} onClick={(e) => router.push("/")}>
+              <RedditIcon style={{ fontSize: "38px", color: "orangered" }} />
+              {/* need to add reddit name later */}
             </span>
-          </span>
+          </Tooltip>
           <div className={style.createPostMain}>
             <button
               className={style.createPostBtn}
@@ -206,256 +233,17 @@ function SubmitPageHeaderComp() {
               </div>
             )}
           </div>
-          {/* below input */}
-          <div className={style.redditSearchMain}>
-            <div className={style.searchContent}>
-              <div className={style.searchInnerMain}>
-                <div className={style.searchInputMain}>
-                  {/* if required need to add another div here */}
-                  <div
-                    className={style.searchBarMain}
-                    style={{
-                      backgroundColor: showResults
-                        ? theme.bgColor
-                        : theme.activeNavBg,
-                    }}
-                  >
-                    <div className={style.isolate}>
-                      <form
-                        className={style.inputForm}
-                        style={{
-                          color: theme.navTabColor,
-                          backgroundColor: theme.activeNavBg,
-                        }}
-                        autoComplete="off"
-                      >
-                        <div className={style.searchInner}>
-                          <label className={style.searchLabel}>
-                            <div className={style.labelContainer}>
-                              <span className={style.leadingIcon}>
-                                <SearchIcon style={{ fontSize: "20px" }} />
-                              </span>
-                              <span
-                                className={style.inputContainer}
-                                ref={inputRef}
-                              >
-                                <input
-                                  type="text"
-                                  className={style.inputSearch}
-                                  style={{
-                                    color: theme.navTabColor,
-                                  }}
-                                  onChange={(e) => handleUserSearch(e)}
-                                  value={userInput}
-                                  onClick={handleInputClick}
-                                />
-                              </span>
-                              {userInput.length >= 1 && (
-                                <span
-                                  className={style.clearIcon}
-                                  onClick={() => setUserInput("")}
-                                  style={{ cursor: "pointer" }}
-                                >
-                                  <ClearIcon
-                                    style={{
-                                      fontSize: "20px",
-                                    }}
-                                  />
-                                </span>
-                              )}
-                            </div>
-                          </label>
-                        </div>
-                      </form>
-                    </div>
-                    {/* below is onclick */}
-                    {showResults && (
-                      <div
-                        className={style.searchResultMain}
-                        style={{ backgroundColor: theme.bgColor }}
-                      >
-                        {!userInput && (
-                          <div
-                            className={style.trendingTxt}
-                            style={{ color: theme.popularCommunitiesTxt }}
-                          >
-                            <TrendingUpIcon
-                              style={{ fontSize: "20px", paddingRight: "5px" }}
-                            />
-                            TRENDING TODAY
-                          </div>
-                        )}
-
-                        {/* trending result */}
-                        {!userInput && (
-                          <ul className={style.trendingResultMain}>
-                            {/* map below */}
-                            <li className={style.tredingList}>
-                              <span
-                                className={style.tredingListLink}
-                                style={{ color: theme.navTabColor }}
-                              >
-                                <span className={style.trendingListLeft}>
-                                  <span className={style.tredingListLeftInner}>
-                                    <span className={style.trendingListHeading}>
-                                      <span
-                                        className={style.trendingHeadingMain}
-                                      >
-                                        <span
-                                          className={style.trendingHeading}
-                                          style={{
-                                            color: theme.communityTxtClr,
-                                          }}
-                                          //   heading list here
-                                        >{`April Fool's Day`}</span>
-                                      </span>
-                                    </span>
-                                    <span
-                                      className={style.trendingListContent}
-                                      style={{
-                                        color: theme.popularCommunitiesTxt,
-                                      }}
-                                    >
-                                      <span
-                                        className={
-                                          style.trendingListContentMain
-                                        }
-                                        style={{ color: theme.communityTxtClr }}
-                                      >
-                                        <span className={style.trendingListTxt}>
-                                          {/* need to add community text later */}
-                                          {`Gmail revolutionized email 20 years ago. People thought it was Google's April Fool's Day joke.`}
-                                        </span>
-                                        <div
-                                          className={
-                                            style.trendingListCommunity
-                                          }
-                                          style={{
-                                            color: theme.popularCommunitiesTxt,
-                                          }}
-                                        >
-                                          <div
-                                            className={
-                                              style.trendingCommunityImg
-                                            }
-                                          >
-                                            <div className={style.loaded}>
-                                              <img
-                                                className={
-                                                  style.trendingListImg
-                                                }
-                                                // community image here
-                                                src={`https://b.thumbs.redditmedia.com/J_fCwTYJkoM-way-eaOHv8AOHoF_jNXNqOvPrQ7bINY.png`}
-                                                alt="name"
-                                              />
-                                            </div>
-                                          </div>
-                                          {/* need to add communit list here */}
-                                          <span>{`r/technology and more`}</span>
-                                        </div>
-                                      </span>
-                                    </span>
-                                  </span>
-                                </span>
-                                <span className={style.trendingListRight}>
-                                  <span className={style.trendingImgMain}>
-                                    <div className={style.trendingImgContent}>
-                                      <div className={style.loadedImg}>
-                                        <img
-                                          className={style.trendingImg}
-                                          //   need to add community image here
-                                          src={`https://b.thumbs.redditmedia.com/YjroOtRK0Tb9jn_KjO7JNj73Kpc9c352UI_Q5YsVyWk.jpg`}
-                                          alt={`image`}
-                                        />
-                                      </div>
-                                    </div>
-                                  </span>
-                                </span>
-                              </span>
-                            </li>
-                          </ul>
-                        )}
-
-                        {/* user search result */}
-                        {userInput && (
-                          <ul className={style.userSearchResult}>
-                            <div
-                              className={style.communitiesTxt}
-                              style={{ color: theme.communityTxtClr }}
-                            >
-                              Communities
-                            </div>
-                            <li className={style.userInputList}>
-                              <span
-                                className={style.userInputLink}
-                                style={{ color: theme.navTabColor }}
-                              >
-                                <span className={style.userInputContent}>
-                                  <span className={style.communityLogoMain}>
-                                    <span
-                                      className={style.communityLogoContent}
-                                    >
-                                      <div
-                                        className={style.communityProfileMain}
-                                      >
-                                        <div className={style.profileLoaded}>
-                                          <img
-                                            className={style.communityProfile}
-                                            // need to profile image later
-                                            src={`https://a.thumbs.redditmedia.com/8rHqHJ86uZ8iHfejG2zZbLX9ThOAZUzCVOwgms0KCq4.png`}
-                                            alt={`alt`}
-                                          />
-                                        </div>
-                                      </div>
-                                    </span>
-                                  </span>
-                                  <span className={style.aboutCommunityMain}>
-                                    <span className={style.communityNameMain}>
-                                      <span
-                                        className={style.communityName}
-                                        style={{ color: theme.communityTxtClr }}
-                                      >
-                                        r/books
-                                      </span>
-                                    </span>
-                                    <span
-                                      className={style.membersMain}
-                                      style={{
-                                        color: theme.popularCommunitiesTxt,
-                                      }}
-                                    >
-                                      <span
-                                        className={style.membersTxtMain}
-                                        style={{
-                                          color: theme.popularCommunitiesTxt,
-                                        }}
-                                      >
-                                        {/* need to add members later */}
-                                        <span>{`24M`} members</span>
-                                      </span>
-                                    </span>
-                                  </span>
-                                </span>
-                                <span className={style.userShrink0}></span>
-                              </span>
-                            </li>
-                          </ul>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <NavSearchComp />
         </div>
         <div className={style.headerRightContent}>
           <div className={style.popularIconMain}>
             <div className={style.popularIconContent}>
               <span className={style.popularTabLink}>
-                <span className={style.popularIcon}>
-                  <OutboundOutlinedIcon />
-                </span>
+                <Tooltip title="View popular posts">
+                  <span className={style.popularIcon}>
+                    <OutboundOutlinedIcon />
+                  </span>
+                </Tooltip>
               </span>
             </div>
           </div>
@@ -464,79 +252,137 @@ function SubmitPageHeaderComp() {
               <div className={style.changeUsernameTooltip}>
                 <span className={style.messageIconMain}>
                   <span className={style.messageLink}>
-                    <span className={style.messageIcon}>
-                      <ChatBubbleOutlineOutlinedIcon />
-                    </span>
+                    <Tooltip title="Open chat">
+                      <span className={style.messageIcon}>
+                        <ChatBubbleOutlineOutlinedIcon />
+                      </span>
+                    </Tooltip>
                   </span>
                 </span>
                 <span className={style.notificationMain}>
                   <button className={style.notificationBtn}>
                     <div className={style.notificationBtnInner}>
-                      <span className={style.notificationIcon}>
-                        <NotificationsOutlinedIcon />
-                      </span>
+                      <Tooltip title="Open inbox">
+                        <span
+                          className={style.notificationIcon}
+                          ref={inboxBtnRef}
+                          onClick={(e) => handleNotificatoinClick(e)}
+                        >
+                          <NotificationsOutlinedIcon />
+                        </span>
+                      </Tooltip>
                     </div>
                   </button>
+                  {openInbox && (
+                    <div
+                      className={style.notificationContent}
+                      style={{
+                        borderColor: theme.borderLine,
+                        backgroundColor: theme.activeNavBg,
+                      }}
+                      ref={inboxContentRef}
+                    >
+                      <div className={style.overflowHidden}>
+                        <div className={style.notificationTop}>
+                          <div className={style.contentHeading}>
+                            <div className={style.contentHeaderCtr}>
+                              <span className={style.headingSemibold}>
+                                Notifications
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div className={style.notificationBtm}>
+                          <div className={style.notificationItmCtr}>
+                            <img
+                              className={style.notificationContentImg}
+                              src="	https://www.redditstatic.com/shreddit/assets/snoovatar-full-hi.png"
+                              alt="empty inbox image"
+                            />
+                            <p
+                              className={style.notificationTxt1}
+                              style={{ color: theme.navTabColor }}
+                            >
+                              Turn on email digest
+                            </p>
+                            <p
+                              className={style.notificationTxt2}
+                              style={{ color: theme.popularCommunitiesTxt }}
+                            >
+                              Stay in the loop on content from communities you
+                              love right in your email inbox.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </span>
                 <span className={style.createIconMain}>
                   <button className={style.createIconBtn}>
-                    <span className={style.createIcon}>
-                      <AddIcon />
-                    </span>
+                    <Tooltip title="Create post">
+                      <span className={style.createIcon}>
+                        <AddIcon />
+                      </span>
+                    </Tooltip>
                   </button>
                 </span>
                 <span className={style.advertiseMain}>
                   <span className={style.adLink}>
-                    <span className={style.adIcon}>
-                      <AdsClickOutlinedIcon />
-                    </span>
+                    <Tooltip title="Advertise on Reddit">
+                      <span className={style.adIcon}>
+                        <AdsClickOutlinedIcon />
+                      </span>
+                    </Tooltip>
                   </span>
                 </span>
                 <span className={style.emptyIcon}></span>
               </div>
               <div>
-                <button
-                  className={style.userDropdownId}
-                  style={{ borderColor: userDropdown ? "#EDEFF1" : "" }}
-                  onClick={handleUserDropdown}
-                  ref={profileRef}
-                >
-                  <span className={style.dropdownBtnInner}>
-                    <span className={style.userContentMain}>
-                      <div className={style.userProfileMain}>
-                        <AccountBoxIcon style={{ fontSize: "28px" }} />
-                        {onlineStatus && (
-                          <FiberManualRecordIcon
-                            style={{
-                              fontSize: "12px",
-                              marginLeft: "-10px",
-                              color: "green",
-                            }}
-                          />
-                        )}
-                      </div>
-                      <span className={style.userNameMain}>
-                        <span
-                          className={style.nameText}
-                          style={{ color: theme.headerClr }}
-                        >{`${
-                          localStorage.getItem("userName")
-                            ? localStorage.getItem("userName")
-                            : ""
-                        }`}</span>
-                        <span className={style.karma}>
-                          <span>1 karma</span>
+                <Tooltip title="Open profile menu">
+                  <button
+                    className={style.userDropdownId}
+                    style={{ borderColor: userDropdown ? "#EDEFF1" : "" }}
+                    onClick={handleUserDropdown}
+                    ref={profileRef}
+                  >
+                    <span className={style.dropdownBtnInner}>
+                      <span className={style.userContentMain}>
+                        <div className={style.userProfileMain}>
+                          <AccountBoxIcon style={{ fontSize: "28px" }} />
+                          {onlineStatus && (
+                            <FiberManualRecordIcon
+                              style={{
+                                fontSize: "12px",
+                                marginLeft: "-10px",
+                                color: "green",
+                              }}
+                            />
+                          )}
+                        </div>
+                        <span className={style.userNameMain}>
+                          <span
+                            className={style.nameText}
+                            style={{ color: theme.headerClr }}
+                          >{`${
+                            localStorage.getItem("userName")
+                              ? localStorage.getItem("userName")
+                              : ""
+                          }`}</span>
+                          <span className={style.karma}>
+                            <span>1 karma</span>
+                          </span>
                         </span>
                       </span>
+                      <span
+                        className={style.btmArrow}
+                        style={{ color: theme.arrowClr }}
+                      >
+                        <KeyboardArrowDownIcon />
+                      </span>
                     </span>
-                    <span
-                      className={style.btmArrow}
-                      style={{ color: theme.arrowClr }}
-                    >
-                      <KeyboardArrowDownIcon />
-                    </span>
-                  </span>
-                </button>
+                  </button>
+                </Tooltip>
                 {userDropdown && (
                   <div
                     className={style.userMenuMain}

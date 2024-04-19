@@ -34,6 +34,7 @@
   display: inline-flex;
   flex-direction: row;
   align-items: center;
+  cursor: pointer;
 }
 
 .logoTxt {
@@ -805,6 +806,7 @@
 }
 
 .notificationMain {
+  position: relative;
   margin-left: 8px;
   height: 32px;
 }
@@ -1217,4 +1219,94 @@
   font-weight: 400;
   line-height: 16px;
   color: #878a8c;
+}
+
+.notificationContent {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  margin: -0.5rem;
+  width: 346px;
+  min-width: 346px;
+  max-width: 346px;
+  pointer-events: auto;
+  z-index: 20;
+  /* border: 1px solid; */
+  border-radius: 20px;
+}
+
+.overflowHidden {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.notificationTop {
+  display: flex;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  padding-top: 0.25rem;
+  margin-bottom: 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.contentHeading {
+  padding: 0.5rem;
+}
+
+.contentHeaderCtr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.headingSemibold {
+  font-weight: 600;
+}
+
+.notificationBtm {
+  display: flex;
+  flex-direction: column;
+  scrollbar-width: none;
+  overflow: auto;
+}
+
+.notificationItmCtr {
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  max-width: 24rem;
+}
+
+.notificationContentImg {
+  margin-bottom: 2rem;
+  max-width: 100%;
+  max-height: 150px;
+}
+
+.notificationTxt1 {
+  margin: 0;
+  text-align: center;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.notificationTxt2 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  text-align: center;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  margin-bottom: 2rem;
+  font-weight: 400;
 }
