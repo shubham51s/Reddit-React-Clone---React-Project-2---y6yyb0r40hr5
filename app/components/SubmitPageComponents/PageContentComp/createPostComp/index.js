@@ -36,14 +36,11 @@ function CreateNewPostComp() {
   const [isPost, setIsPost] = useState(false);
   const [isSaveDraft, setIsSaveDraft] = useState(false);
   const [channels, setChannels] = useState([]);
-  const [community, setCommunity] = useState(
-    localStorage.getItem("userName")
-      ? { name: `u/${localStorage.getItem("userName")}`, _id: "1" }
-      : ""
-  );
+  const [community, setCommunity] = useState(null);
+  const [filteredData, setFilteredData] = useState([]);
 
   const defaultUserName = localStorage.getItem("userName")
-    ? { name: `u/${localStorage.getItem("userName")}`, _id: "1" }
+    ? { _id: "1", name: `u/${localStorage.getItem("userName")}` }
     : "";
 
   const [imgInput, setImgInput] = useState();
@@ -62,6 +59,19 @@ function CreateNewPostComp() {
       if (!resp.ok) return;
       const result = await resp.json();
       setChannels(result.data);
+
+      const filteredChannels = result.data.map(({ _id, name }) => ({
+        _id,
+        name,
+      }));
+
+      if (defaultUserName) {
+        setFilteredData([defaultUserName, ...filteredChannels]);
+        setCommunity(defaultUserName);
+      } else {
+        setFilteredData(filteredChannels);
+        setCommunity(filteredChannels[0]);
+      }
     } catch (err) {
       console.log(err.message ? err.message : err);
     }
@@ -72,10 +82,7 @@ function CreateNewPostComp() {
       const formData = new FormData();
       formData.append("title", titleInp);
       formData.append("content", textInput);
-      formData.append(
-        "images",
-        imgInput ? URL.createObjectURL(imgInput) : null
-      );
+      formData.append("images", imgInput ? imgInput : null);
 
       const resp = await fetch(
         "https://academics.newtonschool.co/api/v1/reddit/post/",
@@ -101,10 +108,7 @@ function CreateNewPostComp() {
       const formData = new FormData();
       formData.append("title", titleInp);
       formData.append("content", titleInp);
-      formData.append(
-        "images",
-        imgInput ? URL.createObjectURL(imgInput) : null
-      );
+      formData.append("images", imgInput ? imgInput : null);
       formData.append("channelId", channelId);
 
       const resp = await fetch(
@@ -140,22 +144,16 @@ function CreateNewPostComp() {
   const handleNewPost = () => {
     if (isLoggedIn) {
       if (titleInp.length >= 1) {
-        if (community.id === "1") {
+        if (community._id === "1") {
           addNewPost(localStorage.getItem("authToken"));
-        } else if (community.id) {
-          addCommunityPost(localStorage.getItem("authToken"), community.id);
+        } else if (community._id) {
+          addCommunityPost(localStorage.getItem("authToken"), community._id);
         }
       }
     }
   };
 
   const [value, setValue] = useState("");
-
-  const handleChange = (event, newValue) => {
-    if (newValue !== null) {
-      setCommunity(newValue);
-    }
-  };
 
   useEffect(() => {
     fetchPopularCommunities();
@@ -164,6 +162,12 @@ function CreateNewPostComp() {
   const handleInputChange = (event) => {
     if (event.target.files[0]) {
       setImgInput(event.target.files[0]);
+    }
+  };
+
+  const handleCommunityChange = (event, newValue) => {
+    if (newValue) {
+      setCommunity(newValue);
     }
   };
 
@@ -192,28 +196,20 @@ function CreateNewPostComp() {
           </button>
         </div>
         <div className={style.communityMain}>
-          {channels.length >= 1 && (
-            <Autocomplete
-              disablePortal
-              id="combo-box-demo"
-              value={community}
-              onChange={handleChange}
-              options={[
-                defaultUserName,
-                ...channels.map((channel) => ({
-                  name: channel.name,
-                  id: channel._id,
-                })),
-              ]}
-              getOptionLabel={(option) => option.name}
-              sx={{
-                width: 300,
-                height: 50,
-                backgroundColor: theme.headerBg,
-              }}
-              renderInput={(params) => <TextField {...params} label="" />}
-            />
-          )}
+          {/* {channels.length >= 1 && (
+            
+          )} */}
+          {/* autocomplete */}
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={filteredData}
+            getOptionLabel={(option) => option.name}
+            value={community}
+            onChange={handleCommunityChange}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} />}
+          />
         </div>
         <div
           className={style.createPostContent}
@@ -646,3 +642,23 @@ function CreateNewPostComp() {
 }
 
 export default CreateNewPostComp;
+
+const top100Films = [
+  { label: "The Shawshank Redemption", year: 1994 },
+  { label: "The Godfather", year: 1972 },
+  { label: "The Godfather: Part II", year: 1974 },
+  { label: "The Dark Knight", year: 2008 },
+  { label: "12 Angry Men", year: 1957 },
+  { label: "Schindler's List", year: 1993 },
+  { label: "Pulp Fiction", year: 1994 },
+  {
+    label: "The Lord of the Rings: The Return of the King",
+    year: 2003,
+  },
+  { label: "The Good, the Bad and the Ugly", year: 1966 },
+  { label: "Fight Club", year: 1999 },
+  {
+    label: "The Lord of the Rings: The Fellowship of the Ring",
+    year: 2001,
+  },
+];
