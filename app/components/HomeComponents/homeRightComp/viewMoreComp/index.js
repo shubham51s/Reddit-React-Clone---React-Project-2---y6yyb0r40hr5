@@ -116,7 +116,7 @@ function ViewMoreOptionComp({ postId, setPostResult }) {
                 <span></span>
               </div>
             </li>
-            <li className={style.listItem}>
+            {/* <li className={style.listItem}>
               <div
                 className={style.listItemMain}
                 style={{ color: theme.navTabColor }}
@@ -132,7 +132,7 @@ function ViewMoreOptionComp({ postId, setPostResult }) {
                 </span>
                 <span></span>
               </div>
-            </li>
+            </li> */}
           </div>
         )}
       </div>
