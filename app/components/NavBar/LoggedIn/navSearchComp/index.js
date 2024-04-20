@@ -7,8 +7,10 @@ import ClearIcon from "@mui/icons-material/Clear";
 import SearchIcon from "@mui/icons-material/Search";
 import { StyleOutlined } from "@mui/icons-material";
 import UserContext from "@/app/contexts/LoginContext";
+import { useRouter } from "next/navigation";
 
 function NavSearchComp() {
+  const router = useRouter();
   const { theme } = useContext(ThemeContext);
   const { setShowComments, setPostItem } = useContext(UserContext);
   const [userInput, setUserInput] = useState("");
@@ -74,8 +76,9 @@ function NavSearchComp() {
     if (item.channel) {
       sessionStorage.setItem("userChannelId", item.channel._id);
     }
-    setShowComments(true);
     setShowResults(false);
+    router.push("/");
+    setShowComments(true);
   };
 
   useEffect(() => {

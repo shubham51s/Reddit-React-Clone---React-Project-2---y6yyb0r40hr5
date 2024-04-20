@@ -5,6 +5,7 @@ import CreateNewPostComp from "./createPostComp";
 import PostRulesComp from "./postingRulesComp";
 import { TheaterComedy } from "@mui/icons-material";
 import ThemeContext from "@/app/contexts/ThemeContext";
+import UserContext from "@/app/contexts/LoginContext";
 
 function SubmitPageContentComp() {
   const { theme } = useContext(ThemeContext);

@@ -11,6 +11,7 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import UserContext from "@/app/contexts/LoginContext";
 import CommentRightComp from "./commentsRightComp";
 import DeleteCommentComp from "./deleteCommentComp";
+import DateFormatter from "../homeRightComp/daysFormatDate";
 
 function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
   const { theme } = useContext(ThemeContext);
@@ -203,7 +204,7 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
                         className={style.timeContainer}
                         style={{ color: theme.popularCommunitiesTxt }}
                       >
-                        {postItem.createdAt}
+                        <DateFormatter createdAt={postItem.createdAt} />
                       </div>
                     </span>
                     <div className={style.communityAbout}>

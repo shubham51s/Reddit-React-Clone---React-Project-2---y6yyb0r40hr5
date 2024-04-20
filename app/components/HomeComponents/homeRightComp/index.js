@@ -12,6 +12,7 @@ import UserContext from "@/app/contexts/LoginContext";
 import NoContentComp from "./noContent";
 import Tooltip from "@mui/material/Tooltip";
 import ViewMoreOptionComp from "./viewMoreComp";
+import DateFormatter from "./daysFormatDate";
 
 function HomeRightComp({
   popularCommunities,
@@ -108,11 +109,40 @@ function HomeRightComp({
                                   {item.channel.name}
                                 </span>
                               )}
-                              {!item.channel && (
-                                <span className={style.communityName}>
+
+                              {!isLoggedIn && !item.channel && (
+                                <span
+                                  className={style.communityName}
+                                  style={{ textTransform: "capitalize" }}
+                                >
                                   {item.author.name}
                                 </span>
                               )}
+
+                              {isLoggedIn &&
+                                item.author &&
+                                item.author._id ===
+                                  localStorage.getItem("userId") &&
+                                !item.channel && (
+                                  <span
+                                    className={style.communityName}
+                                    style={{
+                                      fontSize: "12px",
+                                      textTransform: "capitalize",
+                                    }}
+                                  >
+                                    You
+                                  </span>
+                                )}
+                              {isLoggedIn &&
+                                !item.channel &&
+                                item.author &&
+                                item.author._id !=
+                                  localStorage.getItem("userId") && (
+                                  <span className={style.communityName}>
+                                    {item.author.name}
+                                  </span>
+                                )}
                             </span>
                           </span>
                           <span
@@ -125,7 +155,7 @@ function HomeRightComp({
                             className={style.postTimeMain}
                             style={{ color: theme.popularCommunitiesTxt }}
                           >
-                            {item.createdAt}
+                            <DateFormatter createdAt={item.createdAt} />
                           </span>
                         </span>
                         <span className={style.creditBarRight}>
