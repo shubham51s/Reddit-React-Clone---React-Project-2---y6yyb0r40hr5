@@ -7,7 +7,7 @@ import { TheaterComedy } from "@mui/icons-material";
 import ThemeContext from "@/app/contexts/ThemeContext";
 import UserContext from "@/app/contexts/LoginContext";
 
-function SubmitPageContentComp() {
+function SubmitPageContentComp({ isChannelSelected }) {
   const { theme } = useContext(ThemeContext);
   return (
     <div className={style.mainContainer}>
@@ -20,7 +20,7 @@ function SubmitPageContentComp() {
           <div className={style.zIndex}>
             {/* need to add 2 extra div here if required */}
             <div className={style.mainContent}>
-              <CreateNewPostComp />
+              <CreateNewPostComp isChannelSelected={isChannelSelected} />
               <PostRulesComp />
             </div>
           </div>

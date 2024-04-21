@@ -17,7 +17,7 @@ import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { useRouter } from "next/navigation";
 import { keyframes } from "@emotion/react";
 
-function CreateNewPostComp() {
+function CreateNewPostComp({ isChannelSelected }) {
   const router = useRouter();
   const { isLoggedIn } = useContext(UserContext);
   const { theme } = useContext(ThemeContext);
@@ -144,10 +144,17 @@ function CreateNewPostComp() {
   const handleNewPost = () => {
     if (isLoggedIn) {
       if (titleInp.length >= 1) {
-        if (community._id === "1") {
-          addNewPost(localStorage.getItem("authToken"));
-        } else if (community._id) {
-          addCommunityPost(localStorage.getItem("authToken"), community._id);
+        if (isChannelSelected) {
+          addCommunityPost(
+            localStorage.getItem("authToken"),
+            sessionStorage.getItem("createPostId")
+          );
+        } else {
+          if (community._id === "1") {
+            addNewPost(localStorage.getItem("authToken"));
+          } else if (community._id) {
+            addCommunityPost(localStorage.getItem("authToken"), community._id);
+          }
         }
       }
     }
@@ -196,16 +203,27 @@ function CreateNewPostComp() {
           </button>
         </div>
         <div className={style.communityMain}>
-          <Autocomplete
-            disablePortal
-            id="combo-box-demo"
-            options={filteredData}
-            getOptionLabel={(option) => option.name}
-            value={community}
-            onChange={handleCommunityChange}
-            sx={{ width: 300, backgroundColor: theme.policyBg }}
-            renderInput={(params) => <TextField {...params} />}
-          />
+          {!isChannelSelected && (
+            <Autocomplete
+              disablePortal
+              id="combo-box-demo"
+              options={filteredData}
+              getOptionLabel={(option) => option.name}
+              value={community}
+              onChange={handleCommunityChange}
+              sx={{ width: 300, backgroundColor: theme.policyBg }}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          )}
+          {isChannelSelected && (
+            <div
+              className={style.selectedChannel}
+              style={{
+                backgroundColor: theme.policyBg,
+                color: theme.headerClr,
+              }}
+            >{`${sessionStorage.getItem("createPostChannel")}`}</div>
+          )}
         </div>
         <div
           className={style.createPostContent}
@@ -259,6 +277,9 @@ function CreateNewPostComp() {
                   style={{
                     color: theme.headerClr,
                     borderColor: theme.headerBorderClr,
+                    ":hover": {
+                      backgroundColor: "red",
+                    },
                   }}
                   maxLength={300}
                   placeholder="Title"

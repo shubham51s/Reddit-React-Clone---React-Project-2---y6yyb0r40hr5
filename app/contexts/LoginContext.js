@@ -14,6 +14,9 @@ export const UserProvider = ({ children }) => {
   const [postItem, setPostItem] = useState([]);
   const myProjectId = "y6yyb0r40hr5";
   const [createCommunityModal, setCreateCommunityModal] = useState(false);
+  const [isPopular, setIsPopular] = useState(
+    sessionStorage.getItem("popularResults") ? true : false
+  );
 
   return (
     <UserContext.Provider
@@ -31,6 +34,8 @@ export const UserProvider = ({ children }) => {
         myProjectId,
         createCommunityModal,
         setCreateCommunityModal,
+        isPopular,
+        setIsPopular,
       }}
     >
       {children}

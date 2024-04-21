@@ -722,6 +722,9 @@
 }
 
 .popularTabLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
   border-radius: 2px;
   height: 32px;
@@ -730,7 +733,15 @@
   cursor: pointer;
 }
 
+.popularTabLink:hover {
+  background-color: #93969ab3;
+  border-radius: 50%;
+}
+
 .popularIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -784,10 +795,15 @@
   position: relative;
   flex-direction: row;
   align-items: center;
-  padding: 0;
   width: 32px;
   height: 32px;
   border-radius: 2px;
+  cursor: pointer;
+}
+
+.messageLink:hover {
+  background-color: #93969ab3;
+  border-radius: 50%;
 }
 
 .messageIcon {
@@ -826,13 +842,24 @@
 }
 
 .notificationBtnInner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
   box-sizing: border-box;
   height: 32px;
   width: 32px;
 }
 
+.notificationBtnInner:hover {
+  background-color: #93969ab3;
+  border-radius: 50%;
+}
+
 .notificationIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -867,7 +894,15 @@
   cursor: pointer;
 }
 
+.createIconBtn:hover {
+  background-color: #93969ab3;
+  border-radius: 50%;
+}
+
 .createIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -892,7 +927,7 @@
   flex-direction: row;
   position: relative;
   align-items: center;
-  background-color: #93969ab3;
+  /* background-color: #93969ab3; */
   border-radius: 50px;
   padding: 0;
   height: 32px;
@@ -900,7 +935,15 @@
   cursor: pointer;
 }
 
+.adLink:hover {
+  background-color: #93969ab3;
+  border-radius: 50%;
+}
+
 .adIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-left: 7px;
   font-size: 18px;
   margin: 5px 5px 5px 7px;

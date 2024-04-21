@@ -636,6 +636,14 @@
   align-items: center;
 }
 
+.adevertizeLink:hover {
+  background-color: #b7bbc0b3;
+}
+
+.createLink:hover {
+  background-color: #b7bbc0b3;
+}
+
 .flex {
   display: flex;
 }

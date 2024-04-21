@@ -10,16 +10,28 @@ import UserContext from "@/app/contexts/LoginContext";
 
 function HomeLeftComp() {
   const { theme, setTheme } = useContext(ThemeContext);
-  const { setCreateCommunityModal, setUserLoginModal, isLoggedIn } =
-    useContext(UserContext);
-
-  const [activeTab, setActiveTab] = useState(1);
+  const {
+    setCreateCommunityModal,
+    setUserLoginModal,
+    isLoggedIn,
+    isPopular,
+    setIsPopular,
+  } = useContext(UserContext);
 
   const handleCreateCommunity = () => {
     if (isLoggedIn) {
       setCreateCommunityModal(true);
     } else {
       setUserLoginModal(true);
+    }
+  };
+
+  const sortResults = (input) => {
+    setIsPopular(input);
+    if (input) {
+      sessionStorage.setItem("popularResults", "true");
+    } else {
+      sessionStorage.removeItem("popularResults");
     }
   };
 
@@ -36,11 +48,10 @@ function HomeLeftComp() {
             <span
               className={style.navLink}
               style={{
-                color: activeTab === 0 ? theme.activeNavClr : theme.navTabColor,
-                backgroundColor:
-                  activeTab === 0 ? theme.activeNavBg : "transparent",
+                color: !isPopular ? theme.activeNavClr : theme.navTabColor,
+                backgroundColor: !isPopular ? theme.activeNavBg : "transparent",
               }}
-              onClick={() => setActiveTab(0)}
+              onClick={() => sortResults(false)}
             >
               <span className={style.navTabContent}>
                 <span className={style.iconMain}>
@@ -59,11 +70,10 @@ function HomeLeftComp() {
             <span
               className={style.navLink}
               style={{
-                color: activeTab === 1 ? theme.activeNavClr : theme.navTabColor,
-                backgroundColor:
-                  activeTab === 1 ? theme.activeNavBg : "transparent",
+                color: isPopular ? theme.activeNavClr : theme.navTabColor,
+                backgroundColor: isPopular ? theme.activeNavBg : "transparent",
               }}
-              onClick={() => setActiveTab(1)}
+              onClick={() => sortResults(true)}
             >
               <span className={style.navTabContent}>
                 <span className={style.iconMain}>

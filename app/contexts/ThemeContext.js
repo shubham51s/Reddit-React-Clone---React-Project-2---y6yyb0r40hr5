@@ -48,6 +48,8 @@ export const ThemeProvider = ({ children }) => {
       noificationBg: "#F6F7F8",
       postBtnBg: "#0079D3",
       createCommunityBg: "#ffffff",
+      createPostBtnClr: "#131517",
+      commentsRightBg: "#edf6fe",
     },
     dark: {
       borderLine: "#ffffff33",
@@ -88,6 +90,8 @@ export const ThemeProvider = ({ children }) => {
       noificationBg: "#272729",
       postBtnBg: "#D7DADC",
       createCommunityBg: "#0F1A1C",
+      createPostBtnClr: "#F2F4F5",
+      commentsRightBg: "#000910",
     },
   };
 

@@ -84,11 +84,10 @@ function ViewMoreOptionComp({ postId, setPostResult }) {
         >
           <span className={style.btnCenter}>
             <span className={style.flex} style={{ cursor: "pointer" }}>
-              <MoreHorizOutlinedIcon />
+              <MoreHorizOutlinedIcon style={{ color: theme.navTabColor }} />
             </span>
           </span>
         </button>
-        {/* below is onclick content */}
         {showContent && (
           <div
             className={style.moreContent}

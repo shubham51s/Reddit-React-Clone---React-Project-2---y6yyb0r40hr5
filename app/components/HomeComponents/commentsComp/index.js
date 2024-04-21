@@ -324,7 +324,6 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
               }}
             >
               <div>
-                {/* <div></div> */}
                 {!isAddComment && (
                   <div className={style.initialAdd}>
                     <button
@@ -390,7 +389,6 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
                 className={style.commentTree}
                 style={{ backgroundColor: theme.bgColor }}
               >
-                {/* below is comment list */}
                 {commentResults &&
                   commentResults.map((item) => (
                     <div style={{ marginBottom: "10px" }}>
@@ -460,8 +458,7 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
                                       color: theme.popularCommunitiesTxt,
                                     }}
                                   >
-                                    {/* need to add timing later */}
-                                    {`6h ago`}
+                                    <DateFormatter createdAt={item.createdAt} />
                                   </span>
                                 </div>
                               </div>
@@ -478,7 +475,10 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
                           )}
                       </div>
                       <div className={style.userCommentMain}>
-                        <div className={style.userCmntContent}>
+                        <div
+                          className={style.userCmntContent}
+                          style={{ color: theme.color }}
+                        >
                           {item.content}
                         </div>
                       </div>

@@ -26,7 +26,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { useRouter } from "next/navigation";
 import NavSearchComp from "../../NavBar/LoggedIn/navSearchComp";
 
-function SubmitPageHeaderComp() {
+function SubmitPageHeaderComp({ setIsChannelSelected }) {
   const { theme, handleThemeChange, isDarkMode, setIsDarkMode } =
     useContext(ThemeContext);
   const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
@@ -60,6 +60,13 @@ function SubmitPageHeaderComp() {
 
   const handleUserSearch = (e) => {
     setUserInput(e.target.value);
+  };
+
+  const handleCreatePostBtnClick = (e) => {
+    e.stopPropagation();
+    sessionStorage.removeItem("createPostId");
+    setIsChannelSelected(false);
+    setCreatePostDropdown(false);
   };
 
   const handleThemes = (e) => {
@@ -222,9 +229,17 @@ function SubmitPageHeaderComp() {
                   <span className={style.focusIcon}>
                     <AddIcon />
                   </span>
-                  <span className={style.focusTxt}>Create Post</span>
+                  <span
+                    className={style.focusTxt}
+                    onClick={(e) => handleCreatePostBtnClick(e)}
+                  >
+                    Create Post
+                  </span>
                 </span>
-                <span className={style.focusNotificationInbox}>
+                <span
+                  className={style.focusNotificationInbox}
+                  onClick={(e) => handleNotificatoinClick(e)}
+                >
                   <span className={style.focusIcon}>
                     <NotificationsOutlinedIcon />
                   </span>
@@ -321,7 +336,10 @@ function SubmitPageHeaderComp() {
                 <span className={style.createIconMain}>
                   <button className={style.createIconBtn}>
                     <Tooltip title="Create post">
-                      <span className={style.createIcon}>
+                      <span
+                        className={style.createIcon}
+                        onClick={(e) => handleCreatePostBtnClick(e)}
+                      >
                         <AddIcon />
                       </span>
                     </Tooltip>

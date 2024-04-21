@@ -23,3 +23,7 @@
   text-decoration: none;
   white-space: nowrap;
 }
+
+.joinBtn:hover {
+  background-color: #063780;
+}

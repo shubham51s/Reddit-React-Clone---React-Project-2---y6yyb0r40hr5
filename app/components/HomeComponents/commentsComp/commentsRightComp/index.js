@@ -5,10 +5,13 @@ import { TheaterComedy } from "@mui/icons-material";
 import ThemeContext from "@/app/contexts/ThemeContext";
 import RulesComp from "./rulesComponent";
 import UserContext from "@/app/contexts/LoginContext";
+import AddIcon from "@mui/icons-material/Add";
+import { useRouter } from "next/navigation";
 
 function CommentRightComp({ showUserName, setShowUserName }) {
   const { isLoggedIn, postItem, showComments } = useContext(UserContext);
   const { theme } = useContext(ThemeContext);
+  const router = useRouter();
   const [isJoined, setIsJoined] = useState(false);
   const [userData, setUserData] = useState([]);
   const [userFollowed, setUserFollowed] = useState(false);
@@ -90,6 +93,15 @@ function CommentRightComp({ showUserName, setShowUserName }) {
     }
   };
 
+  const handleCreatePostClick = (e, postItem) => {
+    e.stopPropagation();
+    const channelId = postItem.channel._id;
+    const channelName = postItem.channel.name;
+    sessionStorage.setItem("createPostId", channelId);
+    sessionStorage.setItem("createPostChannel", channelName);
+    router.push("/submit");
+  };
+
   useEffect(() => {
     setUserFollowed(false);
     setIsJoined(false);
@@ -111,7 +123,7 @@ function CommentRightComp({ showUserName, setShowUserName }) {
       <div>
         <div
           className={style.communityInformation}
-          style={{ backgroundColor: theme.commentBg }}
+          style={{ backgroundColor: theme.commentsRightBg }}
         >
           <div className={style.padding}>
             {isLoggedIn && userData && !showUserName && (
@@ -123,6 +135,42 @@ function CommentRightComp({ showUserName, setShowUserName }) {
                         <div
                           className={style.prefixedName}
                           style={{ textTransform: "lowercase" }}
+                        ></div>
+                      </span>
+                    </span>
+                    <div className={style.createPostMain}>
+                      <span
+                        className={style.createPostInner}
+                        style={{
+                          borderColor: theme.borderLine,
+                          color: theme.createPostBtnClr,
+                        }}
+                      >
+                        <span className={style.createPostBtn}>
+                          <span className={style.flexBtn}>
+                            <AddIcon />
+                          </span>
+                          <span
+                            className={style.createPostText}
+                            onClick={(e) => handleCreatePostClick(e, postItem)}
+                          >
+                            Create a post
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className={style.aboutCommunityMain}>
+                  <div className={style.communityHeader}>
+                    <span className={style.communityHeadingMain}>
+                      <span className={style.communityLink}>
+                        <div
+                          className={style.prefixedName}
+                          style={{
+                            textTransform: "lowercase",
+                            color: theme.activeNavClr,
+                          }}
                         >
                           {"r/"}
                           {userData.name}

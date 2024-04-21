@@ -80,6 +80,11 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer, setIsGetRedditApp }) {
     setIsGetRedditApp(true);
   };
 
+  const handleCreatePostBtnClick = (e) => {
+    sessionStorage.removeItem("createPostId");
+    router.push("submit");
+  };
+
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (
@@ -195,7 +200,7 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer, setIsGetRedditApp }) {
                       <Tooltip title="Create post">
                         <span
                           className={style.adevertizeIconMain}
-                          onClick={(e) => router.push("submit")}
+                          onClick={(e) => handleCreatePostBtnClick(e)}
                         >
                           <span className={style.createIconMain}>
                             <AddOutlinedIcon style={{ fontSize: "1.6rem" }} />

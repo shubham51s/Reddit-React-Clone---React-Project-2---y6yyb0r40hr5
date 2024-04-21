@@ -21,6 +21,8 @@ function HomePage() {
     isLoggedIn,
     createCommunityModal,
     setCreateCommunityModal,
+    isPopular,
+    setIsPopular,
   } = useContext(UserContext);
   const { theme } = useContext(ThemeContext);
 
@@ -61,7 +63,12 @@ function HomePage() {
       );
       if (!resp.ok) return;
       const result = await resp.json();
-      setPostResult(result.data);
+      if (isPopular) {
+        const sortedData = result.data.sort(
+          (a, b) => b.likeCount - a.likeCount
+        );
+        setPostResult(sortedData);
+      } else [setPostResult(result.data)];
     } catch (err) {
       console.log(err.message ? err.message : err);
     }
@@ -80,20 +87,25 @@ function HomePage() {
       );
       if (!resp.ok) return;
       const result = await resp.json();
-      setPostResult(result.data);
+      if (isPopular) {
+        const sortedData = result.data.sort(
+          (a, b) => b.likeCount - a.likeCount
+        );
+        setPostResult(sortedData);
+      } else [setPostResult(result.data)];
     } catch (err) {
       console.log(err.message ? err.message : err);
     }
   };
 
   useEffect(() => {
-    fetchPopularCommunities();
     if (isLoggedIn) {
       fetchLoggedInPosts(localStorage.getItem("authToken"));
     } else {
       fetchPosts();
     }
-  }, []);
+    fetchPopularCommunities();
+  }, [isPopular]);
 
   return (
     <>
