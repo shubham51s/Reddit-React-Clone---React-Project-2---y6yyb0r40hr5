@@ -5,9 +5,11 @@ import ThemeContext from "@/app/contexts/ThemeContext";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import UserContext from "@/app/contexts/LoginContext";
 
 function ViewMoreOptionComp({ postId, setPostResult }) {
   const { theme } = useContext(ThemeContext);
+  const { isPopular } = useContext(UserContext);
   const [showContent, setShowContent] = useState(false);
   const menuRef = useRef(null);
   const contentRef = useRef(null);
@@ -43,7 +45,14 @@ function ViewMoreOptionComp({ postId, setPostResult }) {
       );
       if (!resp.ok) return;
       const result = await resp.json();
-      setPostResult(result.data);
+      if (isPopular) {
+        const sortedData = result.data.sort(
+          (a, b) => b.likeCount - a.likeCount
+        );
+        setPostResult(sortedData);
+      } else {
+        setPostResult(result.data);
+      }
       setShowContent(false);
     } catch (err) {
       console.log(err.message ? err.message : err);

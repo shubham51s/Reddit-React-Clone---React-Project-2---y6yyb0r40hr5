@@ -10,16 +10,29 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 
 function HomeLeftDrawerComp() {
   const { theme } = useContext(ThemeContext);
-  const [activeTab, setActiveTab] = useState(1);
   const drawerRef = useRef(null);
-  const { setCreateCommunityModal, setUserLoginModal, isLoggedIn } =
-    useContext(UserContext);
+  const {
+    setCreateCommunityModal,
+    setUserLoginModal,
+    isLoggedIn,
+    isPopular,
+    setIsPopular,
+  } = useContext(UserContext);
 
   const handleCreateCommunity = () => {
     if (isLoggedIn) {
       setCreateCommunityModal(true);
     } else {
       setUserLoginModal(true);
+    }
+  };
+
+  const sortResults = (input) => {
+    setIsPopular(input);
+    if (input) {
+      sessionStorage.setItem("popularResults", "true");
+    } else {
+      sessionStorage.removeItem("popularResults");
     }
   };
 
@@ -37,11 +50,10 @@ function HomeLeftDrawerComp() {
             <span
               className={style.navLink}
               style={{
-                color: activeTab === 0 ? theme.activeNavClr : theme.navTabColor,
-                backgroundColor:
-                  activeTab === 0 ? theme.activeNavBg : "transparent",
+                color: !isPopular ? theme.activeNavClr : theme.navTabColor,
+                backgroundColor: !isPopular ? theme.activeNavBg : "transparent",
               }}
-              onClick={() => setActiveTab(0)}
+              onClick={() => sortResults(false)}
             >
               <span className={style.navTabContent}>
                 <span className={style.iconMain}>
@@ -60,11 +72,10 @@ function HomeLeftDrawerComp() {
             <span
               className={style.navLink}
               style={{
-                color: activeTab === 1 ? theme.activeNavClr : theme.navTabColor,
-                backgroundColor:
-                  activeTab === 1 ? theme.activeNavBg : "transparent",
+                color: isPopular ? theme.activeNavClr : theme.navTabColor,
+                backgroundColor: isPopular ? theme.activeNavBg : "transparent",
               }}
-              onClick={() => setActiveTab(1)}
+              onClick={() => sortResults(true)}
             >
               <span className={style.navTabContent}>
                 <span className={style.iconMain}>

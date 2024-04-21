@@ -24,6 +24,7 @@ function CommentsComp({
     setPostItem,
     myProjectId,
     showComments,
+    isPopular,
   } = useContext(UserContext);
 
   const [upVote, setUpVote] = useState(false);
@@ -42,7 +43,14 @@ function CommentsComp({
       );
       if (!resp.ok) return;
       const result = await resp.json();
-      setPostResult(result.data);
+      if (isPopular) {
+        const sortedData = result.data.sort(
+          (a, b) => b.likeCount - a.likeCount
+        );
+        setPostResult(sortedData);
+      } else {
+        setPostResult(result.data);
+      }
     } catch (err) {
       console.log(err.message ? err.message : err);
     }

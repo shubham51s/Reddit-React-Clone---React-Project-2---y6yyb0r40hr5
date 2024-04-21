@@ -68,7 +68,9 @@ function HomePage() {
           (a, b) => b.likeCount - a.likeCount
         );
         setPostResult(sortedData);
-      } else [setPostResult(result.data)];
+      } else {
+        setPostResult(result.data);
+      }
     } catch (err) {
       console.log(err.message ? err.message : err);
     }
@@ -92,7 +94,9 @@ function HomePage() {
           (a, b) => b.likeCount - a.likeCount
         );
         setPostResult(sortedData);
-      } else [setPostResult(result.data)];
+      } else {
+        setPostResult(result.data);
+      }
     } catch (err) {
       console.log(err.message ? err.message : err);
     }
