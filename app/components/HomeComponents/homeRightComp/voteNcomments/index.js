@@ -15,6 +15,8 @@ function CommentsComp({
   setPostResult,
   isLiked,
   isDisliked,
+  sortValue,
+  postResult,
 }) {
   const { theme, setTheme } = useContext(ThemeContext);
   const {
@@ -50,6 +52,17 @@ function CommentsComp({
         setPostResult(sortedData);
       } else {
         setPostResult(result.data);
+      }
+      if (sortValue != 1) {
+        if (val == 2) {
+          postResult.sort((a, b) => b.dislikeCount - a.dislikeCount);
+        } else if (val == 3) {
+          postResult.sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          );
+        } else if (val == 4) {
+          postResult.sort((a, b) => b.likeCount - a.likeCount);
+        }
       }
     } catch (err) {
       console.log(err.message ? err.message : err);

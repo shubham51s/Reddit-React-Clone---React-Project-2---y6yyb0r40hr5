@@ -7,30 +7,12 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import UserContext from "@/app/contexts/LoginContext";
 
-function ViewMoreOptionComp({ postId, setPostResult }) {
+function ViewMoreOptionComp({ postId, setPostResult, sortValue, postResult }) {
   const { theme } = useContext(ThemeContext);
   const { isPopular } = useContext(UserContext);
   const [showContent, setShowContent] = useState(false);
   const menuRef = useRef(null);
   const contentRef = useRef(null);
-
-  const deletePost = async (id, token) => {
-    try {
-      const resp = await fetch(
-        `https://academics.newtonschool.co/api/v1/reddit/post/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            projectID: "y6yyb0r40hr5",
-          },
-        }
-      );
-      fetchLoggedInPosts(token);
-    } catch (err) {
-      console.log(err.message ? err.message : err);
-    }
-  };
 
   const fetchLoggedInPosts = async (token) => {
     try {
@@ -53,7 +35,36 @@ function ViewMoreOptionComp({ postId, setPostResult }) {
       } else {
         setPostResult(result.data);
       }
+      if (sortValue != 1) {
+        if (val == 2) {
+          postResult.sort((a, b) => b.dislikeCount - a.dislikeCount);
+        } else if (val == 3) {
+          postResult.sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          );
+        } else if (val == 4) {
+          postResult.sort((a, b) => b.likeCount - a.likeCount);
+        }
+      }
       setShowContent(false);
+    } catch (err) {
+      console.log(err.message ? err.message : err);
+    }
+  };
+
+  const deletePost = async (id, token) => {
+    try {
+      const resp = await fetch(
+        `https://academics.newtonschool.co/api/v1/reddit/post/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            projectID: "y6yyb0r40hr5",
+          },
+        }
+      );
+      fetchLoggedInPosts(token);
     } catch (err) {
       console.log(err.message ? err.message : err);
     }

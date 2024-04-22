@@ -20,6 +20,8 @@ function HomeRightComp({
   setImgOnly,
   setImgUrl,
   setPostResult,
+  sortValue,
+  setSortValue,
 }) {
   const { theme, setTheme } = useContext(ThemeContext);
   const { isLoggedIn, setPostItem } = useContext(UserContext);
@@ -34,12 +36,17 @@ function HomeRightComp({
     <div className={style.mainContainer}>
       <div className={style.mainContent}>
         <main className={style.homeContent}>
-          <SortComp theme={theme} />
+          <SortComp
+            theme={theme}
+            sortValue={sortValue}
+            setSortValue={setSortValue}
+            postResult={postResult}
+            setPostResult={setPostResult}
+          />
           <hr
             className={style.sortBtmBorder}
             style={{ borderBottomColor: theme.sortBtmBorderClr }}
           ></hr>
-          {/* when data is not avaiable */}
           {postResult.length === 0 && <NoContentComp />}
           {/* card */}
           <div>
@@ -178,6 +185,8 @@ function HomeRightComp({
                               <ViewMoreOptionComp
                                 postId={item._id}
                                 setPostResult={setPostResult}
+                                postResult={postResult}
+                                sortValue={sortValue}
                               />
                             )}
                         </span>
@@ -228,6 +237,8 @@ function HomeRightComp({
                         setPostResult={setPostResult}
                         isLiked={item.isLiked}
                         isDisliked={item.isDisliked}
+                        postResult={postResult}
+                        sortValue={sortValue}
                       />
                     </div>
                     <hr

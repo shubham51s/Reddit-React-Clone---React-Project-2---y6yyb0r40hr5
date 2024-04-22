@@ -32,6 +32,7 @@ function HomePage() {
   const [isGetRedditApp, setIsGetRedditApp] = useState(false);
   const [popularCommunities, setPopularCommunities] = useState([]);
   const [postResult, setPostResult] = useState([]);
+  const [sortValue, setSortValue] = useState(1);
 
   const fetchPopularCommunities = async () => {
     try {
@@ -103,6 +104,7 @@ function HomePage() {
   };
 
   useEffect(() => {
+    setSortValue(1);
     if (isLoggedIn) {
       fetchLoggedInPosts(localStorage.getItem("authToken"));
     } else {
@@ -141,6 +143,8 @@ function HomePage() {
             setShowComments={setShowComments}
             setImgOnly={setImgOnly}
             setImgUrl={setImgUrl}
+            sortValue={sortValue}
+            setSortValue={setSortValue}
           />
         )}
         {showComments && (

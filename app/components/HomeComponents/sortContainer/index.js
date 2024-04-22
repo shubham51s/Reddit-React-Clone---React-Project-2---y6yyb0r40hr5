@@ -5,19 +5,84 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ViewAgendaOutlinedIcon from "@mui/icons-material/ViewAgendaOutlined";
 import ThemeContext from "@/app/contexts/ThemeContext";
 import Tooltip from "@mui/material/Tooltip";
+import UserContext from "@/app/contexts/LoginContext";
 
-function SortComp() {
+function SortComp({ sortValue, setSortValue, postResult, setPostResult }) {
   const { theme, setTheme } = useContext(ThemeContext);
+  const { isLoggedIn, isPopular } = useContext(UserContext);
 
-  const [sortValue, setSortValue] = useState(1);
   const [cardValue, setCardValue] = useState(1);
-
-  const handleSorting = (val) => {
-    setSortValue(val);
-  };
 
   const handleCardType = (val) => {
     setCardValue(val);
+  };
+
+  const fetchPosts = async () => {
+    try {
+      const resp = await fetch(
+        "https://academics.newtonschool.co/api/v1/reddit/post?limit=100",
+        {
+          headers: {
+            projectID: "y6yyb0r40hr5",
+          },
+        }
+      );
+      if (!resp.ok) return;
+      const result = await resp.json();
+      if (isPopular) {
+        const sortedData = result.data.sort(
+          (a, b) => b.likeCount - a.likeCount
+        );
+        setPostResult(sortedData);
+      } else {
+        setPostResult(result.data);
+      }
+    } catch (err) {
+      console.log(err.message ? err.message : err);
+    }
+  };
+
+  const fetchLoggedInPosts = async (token) => {
+    try {
+      const resp = await fetch(
+        "https://academics.newtonschool.co/api/v1/reddit/post?limit=100",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            projectID: "y6yyb0r40hr5",
+          },
+        }
+      );
+      if (!resp.ok) return;
+      const result = await resp.json();
+      if (isPopular) {
+        const sortedData = result.data.sort(
+          (a, b) => b.likeCount - a.likeCount
+        );
+        setPostResult(sortedData);
+      } else {
+        setPostResult(result.data);
+      }
+    } catch (err) {
+      console.log(err.message ? err.message : err);
+    }
+  };
+
+  const handleSorting = (val) => {
+    setSortValue(val);
+    if (val == 1) {
+      if (isLoggedIn) {
+        fetchLoggedInPosts(localStorage.getItem("authToken"));
+      } else {
+        fetchPosts();
+      }
+    } else if (val == 2) {
+      postResult.sort((a, b) => b.dislikeCount - a.dislikeCount);
+    } else if (val == 3) {
+      postResult.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    } else if (val == 4) {
+      postResult.sort((a, b) => b.likeCount - a.likeCount);
+    }
   };
 
   return (
@@ -41,7 +106,7 @@ function SortComp() {
                   }}
                   value={1}
                 >
-                  Hot
+                  Best
                 </option>
                 <option
                   className={style.optionList}
@@ -53,7 +118,7 @@ function SortComp() {
                   }}
                   value={2}
                 >
-                  Best
+                  Hot
                 </option>
                 <option
                   className={style.optionList}
