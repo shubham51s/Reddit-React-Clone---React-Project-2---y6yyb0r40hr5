@@ -29,7 +29,13 @@ import NavSearchComp from "../../NavBar/LoggedIn/navSearchComp";
 function SubmitPageHeaderComp({ setIsChannelSelected }) {
   const { theme, handleThemeChange, isDarkMode, setIsDarkMode } =
     useContext(ThemeContext);
-  const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
+  const {
+    isLoggedIn,
+    setIsLoggedIn,
+    setIsPopular,
+    isPopular,
+    setShowComments,
+  } = useContext(UserContext);
   const router = useRouter();
   const userRef = useRef(null);
   const profileRef = useRef(null);
@@ -95,6 +101,17 @@ function SubmitPageHeaderComp({ setIsChannelSelected }) {
   const handleNotificatoinClick = (e) => {
     e.stopPropagation();
     setOpenInbox(!openInbox);
+  };
+
+  const sortResults = (input) => {
+    setIsPopular(input);
+    if (input) {
+      sessionStorage.setItem("popularResults", "true");
+      router.push("/");
+    } else {
+      sessionStorage.removeItem("popularResults");
+      router.push("/");
+    }
   };
 
   useEffect(() => {
@@ -202,13 +219,27 @@ function SubmitPageHeaderComp({ setIsChannelSelected }) {
                 <div className={style.feeds} style={{ color: theme.arrowClr }}>
                   Feeds
                 </div>
-                <span className={style.focusHome}>
+                <span
+                  className={style.focusHome}
+                  style={{
+                    color: !isPopular ? theme.activeNavClr : theme.navTabColor,
+                    backgroundColor: !isPopular ? theme.activeNavBg : "",
+                  }}
+                  onClick={() => sortResults(false)}
+                >
                   <span className={style.focusIcon}>
                     <HomeOutlinedIcon />
                   </span>
                   <span className={style.focusTxt}>Home</span>
                 </span>
-                <span className={style.focusPopular}>
+                <span
+                  className={style.focusPopular}
+                  style={{
+                    color: isPopular ? theme.activeNavClr : theme.navTabColor,
+                    backgroundColor: isPopular ? theme.activeNavBg : "",
+                  }}
+                  onClick={() => sortResults(true)}
+                >
                   <span className={style.focusIcon}>
                     <OutboundOutlinedIcon />
                   </span>
@@ -255,7 +286,10 @@ function SubmitPageHeaderComp({ setIsChannelSelected }) {
             <div className={style.popularIconContent}>
               <span className={style.popularTabLink}>
                 <Tooltip title="View popular posts">
-                  <span className={style.popularIcon}>
+                  <span
+                    className={style.popularIcon}
+                    onClick={() => sortResults(true)}
+                  >
                     <OutboundOutlinedIcon />
                   </span>
                 </Tooltip>

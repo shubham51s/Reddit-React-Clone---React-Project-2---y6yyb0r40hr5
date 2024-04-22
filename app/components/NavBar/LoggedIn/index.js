@@ -34,7 +34,7 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer, setIsGetRedditApp }) {
   const router = useRouter();
   const { theme, handleThemeChange, isDarkMode, setIsDarkMode } =
     useContext(ThemeContext);
-  const { setUserLoginModal, setIsLoggedIn, isLoggedIn } =
+  const { setUserLoginModal, setIsLoggedIn, isLoggedIn, setShowComments } =
     useContext(UserContext);
   const [loginUserDrawer, setLoginUserDrawer] = useState(false);
   const [isDrawer, setIsDrawer] = useState(false);
@@ -85,6 +85,12 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer, setIsGetRedditApp }) {
     router.push("submit");
   };
 
+  const handleLogoClick = (e) => {
+    e.stopPropagation();
+    router.push("/");
+    setShowComments(false);
+  };
+
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (
@@ -133,7 +139,10 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer, setIsGetRedditApp }) {
               isNavDrawer={isNavDrawer}
             />
 
-            <Link href="/" className={style.redditLogoLink}>
+            <span
+              className={style.redditLogoLink}
+              onClick={(e) => handleLogoClick(e)}
+            >
               <Tooltip title="Go to Reddit Home">
                 <span className={style.redditLogo}>
                   <span className={style.redditIcon}>
@@ -153,7 +162,7 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer, setIsGetRedditApp }) {
                   </span>
                 </span>
               </Tooltip>
-            </Link>
+            </span>
           </div>
           <NavSearchComp />
           {isLoggedIn && (

@@ -16,6 +16,7 @@ function HomeLeftComp() {
     isLoggedIn,
     isPopular,
     setIsPopular,
+    setShowComments,
   } = useContext(UserContext);
 
   const handleCreateCommunity = () => {
@@ -33,6 +34,7 @@ function HomeLeftComp() {
     } else {
       sessionStorage.removeItem("popularResults");
     }
+    setShowComments(false);
   };
 
   return (
@@ -41,8 +43,6 @@ function HomeLeftComp() {
       style={{ borderColor: theme.borderLine }}
     >
       <nav className={style.navContainer}>
-        {/* need to add other navigation tab */}
-        {/* need to add later */}
         <div>
           <li className={style.navList}>
             <span

@@ -340,6 +340,7 @@ function LoginComp() {
                     label="Password"
                     id="filled-size-normal"
                     variant="filled"
+                    type="password"
                     value={userPass}
                     onChange={(e) => handlePasswordChange(e)}
                   />
@@ -390,6 +391,7 @@ function LoginComp() {
                     label="Password"
                     id="filled-size-normal"
                     variant="filled"
+                    type="password"
                     value={userPass}
                     onChange={(e) => handlePasswordChange(e)}
                   />

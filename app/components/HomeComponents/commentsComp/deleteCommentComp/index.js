@@ -70,7 +70,9 @@ function DeleteCommentComp({ commentId, fetchComments }) {
         >
           <span className={style.btnCenter}>
             <span className={style.flex} style={{ cursor: "pointer" }}>
-              <MoreHorizOutlinedIcon />
+              <MoreHorizOutlinedIcon
+                style={{ color: theme.popularCommunitiesTxt }}
+              />
             </span>
           </span>
         </button>

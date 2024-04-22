@@ -43,6 +43,9 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
       if (!resp.json) return;
 
       const result = await resp.json();
+      const sortedComments = result.data.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
       setCommentResults(result.data);
     } catch (err) {
       console.log(err.message ? err.message : err);
@@ -301,7 +304,9 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
               <div className={style.adduserCommentMain}>
                 <button
                   className={style.addCommentBtn}
-                  style={{ color: theme.navTabColor }}
+                  style={{
+                    color: theme.navTabColor,
+                  }}
                   onClick={handleAddComment}
                 >
                   <span className={style.addCmntCtr}>
@@ -325,12 +330,15 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
             >
               <div>
                 {!isAddComment && (
-                  <div className={style.initialAdd}>
+                  <div
+                    className={style.initialAdd}
+                    style={{ backgroundColor: theme.activeNavBg }}
+                  >
                     <button
                       className={style.triggerAddCmntBtn}
                       style={{
                         color: theme.addCmntBtnClr,
-                        backgroundColor: theme.addCommentBg,
+                        backgroundColor: theme.activeNavBg,
                         borderColor: theme.borderColor,
                       }}
                       onClick={() => setIsAddComment(true)}
@@ -340,11 +348,15 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
                   </div>
                 )}
                 {isAddComment && (
-                  <div className={style.loginAddCmntMain}>
+                  <div
+                    className={style.loginAddCmntMain}
+                    style={{ backgroundColor: theme.activeNavBg }}
+                  >
                     <div className={style.cmntWidthFull}>
                       <div className={style.addComntInput}>
                         <input
                           className={style.commentInput}
+                          style={{ color: theme.activeNavClr }}
                           type="text"
                           value={commentInput}
                           onChange={(e) => setCommentInput(e.target.value)}
@@ -451,7 +463,12 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
                                       </span>
                                     )}
                                   </div>
-                                  <span className={style.dot}>•</span>
+                                  <span
+                                    className={style.dot}
+                                    style={{ color: theme.navTabColor }}
+                                  >
+                                    •
+                                  </span>
                                   <span
                                     className={style.commentTimingMain}
                                     style={{

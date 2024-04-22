@@ -151,7 +151,7 @@ function HomePage() {
           />
         )}
         <HomeLeftComp />
-        {isNavDrawer && <HomeLeftDrawerComp />}
+        {isNavDrawer && <HomeLeftDrawerComp setIsNavDrawer={setIsNavDrawer} />}
       </div>
     </>
   );
