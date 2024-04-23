@@ -174,6 +174,11 @@ function SubmitPageHeaderComp({ setIsChannelSelected }) {
     };
   }, []);
 
+  const showAlert = (e) => {
+    e.stopPropagation();
+    alert("Feature coming soon");
+  };
+
   return (
     <header
       className={style.headerContainer}
@@ -304,7 +309,10 @@ function SubmitPageHeaderComp({ setIsChannelSelected }) {
             <div className={style.rightSideContent}>
               <div className={style.changeUsernameTooltip}>
                 <span className={style.messageIconMain}>
-                  <span className={style.messageLink}>
+                  <span
+                    className={style.messageLink}
+                    onClick={(e) => showAlert(e)}
+                  >
                     <Tooltip title="Open chat">
                       <span className={style.messageIcon}>
                         <ChatBubbleOutlineOutlinedIcon />
@@ -384,7 +392,7 @@ function SubmitPageHeaderComp({ setIsChannelSelected }) {
                   </button>
                 </span>
                 <span className={style.advertiseMain}>
-                  <span className={style.adLink}>
+                  <span className={style.adLink} onClick={(e) => showAlert(e)}>
                     <Tooltip title="Advertise on Reddit">
                       <span className={style.adIcon}>
                         <AdsClickOutlinedIcon />

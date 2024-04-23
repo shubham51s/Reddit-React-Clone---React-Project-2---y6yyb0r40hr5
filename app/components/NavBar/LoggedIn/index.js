@@ -91,6 +91,11 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer, setIsGetRedditApp }) {
     setShowComments(false);
   };
 
+  const showAlert = (e) => {
+    e.stopPropagation();
+    alert("Feature coming soon");
+  };
+
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (
@@ -175,7 +180,10 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer, setIsGetRedditApp }) {
                       style={{ color: theme.navTabColor }}
                     >
                       <span className={style.adevertizeIconMain}>
-                        <span className={style.flex}>
+                        <span
+                          className={style.flex}
+                          onClick={(e) => showAlert(e)}
+                        >
                           <Tooltip title="Advertise on Reddit">
                             <AdsClickIcon />
                           </Tooltip>
@@ -191,7 +199,10 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer, setIsGetRedditApp }) {
                       style={{ color: theme.navTabColor }}
                     >
                       <span className={style.adevertizeIconMain}>
-                        <span className={style.flex}>
+                        <span
+                          className={style.flex}
+                          onClick={(e) => showAlert(e)}
+                        >
                           <Tooltip title="Open chat">
                             <TextsmsOutlinedIcon />
                           </Tooltip>
