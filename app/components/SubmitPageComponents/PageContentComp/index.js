@@ -18,7 +18,6 @@ function SubmitPageContentComp({ isChannelSelected }) {
         >
           <div></div>
           <div className={style.zIndex}>
-            {/* need to add 2 extra div here if required */}
             <div className={style.mainContent}>
               <CreateNewPostComp isChannelSelected={isChannelSelected} />
               <PostRulesComp />

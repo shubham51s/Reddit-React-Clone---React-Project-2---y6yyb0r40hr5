@@ -39,9 +39,7 @@ function CreateNewPostComp({ isChannelSelected }) {
   const [community, setCommunity] = useState(null);
   const [filteredData, setFilteredData] = useState([]);
 
-  const defaultUserName = localStorage.getItem("userName")
-    ? { _id: "1", name: `u/${localStorage.getItem("userName")}` }
-    : "";
+  const [defaultUserName, setDefaultUserName] = useState("");
 
   const [imgInput, setImgInput] = useState(null);
   const [showImg, setShowImg] = useState(true);
@@ -143,8 +141,8 @@ function CreateNewPostComp({ isChannelSelected }) {
 
   const handleNewPost = () => {
     if (isLoggedIn) {
-      if (titleInp.length >= 1) {
-        if (isChannelSelected) {
+      if (titleInp.length >= 1 && localStorage.getItem("authToken")) {
+        if (isChannelSelected && sessionStorage.getItem("createPostId")) {
           addCommunityPost(
             localStorage.getItem("authToken"),
             sessionStorage.getItem("createPostId")
@@ -164,6 +162,12 @@ function CreateNewPostComp({ isChannelSelected }) {
 
   useEffect(() => {
     fetchPopularCommunities();
+    if (localStorage.getItem("userName")) {
+      setDefaultUserName({
+        _id: "1",
+        name: `u/${localStorage.getItem("userName")}`,
+      });
+    }
   }, []);
 
   const handleInputChange = (event) => {

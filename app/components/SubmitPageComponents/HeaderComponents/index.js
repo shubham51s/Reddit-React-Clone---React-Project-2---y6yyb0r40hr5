@@ -51,6 +51,7 @@ function SubmitPageHeaderComp({ setIsChannelSelected }) {
   const [createPostDropdown, setCreatePostDropdown] = useState(false);
   const [onlineStatus, setOnlineStatus] = useState(false);
   const [openInbox, setOpenInbox] = useState(false);
+  const [userProfileName, setUserProfileName] = useState("");
 
   const handleUserDropdown = () => {
     setUserDropdown(!userDropdown);
@@ -115,7 +116,10 @@ function SubmitPageHeaderComp({ setIsChannelSelected }) {
   };
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (localStorage.getItem("userName")) {
+      setUserProfileName(localStorage.getItem("userName"));
+    }
+    if (!localStorage.getItem("userName")) {
       router.push("/");
     }
     const handleClickOutside = (e) => {
@@ -416,11 +420,9 @@ function SubmitPageHeaderComp({ setIsChannelSelected }) {
                           <span
                             className={style.nameText}
                             style={{ color: theme.headerClr }}
-                          >{`${
-                            localStorage.getItem("userName")
-                              ? localStorage.getItem("userName")
-                              : ""
-                          }`}</span>
+                          >
+                            {userProfileName}
+                          </span>
                           <span className={style.karma}>
                             <span>1 karma</span>
                           </span>

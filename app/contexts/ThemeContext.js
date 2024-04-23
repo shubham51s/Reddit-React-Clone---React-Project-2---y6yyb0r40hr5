@@ -1,12 +1,16 @@
 "use client";
-const { createContext, useState } = require("react");
+const { createContext, useState, useEffect } = require("react");
 
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = useState(
-    localStorage.getItem("darkModeIsActive") ? true : false
-  );
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    // if (localStorage.getItem("darkModeIsActive")) {
+    //   setIsDarkMode(true);
+    // }
+  }, []);
 
   const themeData = {
     light: {

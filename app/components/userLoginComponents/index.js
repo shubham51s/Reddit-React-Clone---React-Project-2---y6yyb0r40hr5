@@ -99,9 +99,9 @@ function LoginComp() {
       }
       const result = await resp.json();
       const { token } = result;
-      const name = result.data.name;
-      const email = result.data.email;
-      const userId = result.data._id;
+      const name = result.data.user.name;
+      const email = result.data.user.email;
+      const userId = result.data.user._id;
       localStorage.setItem("authToken", token);
       localStorage.setItem("userName", name);
       localStorage.setItem("userEmail", email);
