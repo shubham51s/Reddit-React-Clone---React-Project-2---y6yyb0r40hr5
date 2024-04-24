@@ -78,7 +78,6 @@ function HomePage() {
   };
 
   const fetchLoggedInPosts = async (token) => {
-    console.log("logged in posts fetched");
     try {
       const resp = await fetch(
         "https://academics.newtonschool.co/api/v1/reddit/post?limit=100",

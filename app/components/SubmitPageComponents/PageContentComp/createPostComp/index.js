@@ -39,7 +39,14 @@ function CreateNewPostComp({ isChannelSelected }) {
   const [community, setCommunity] = useState(null);
   const [filteredData, setFilteredData] = useState([]);
 
-  const [defaultUserName, setDefaultUserName] = useState("");
+  const [defaultUserName, setDefaultUserName] = useState(
+    localStorage.getItem("userName")
+      ? {
+          _id: "1",
+          name: `u/${localStorage.getItem("userName")}`,
+        }
+      : ""
+  );
 
   const [imgInput, setImgInput] = useState(null);
   const [showImg, setShowImg] = useState(true);
@@ -169,6 +176,10 @@ function CreateNewPostComp({ isChannelSelected }) {
       });
     }
   }, []);
+
+  console.log("console working");
+
+  console.log("defult username: ", defaultUserName);
 
   const handleInputChange = (event) => {
     if (event.target.files[0]) {
