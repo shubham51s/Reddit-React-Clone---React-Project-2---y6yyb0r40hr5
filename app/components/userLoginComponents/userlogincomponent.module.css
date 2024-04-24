@@ -27,8 +27,15 @@
 
 .loginContainer {
   unicode-bidi: isolate;
-  padding-left: 80px;
-  padding-right: 80px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+@media (min-width: 900px) {
+  .loginContainer {
+    padding-left: 80px;
+    padding-right: 80px;
+  }
 }
 
 .mainHeading {
@@ -203,7 +210,7 @@
   padding-bottom: 24px;
   /* padding-left: 80px; */
   width: 380px;
-  padding-left: 80px;
+  /* padding-left: 80px; */
 }
 
 .clearIconContainer {
