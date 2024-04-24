@@ -105,7 +105,7 @@ function HomePage() {
 
   useEffect(() => {
     setSortValue(1);
-    if (isLoggedIn) {
+    if (localStorage.getItem("authToken")) {
       fetchLoggedInPosts(localStorage.getItem("authToken"));
     } else {
       fetchPosts();
