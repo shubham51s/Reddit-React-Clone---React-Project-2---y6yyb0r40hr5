@@ -165,10 +165,10 @@ function CommentsComp({
               className={style.upvoteBtnInner}
               onClick={(e) => handleUpvote(e)}
             >
-              {isLiked && (
+              {item && item.isLiked && (
                 <ThumbUpOutlinedIcon style={{ color: "orangered" }} />
               )}
-              {!isLiked && <ThumbUpOutlinedIcon />}
+              {item && !item.isLiked && <ThumbUpOutlinedIcon />}
             </span>
           </button>
 
