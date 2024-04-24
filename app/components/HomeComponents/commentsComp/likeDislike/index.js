@@ -24,8 +24,6 @@ function CommentsLikeComp({ upvote, item, isLiked, isDisliked }) {
   const [alreadyLiked, setAlreadyLiked] = useState(isLiked);
   const [downVote, setDownVote] = useState(false);
 
-  console.log("already liked: ", alreadyLiked);
-
   const handleUpvote = (e) => {
     e.stopPropagation();
     if (!isLoggedIn) {

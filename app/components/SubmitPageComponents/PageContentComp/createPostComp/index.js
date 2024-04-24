@@ -44,6 +44,7 @@ function CreateNewPostComp({ isChannelSelected }) {
   const [value, setValue] = useState("");
 
   const fetchPopularCommunities = async (defaultName) => {
+    console.log("default name: ", defaultName);
     try {
       const resp = await fetch(
         "https://academics.newtonschool.co/api/v1/reddit/channel",
