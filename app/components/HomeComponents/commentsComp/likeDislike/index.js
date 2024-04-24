@@ -5,8 +5,8 @@ import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbDownOutlinedIcon from "@mui/icons-material/ThumbDownOutlined";
 import { useScrollTrigger } from "@mui/material";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
-import ThemeContext from "@/app/contexts/ThemeContext";
 import UserContext from "@/app/contexts/LoginContext";
+import ThemeContext from "@/app/contexts/ThemeContext";
 
 function CommentsLikeComp({ upvote, item, isLiked, isDisliked }) {
   const {
@@ -22,6 +22,7 @@ function CommentsLikeComp({ upvote, item, isLiked, isDisliked }) {
   const [upVote, setUpVote] = useState(isLiked);
   const [alreadyLiked, setAlreadyLiked] = useState(isLiked);
   const [downVote, setDownVote] = useState(false);
+  const { theme } = useContext(ThemeContext);
 
   const handleUpvote = (e) => {
     e.stopPropagation();
