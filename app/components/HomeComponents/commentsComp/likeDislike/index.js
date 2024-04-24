@@ -9,7 +9,6 @@ import ThemeContext from "@/app/contexts/ThemeContext";
 import UserContext from "@/app/contexts/LoginContext";
 
 function CommentsLikeComp({ upvote, item, isLiked, isDisliked }) {
-  const { theme, setTheme } = useContext(ThemeContext);
   const {
     isLoggedIn,
     setUserLoginModal,
