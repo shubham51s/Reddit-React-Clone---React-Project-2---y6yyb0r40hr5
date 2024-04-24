@@ -21,7 +21,10 @@ function CommentsLikeComp({ upvote, item, isLiked, isDisliked }) {
   } = useContext(UserContext);
 
   const [upVote, setUpVote] = useState(isLiked);
+  const [alreadyLiked, setAlreadyLiked] = useState(isLiked);
   const [downVote, setDownVote] = useState(false);
+
+  console.log("already liked: ", alreadyLiked);
 
   const handleUpvote = (e) => {
     e.stopPropagation();
@@ -40,6 +43,7 @@ function CommentsLikeComp({ upvote, item, isLiked, isDisliked }) {
     } else if (!downVote) {
       setDownVote(true);
       setUpVote(false);
+      setAlreadyLiked(false);
     }
   };
 
@@ -63,10 +67,13 @@ function CommentsLikeComp({ upvote, item, isLiked, isDisliked }) {
               />
             </span>
           </button>
+          {alreadyLiked && <span className={style.voteCount}>{upvote}</span>}
+          {!alreadyLiked && (
+            <span className={style.voteCount}>
+              {upVote ? upvote + 1 : upvote}
+            </span>
+          )}
 
-          <span className={style.voteCount}>
-            {upVote ? upvote + 1 : upvote}
-          </span>
           <button
             className={style.voteBtn}
             style={{ color: theme.navTabColor, background: "transparent" }}

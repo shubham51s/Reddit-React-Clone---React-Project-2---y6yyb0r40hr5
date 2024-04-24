@@ -39,19 +39,11 @@ function CreateNewPostComp({ isChannelSelected }) {
   const [community, setCommunity] = useState(null);
   const [filteredData, setFilteredData] = useState([]);
 
-  const [defaultUserName, setDefaultUserName] = useState(
-    localStorage.getItem("userName")
-      ? {
-          _id: "1",
-          name: `u/${localStorage.getItem("userName")}`,
-        }
-      : ""
-  );
-
   const [imgInput, setImgInput] = useState(null);
   const [showImg, setShowImg] = useState(true);
+  const [value, setValue] = useState("");
 
-  const fetchPopularCommunities = async () => {
+  const fetchPopularCommunities = async (defaultName) => {
     try {
       const resp = await fetch(
         "https://academics.newtonschool.co/api/v1/reddit/channel",
@@ -69,7 +61,7 @@ function CreateNewPostComp({ isChannelSelected }) {
         _id,
         name,
       }));
-
+      const defaultUserName = { _id: "1", name: `u/${defaultName}` };
       if (defaultUserName) {
         setFilteredData([defaultUserName, ...filteredChannels]);
         setCommunity(defaultUserName);
@@ -165,21 +157,11 @@ function CreateNewPostComp({ isChannelSelected }) {
     }
   };
 
-  const [value, setValue] = useState("");
-
   useEffect(() => {
-    fetchPopularCommunities();
     if (localStorage.getItem("userName")) {
-      setDefaultUserName({
-        _id: "1",
-        name: `u/${localStorage.getItem("userName")}`,
-      });
+      fetchPopularCommunities(localStorage.getItem("userName"));
     }
   }, []);
-
-  console.log("console working");
-
-  console.log("defult username: ", defaultUserName);
 
   const handleInputChange = (event) => {
     if (event.target.files[0]) {
@@ -212,7 +194,6 @@ function CreateNewPostComp({ isChannelSelected }) {
               className={style.draftsVal}
               style={{ backgroundColor: theme.arrowClr, color: theme.headerBg }}
             >
-              {/* need to add draft value later */}
               {draftNum ? "1" : "0"}
             </span>
           </button>
