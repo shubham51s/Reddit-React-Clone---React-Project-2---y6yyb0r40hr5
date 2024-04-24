@@ -14,7 +14,7 @@
   top: 50%;
   transform: translateY(-50%);
   min-width: 320px;
-  width: 528px;
+  /* width: 528px; */
   max-width: 528px;
   min-height: 400px;
   height: 100%;
