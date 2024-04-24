@@ -53,17 +53,18 @@ function CommentsComp({
       } else {
         setPostResult(result.data);
       }
-      if (sortValue != 1) {
-        if (val == 2) {
-          postResult.sort((a, b) => b.dislikeCount - a.dislikeCount);
-        } else if (val == 3) {
-          postResult.sort(
-            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-          );
-        } else if (val == 4) {
-          postResult.sort((a, b) => b.likeCount - a.likeCount);
+      if (!showComments)
+        if (sortValue != 1) {
+          if (val == 2) {
+            postResult.sort((a, b) => b.dislikeCount - a.dislikeCount);
+          } else if (val == 3) {
+            postResult.sort(
+              (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+            );
+          } else if (val == 4) {
+            postResult.sort((a, b) => b.likeCount - a.likeCount);
+          }
         }
-      }
     } catch (err) {
       console.log(err.message ? err.message : err);
     }
@@ -113,14 +114,12 @@ function CommentsComp({
 
   const handleUpvote = (e) => {
     e.stopPropagation();
-    if (!showComments) {
-      if (!isLoggedIn) {
-        setUserLoginModal(true);
-      } else if (!isLiked) {
-        setUpVote(true);
-        setDownVote(false);
-        makeUpvote(item._id, localStorage.getItem("authToken"));
-      }
+    if (!isLoggedIn) {
+      setUserLoginModal(true);
+    } else if (!isLiked) {
+      setUpVote(true);
+      setDownVote(false);
+      makeUpvote(item._id, localStorage.getItem("authToken"));
     }
   };
 

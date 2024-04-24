@@ -12,6 +12,7 @@ import UserContext from "@/app/contexts/LoginContext";
 import CommentRightComp from "./commentsRightComp";
 import DeleteCommentComp from "./deleteCommentComp";
 import DateFormatter from "../homeRightComp/daysFormatDate";
+import CommentsLikeComp from "./likeDislike";
 
 function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
   const { theme } = useContext(ThemeContext);
@@ -281,13 +282,11 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
                 </div>
               </div>
               <div className={style.voteContainer}>
-                <CommentsComp
+                <CommentsLikeComp
                   upvote={postItem.likeCount}
-                  comments={postItem.commentCount}
                   item={postItem}
                   isLiked={postItem.isLiked}
                   isDisliked={postItem.isDisliked}
-                  setPostResult={setPostResult}
                 />
               </div>
             </div>
