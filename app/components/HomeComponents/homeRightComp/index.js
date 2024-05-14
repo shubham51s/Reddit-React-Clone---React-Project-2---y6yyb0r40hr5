@@ -48,10 +48,8 @@ function HomeRightComp({
             style={{ borderBottomColor: theme.sortBtmBorderClr }}
           ></hr>
           {postResult.length === 0 && <NoContentComp />}
-          {/* card */}
           <div>
             <div className={style.flexColmn}>
-              {/* card list */}
               {postResult.length >= 1 &&
                 postResult.map((item) => (
                   <article className={style.widthFull} key={item._id}>
@@ -194,7 +192,6 @@ function HomeRightComp({
                       <span
                         className={style.postTitle}
                         style={{ color: theme.popularCommunitiesTxt }}
-                        //  need to add heading later
                       >
                         {item.content}
                       </span>

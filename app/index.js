@@ -12,6 +12,7 @@ import HomeLeftDrawerComp from "./components/HomeComponents/homeLeftComp/homeLef
 import ThemeContext from "./contexts/ThemeContext";
 import CreateCommunityComp from "./components/createCommunityComponents";
 import GetRedditComp from "./components/HomeComponents/getRedditApp";
+
 function HomePage() {
   const {
     userLoginModal,
