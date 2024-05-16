@@ -6,8 +6,16 @@ import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import UserContext from "@/app/contexts/LoginContext";
+import { useRouter } from "next/navigation";
 
-function ViewMoreOptionComp({ postId, setPostResult, sortValue, postResult }) {
+function ViewMoreOptionComp({
+  postId,
+  setPostResult,
+  sortValue,
+  postResult,
+  item,
+}) {
+  const router = useRouter();
   const { theme } = useContext(ThemeContext);
   const { isPopular } = useContext(UserContext);
   const [showContent, setShowContent] = useState(false);
@@ -75,6 +83,18 @@ function ViewMoreOptionComp({ postId, setPostResult, sortValue, postResult }) {
     deletePost(postId, localStorage.getItem("authToken"));
   };
 
+  const handleEditPostClick = (e) => {
+    e.stopPropagation();
+    const channelId = postId;
+    const channelName = item.channel ? item.channel.name : item.author.name;
+    const postTitle = item.title;
+    sessionStorage.setItem("createPostId", channelId);
+    sessionStorage.setItem("createPostChannel", channelName);
+    sessionStorage.setItem("editPost", "done");
+    sessionStorage.setItem("postTitle", postTitle);
+    router.push("/submit");
+  };
+
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (
@@ -135,7 +155,10 @@ function ViewMoreOptionComp({ postId, setPostResult, sortValue, postResult }) {
                 <span></span>
               </div>
             </li>
-            {/* <li className={style.listItem}>
+            <li
+              className={style.listItem}
+              onClick={(e) => handleEditPostClick(e)}
+            >
               <div
                 className={style.listItemMain}
                 style={{ color: theme.navTabColor }}
@@ -151,7 +174,7 @@ function ViewMoreOptionComp({ postId, setPostResult, sortValue, postResult }) {
                 </span>
                 <span></span>
               </div>
-            </li> */}
+            </li>
           </div>
         )}
       </div>

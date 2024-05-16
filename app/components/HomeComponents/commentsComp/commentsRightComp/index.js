@@ -99,6 +99,7 @@ function CommentRightComp({ showUserName, setShowUserName }) {
     const channelName = postItem.channel.name;
     sessionStorage.setItem("createPostId", channelId);
     sessionStorage.setItem("createPostChannel", channelName);
+    sessionStorage.removeItem("editPost");
     router.push("/submit");
   };
 

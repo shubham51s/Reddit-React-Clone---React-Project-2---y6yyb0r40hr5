@@ -185,6 +185,7 @@ function HomeRightComp({
                                 setPostResult={setPostResult}
                                 postResult={postResult}
                                 sortValue={sortValue}
+                                item={item}
                               />
                             )}
                         </span>

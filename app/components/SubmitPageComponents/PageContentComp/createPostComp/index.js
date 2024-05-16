@@ -44,7 +44,6 @@ function CreateNewPostComp({ isChannelSelected }) {
   const [value, setValue] = useState("");
 
   const fetchPopularCommunities = async (defaultName) => {
-    console.log("default name: ", defaultName);
     try {
       const resp = await fetch(
         "https://academics.newtonschool.co/api/v1/reddit/channel",
@@ -128,6 +127,32 @@ function CreateNewPostComp({ isChannelSelected }) {
     }
   };
 
+  const editPost = async (token, postId) => {
+    try {
+      const formData = new FormData();
+      formData.append("title", titleInp);
+      formData.append("content", titleInp);
+      formData.append("images", imgInput ? imgInput : null);
+
+      const resp = await fetch(
+        `https://academics.newtonschool.co/api/v1/reddit/post/${postId}`,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            projectID: "y6yyb0r40hr5",
+          },
+          body: formData,
+        }
+      );
+      if (!resp.ok) return;
+      const result = await resp.json();
+      router.push("/");
+    } catch (err) {
+      console.log(err.message ? err.message : err);
+    }
+  };
+
   const handleTitleInput = (e) => {
     setTitleInp(e.target.value);
     if (e.target.value.length >= 1) {
@@ -143,10 +168,17 @@ function CreateNewPostComp({ isChannelSelected }) {
     if (isLoggedIn) {
       if (titleInp.length >= 1 && localStorage.getItem("authToken")) {
         if (isChannelSelected && sessionStorage.getItem("createPostId")) {
-          addCommunityPost(
-            localStorage.getItem("authToken"),
-            sessionStorage.getItem("createPostId")
-          );
+          if (sessionStorage.getItem("editPost")) {
+            editPost(
+              localStorage.getItem("authToken"),
+              sessionStorage.getItem("createPostId")
+            );
+          } else {
+            addCommunityPost(
+              localStorage.getItem("authToken"),
+              sessionStorage.getItem("createPostId")
+            );
+          }
         } else {
           if (community._id === "1") {
             addNewPost(localStorage.getItem("authToken"));
@@ -161,6 +193,11 @@ function CreateNewPostComp({ isChannelSelected }) {
   useEffect(() => {
     if (localStorage.getItem("userName")) {
       fetchPopularCommunities(localStorage.getItem("userName"));
+    }
+    if (sessionStorage.getItem("createPostId")) {
+      if (sessionStorage.getItem("editPost")) {
+        setTitleInp(sessionStorage.getItem("postTitle"));
+      }
     }
   }, []);
 
