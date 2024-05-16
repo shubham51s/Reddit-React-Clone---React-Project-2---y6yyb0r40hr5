@@ -97,7 +97,7 @@ function DeleteCommentComp({ commentId, fetchComments }) {
                     <DeleteOutlineOutlinedIcon />
                   </span>
                   <span className={style.listContentMain}>
-                    <span className={style.text14}>Delete Post</span>
+                    <span className={style.text14}>Delete Comment</span>
                     <span></span>
                   </span>
                 </span>
