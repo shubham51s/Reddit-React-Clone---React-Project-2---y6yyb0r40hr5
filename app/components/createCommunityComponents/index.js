@@ -28,6 +28,37 @@ function CreateCommunityComp() {
     setNameInput(event.target.value);
   };
 
+  const createCommunityApi = async (token) => {
+    const formData = new FormData();
+    formData.append("name", nameInput);
+    try {
+      const resp = await fetch(
+        "https://academics.newtonschool.co/api/v1/reddit/channel/",
+        {
+          method: "POST",
+
+          headers: {
+            Authorization: `Bearer ${token}`,
+
+            projectID: "y6yyb0r40hr5",
+          },
+
+          body: formData,
+        }
+      );
+
+      if (!resp.ok) {
+        return;
+      }
+
+      const result = await resp.json();
+      // channelApidata();
+      setCreateCommunityModal(false);
+    } catch (err) {
+      console.log(err.message ? err.message : err);
+    }
+  };
+
   const handlePublicTypeClick = (e) => {
     setIsPublic(true);
     setIsPrivate(false);
@@ -48,7 +79,10 @@ function CreateCommunityComp() {
 
   const handleSubmitBtnClick = (e) => {
     e.stopPropagation();
-    setCreateCommunityModal(false);
+    // setCreateCommunityModal(false);
+    if (localStorage.getItem("authToken") && nameInput) {
+      createCommunityApi(localStorage.getItem("authToken"));
+    }
   };
 
   return (
