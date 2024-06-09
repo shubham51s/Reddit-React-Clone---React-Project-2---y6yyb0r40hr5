@@ -41,11 +41,13 @@ function PopularComunitiesComp({ popularCommunities }) {
                           <span className={style.communityIconMain}>
                             <span className={style.txt20}>
                               <div className={style.communityImgMain}>
-                                <img
-                                  className={style.communityImg}
-                                  src={item.image}
-                                  alt={item.name}
-                                />
+                                {item.image && (
+                                  <img
+                                    className={style.communityImg}
+                                    src={item.image}
+                                    alt={item.name}
+                                  />
+                                )}
                               </div>
                             </span>
                           </span>
@@ -82,11 +84,13 @@ function PopularComunitiesComp({ popularCommunities }) {
                           <span className={style.communityIconMain}>
                             <span className={style.txt20}>
                               <div className={style.communityImgMain}>
-                                <img
-                                  className={style.communityImg}
-                                  src={item.image}
-                                  alt={item.name}
-                                />
+                                {item.image && (
+                                  <img
+                                    className={style.communityImg}
+                                    src={item.image}
+                                    alt={item.name}
+                                  />
+                                )}
                               </div>
                             </span>
                           </span>

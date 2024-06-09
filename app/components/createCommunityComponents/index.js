@@ -14,6 +14,8 @@ import { styled } from "@mui/material/styles";
 import Switch from "@mui/material/Switch";
 import ExplicitOutlinedIcon from "@mui/icons-material/ExplicitOutlined";
 import UserContext from "@/app/contexts/LoginContext";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 function CreateCommunityComp() {
   const { createCommunityModal, setCreateCommunityModal } =
@@ -23,6 +25,7 @@ function CreateCommunityComp() {
   const [isRestricted, setIsRestricted] = useState(false);
   const [isPrivate, setIsPrivate] = useState(false);
   const [nameInput, setNameInput] = useState("");
+  const [open, setOpen] = useState(false);
 
   const handleNameInputChange = (event) => {
     setNameInput(event.target.value);
@@ -52,7 +55,6 @@ function CreateCommunityComp() {
       }
 
       const result = await resp.json();
-      // channelApidata();
       setCreateCommunityModal(false);
     } catch (err) {
       console.log(err.message ? err.message : err);
@@ -79,10 +81,22 @@ function CreateCommunityComp() {
 
   const handleSubmitBtnClick = (e) => {
     e.stopPropagation();
-    // setCreateCommunityModal(false);
     if (localStorage.getItem("authToken") && nameInput) {
       createCommunityApi(localStorage.getItem("authToken"));
+      handleClick();
     }
+  };
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
   };
 
   return (
@@ -90,6 +104,16 @@ function CreateCommunityComp() {
       className={style.mainContainer}
       style={{ backgroundColor: theme.createCommunityBg }}
     >
+      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+        <Alert
+          onClose={handleClose}
+          severity="success"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          Community Created Successfully
+        </Alert>
+      </Snackbar>
       <div className={style.wrapper}>
         <div className={style.headerContainer}>
           <div className={style.header}>
