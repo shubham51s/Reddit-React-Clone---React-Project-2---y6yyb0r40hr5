@@ -7,6 +7,7 @@ import { useScrollTrigger } from "@mui/material";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import ThemeContext from "@/app/contexts/ThemeContext";
 import UserContext from "@/app/contexts/LoginContext";
+import { BiUpvote } from "react-icons/bi";
 
 function CommentsComp({
   upvote,

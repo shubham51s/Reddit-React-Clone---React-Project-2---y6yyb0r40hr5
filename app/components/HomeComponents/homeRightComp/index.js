@@ -212,11 +212,19 @@ function HomeRightComp({
                                 onClick={(e) =>
                                   handleImageClick(e, item.images[0])
                                 }
+                                // style={{
+                                //   backgroundImage: `url(${item.images[0]})`,
+                                //   backgroundSize: "cover",
+                                //   backgroundPosition: "center",
+                                //   width: "800px",
+                                //   height: "720px",
+                                //   filter: "blur(5px)",
+                                // }}
                               >
-                                <img
+                                {/* <img
                                   className={style.mediaImg}
                                   src={item.images[0]}
-                                />
+                                /> */}
                                 <img
                                   className={style.mediaImgMain}
                                   src={item.images[0]}
