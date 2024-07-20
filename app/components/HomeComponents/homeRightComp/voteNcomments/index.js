@@ -8,6 +8,7 @@ import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import ThemeContext from "@/app/contexts/ThemeContext";
 import UserContext from "@/app/contexts/LoginContext";
 import { BiUpvote } from "react-icons/bi";
+import { BiDownvote } from "react-icons/bi";
 
 function CommentsComp({
   upvote,
@@ -166,9 +167,9 @@ function CommentsComp({
               onClick={(e) => handleUpvote(e)}
             >
               {item && item.isLiked && (
-                <ThumbUpOutlinedIcon style={{ color: "orangered" }} />
+                <BiUpvote style={{ color: "orangered" }} />
               )}
-              {item && !item.isLiked && <ThumbUpOutlinedIcon />}
+              {item && !item.isLiked && <BiUpvote />}
             </span>
           </button>
 
@@ -178,17 +179,15 @@ function CommentsComp({
             style={{ color: theme.navTabColor, background: "transparent" }}
           >
             <span className={style.downvoteBtnInner}>
-              {isDisliked && (
-                <ThumbDownOutlinedIcon style={{ color: "blue" }} />
-              )}
+              {isDisliked && <BiDownvote style={{ color: "blue" }} />}
 
               {!isDisliked && (
-                <ThumbDownOutlinedIcon
+                <BiDownvote
                   style={{ color: downVote ? "blue" : "" }}
                   onClick={(e) => handleDownVote(e)}
                 />
               )}
-              {/* <ThumbDownOutlinedIcon
+              {/* <BiDownvote 
                 style={{ color: downVote ? "blue" : "" }}
               /> */}
             </span>

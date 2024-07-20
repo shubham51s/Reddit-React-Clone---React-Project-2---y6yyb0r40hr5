@@ -14,12 +14,13 @@
   top: 50%;
   transform: translateY(-50%);
   min-width: 320px;
-  /* width: 528px; */
   max-width: 528px;
   min-height: 400px;
   height: 100%;
   max-height: 644px;
   z-index: 999;
+  box-shadow: rgba(26, 26, 27, 0.4) 0px 2px 15px 0px,
+    0 0 0 max(100vw, 100vh) #00000099;
 }
 
 .loginContainer {

@@ -10,7 +10,7 @@ function PopularComunitiesComp({ popularCommunities }) {
   const [isShowMore, setIsShowMore] = useState(true);
 
   return (
-    <div className={style.popularCommunities}>
+    <div className={style.popularCommunities} style={{ marginLeft: "50px" }}>
       <div className={style.aside}>
         <div
           className={style.aside2}
@@ -48,6 +48,11 @@ function PopularComunitiesComp({ popularCommunities }) {
                                     alt={item.name}
                                   />
                                 )}
+                                {!item.image && (
+                                  <div className={style.profileLetter}>
+                                    {item.name.charAt(0).toUpperCase()}
+                                  </div>
+                                )}
                               </div>
                             </span>
                           </span>
@@ -57,15 +62,13 @@ function PopularComunitiesComp({ popularCommunities }) {
                                 className={style.communityName}
                                 style={{ color: theme.communityTxtClr }}
                               >
-                                {item.name}
+                                r/{item.name}
                               </span>
                             </span>
                             <span
                               className={style.communityMembers}
                               style={{ color: theme.popularCommunitiesTxt }}
-                            >
-                              {/* need to add members later */}
-                            </span>
+                            ></span>
                           </span>
                         </span>
                         <span className={style.shrink0}></span>
@@ -90,6 +93,11 @@ function PopularComunitiesComp({ popularCommunities }) {
                                     src={item.image}
                                     alt={item.name}
                                   />
+                                )}
+                                {!item.image && (
+                                  <div className={style.profileLetter}>
+                                    {item.name.charAt(0).toUpperCase()}
+                                  </div>
                                 )}
                               </div>
                             </span>
