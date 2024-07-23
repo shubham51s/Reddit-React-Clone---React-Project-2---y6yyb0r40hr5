@@ -156,7 +156,7 @@ function CommentsComp({
       <span className={style.voteMain}>
         <span
           className={style.voteContent}
-          style={{ color: theme.activeNavClr, background: theme.activeNavBg }}
+          style={{ color: theme.activeNavClr, background: theme.postIconBg }}
         >
           <button
             className={style.voteBtn}
@@ -167,9 +167,11 @@ function CommentsComp({
               onClick={(e) => handleUpvote(e)}
             >
               {item && item.isLiked && (
-                <BiUpvote style={{ color: "orangered" }} />
+                <BiUpvote style={{ color: "orangered", fontSize: "20px" }} />
               )}
-              {item && !item.isLiked && <BiUpvote />}
+              {item && !item.isLiked && (
+                <BiUpvote style={{ fontSize: "20px" }} />
+              )}
             </span>
           </button>
 
@@ -179,30 +181,28 @@ function CommentsComp({
             style={{ color: theme.navTabColor, background: "transparent" }}
           >
             <span className={style.downvoteBtnInner}>
-              {isDisliked && <BiDownvote style={{ color: "blue" }} />}
+              {isDisliked && (
+                <BiDownvote style={{ color: "blue", fontSize: "20px" }} />
+              )}
 
               {!isDisliked && (
                 <BiDownvote
-                  style={{ color: downVote ? "blue" : "" }}
+                  style={{ color: downVote ? "blue" : "", fontSize: "20px" }}
                   onClick={(e) => handleDownVote(e)}
                 />
               )}
-              {/* <BiDownvote 
-                style={{ color: downVote ? "blue" : "" }}
-              /> */}
             </span>
           </button>
         </span>
       </span>
       <span
         className={style.commentsMain}
-        style={{ color: theme.activeNavClr, background: theme.activeNavBg }}
+        style={{ color: theme.activeNavClr, background: theme.postIconBg }}
       >
         <span className={style.commentCtr} onClick={(e) => handleComments(e)}>
           <span className={style.commentIconMain}>
             <ModeCommentOutlinedIcon style={{ fontSize: "20px" }} />
           </span>
-          {/* need to add comments later */}
           <span className={style.commentValue}>{comments}</span>
         </span>
       </span>

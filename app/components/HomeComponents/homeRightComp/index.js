@@ -55,9 +55,9 @@ function HomeRightComp({
                   <article className={style.widthFull} key={item._id}>
                     <div
                       className={style.postListMain}
-                      style={{
-                        backgroundColor: theme.bgColor,
-                      }}
+                      // style={{
+                      //   backgroundColor: theme.bgColor,
+                      // }}
                     >
                       <span className={style.creditBar}>
                         <span className={style.creditBarLeft}>
@@ -174,8 +174,6 @@ function HomeRightComp({
                           )}
 
                           {!isLoggedIn && <JoinBtnComp item={item} />}
-
-                          {/* more button */}
                           {isLoggedIn &&
                             item.author &&
                             item.author._id ===

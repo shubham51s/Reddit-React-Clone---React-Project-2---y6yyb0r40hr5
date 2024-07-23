@@ -62,16 +62,9 @@
   width: 100%;
   margin: 0;
   unicode-bidi: isolate;
-  margin-bottom: 80px;
   padding: 10px;
   border: 1px solid transparent;
-  border-bottom: 1px solid rgba(90, 88, 88, 0.4);
-}
-
-.widthFull:hover {
-  /* background-color: rgb(90, 88, 88); */
-  border: 1px solid rgba(90, 88, 88, 0.4);
-  border-radius: 10px;
+  border-bottom: 1px solid rgba(90, 88, 88, 0.3);
 }
 
 .cardBtmBorder {
@@ -99,6 +92,15 @@
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
   position: relative;
+}
+
+.widthFull {
+  transition: 0.8s all ease;
+}
+
+.widthFull:hover {
+  background-color: rgba(112, 110, 110, 0.1);
+  border-radius: 10px;
 }
 
 @media (min-width: 768px) {
@@ -318,13 +320,15 @@
   height: 100%; */
   /* max-height: 100vw; */
   position: relative;
-  margin-bottom: 1rem;
-  /* max-width: 100%; */
+  /* margin-bottom: 1rem; */
+
   overflow-clip-margin: content-box;
   overflow: clip;
-  width: 700px;
+  /* width: 700px;
+  height: 620px; */
   height: 620px;
   border-radius: 3%;
-  margin-top: 15px;
+  /* margin-top: 15px; */
   background-size: contain;
+  max-width: 100%;
 }

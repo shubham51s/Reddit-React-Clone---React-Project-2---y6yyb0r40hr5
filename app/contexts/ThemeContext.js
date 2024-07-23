@@ -52,6 +52,7 @@ export const ThemeProvider = ({ children }) => {
       createCommunityBg: "#ffffff",
       createPostBtnClr: "#131517",
       commentsRightBg: "#edf6fe",
+      postIconBg: "rgba(128, 128, 128, 0.3)",
     },
     dark: {
       borderLine: "#ffffff33",
@@ -94,6 +95,7 @@ export const ThemeProvider = ({ children }) => {
       createCommunityBg: "#0F1A1C",
       createPostBtnClr: "#F2F4F5",
       commentsRightBg: "#000910",
+      postIconBg: "#1A282D",
     },
   };
 
