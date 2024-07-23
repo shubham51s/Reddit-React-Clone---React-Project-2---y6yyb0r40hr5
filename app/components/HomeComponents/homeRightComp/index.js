@@ -111,7 +111,7 @@ function HomeRightComp({
                               </div>
                               {item.channel && (
                                 <span className={style.communityName}>
-                                  {item.channel.name}
+                                  r/{item.channel.name}
                                 </span>
                               )}
 

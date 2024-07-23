@@ -29,6 +29,7 @@ import NavSearchComp from "./navSearchComp";
 import LeftNavDrawer from "./navDrawer";
 import Tooltip from "@mui/material/Tooltip";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 function LogoutNavComp({ setIsNavDrawer, isNavDrawer, setIsGetRedditApp }) {
   const router = useRouter();
@@ -51,6 +52,8 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer, setIsGetRedditApp }) {
     e.stopPropagation();
     setLoginUserDrawer(!loginUserDrawer);
   };
+
+  const notify = () => toast.info("This feature will be available soon!");
 
   const handleLogoutBtnClick = (e) => {
     e.stopPropagation();
@@ -180,10 +183,7 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer, setIsGetRedditApp }) {
                       style={{ color: theme.navTabColor }}
                     >
                       <span className={style.adevertizeIconMain}>
-                        <span
-                          className={style.flex}
-                          onClick={(e) => showAlert(e)}
-                        >
+                        <span className={style.flex} onClick={notify}>
                           <Tooltip title="Advertise on Reddit">
                             <AdsClickIcon />
                           </Tooltip>
@@ -199,10 +199,7 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer, setIsGetRedditApp }) {
                       style={{ color: theme.navTabColor }}
                     >
                       <span className={style.adevertizeIconMain}>
-                        <span
-                          className={style.flex}
-                          onClick={(e) => showAlert(e)}
-                        >
+                        <span className={style.flex} onClick={notify}>
                           <Tooltip title="Open chat">
                             <TextsmsOutlinedIcon />
                           </Tooltip>

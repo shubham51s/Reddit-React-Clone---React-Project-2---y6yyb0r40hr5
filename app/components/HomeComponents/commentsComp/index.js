@@ -194,7 +194,7 @@ function ShowCommentsComp({ setShowComments, setImgOnly, setImgUrl }) {
                             style={{ color: theme.communityTxtClr }}
                             onClick={(e) => showChannelInfo(e)}
                           >
-                            {postItem.channel.name}
+                            r/{postItem.channel.name}
                           </span>
                         )}
                       </span>

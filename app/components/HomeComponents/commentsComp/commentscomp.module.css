@@ -690,7 +690,7 @@
   width: 100%;
   height: auto;
   text-align: left;
-  border-radius: 999px;
+  /* border-radius: 999px; */
   box-sizing: border-box;
   overflow: hidden;
   text-decoration: none;
@@ -708,7 +708,7 @@
   border-width: 0.0625rem;
   border-style: solid;
   border-color: #00000033;
-  border-radius: 1.25rem;
+  /* border-radius: 1.25rem; */
 }
 
 .cmntWidthFull:hover {

@@ -65,10 +65,19 @@ function LoginComp() {
         return;
       }
       const result = await resp.json();
+      const { token } = result;
+      const name = result.data.user.name;
+      const email = result.data.user.email;
+      const userId = result.data.user._id;
+      localStorage.setItem("authToken", token);
+      localStorage.setItem("userName", name);
+      localStorage.setItem("userEmail", email);
+      localStorage.setItem("userId", userId);
+      setLoggedUserInfo(result.data);
       setUserEmail("");
       setUserPass("");
-      setUserName("");
-      setIsLogin(true);
+      setIsLoggedIn(true);
+      setUserLoginModal(false);
     } catch (err) {
       console.log(err.message ? err.message : err);
       setIsError("Please enter valid details");

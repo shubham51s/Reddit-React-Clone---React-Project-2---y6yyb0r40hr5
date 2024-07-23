@@ -25,6 +25,7 @@ import UserContext from "@/app/contexts/LoginContext";
 import Tooltip from "@mui/material/Tooltip";
 import { useRouter } from "next/navigation";
 import NavSearchComp from "../../NavBar/LoggedIn/navSearchComp";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 function SubmitPageHeaderComp({ setIsChannelSelected }) {
   const { theme, handleThemeChange, isDarkMode, setIsDarkMode } =
@@ -192,10 +193,28 @@ function SubmitPageHeaderComp({ setIsChannelSelected }) {
         }}
       >
         <div className={style.headerLeftContent}>
-          <Tooltip title="Go to Reddit Home">
+          {/* <Tooltip title="Go to Reddit Home">
             <span className={style.logoMain} onClick={(e) => router.push("/")}>
               <RedditIcon style={{ fontSize: "38px", color: "orangered" }} />
-              {/* need to add reddit name later */}
+            </span>
+          </Tooltip> */}
+          <Tooltip title="Go to Reddit Home">
+            <span className={style.redditLogo} onClick={() => router.push("/")}>
+              <span className={style.redditIcon}>
+                <RedditIcon
+                  style={{
+                    width: "42px",
+                    height: "42px",
+                    color: "orangered",
+                  }}
+                />
+              </span>
+              <span
+                className={style.redditName}
+                style={{ color: theme.redditLogo }}
+              >
+                reddit
+              </span>
             </span>
           </Tooltip>
           <div className={style.createPostMain}>
@@ -207,13 +226,15 @@ function SubmitPageHeaderComp({ setIsChannelSelected }) {
               onClick={handleCreatePostBtn}
               ref={createPostRef}
             >
-              <span className={style.createPostTxt}>Create Post</span>
+              {/* <span className={style.createPostTxt}>Create Post</span> */}
               <span className={style.addIconLogo}>
-                <AddIcon style={{ color: theme.headerClr, fontSize: "28px" }} />
+                <MoreHorizIcon
+                  style={{ color: theme.headerClr, fontSize: "28px" }}
+                />
               </span>
-              <span className={style.downArrow}>
+              {/* <span className={style.downArrow}>
                 <KeyboardArrowDownIcon style={{ color: theme.headerClr }} />
-              </span>
+              </span> */}
             </button>
             {createPostDropdown && (
               <div

@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
 import style from "../../homeRightComp/voteNcomments/commentsvote.module.css";
 import { TheaterComedy } from "@mui/icons-material";
-import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
-import ThumbDownOutlinedIcon from "@mui/icons-material/ThumbDownOutlined";
 import { useScrollTrigger } from "@mui/material";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import UserContext from "@/app/contexts/LoginContext";
 import ThemeContext from "@/app/contexts/ThemeContext";
+import { BiUpvote } from "react-icons/bi";
+import { BiDownvote } from "react-icons/bi";
 
 function CommentsLikeComp({ upvote, item, isLiked, isDisliked }) {
   const {
@@ -60,8 +60,8 @@ function CommentsLikeComp({ upvote, item, isLiked, isDisliked }) {
               className={style.upvoteBtnInner}
               onClick={(e) => handleUpvote(e)}
             >
-              <ThumbUpOutlinedIcon
-                style={{ color: upVote ? "orangered" : "" }}
+              <BiUpvote
+                style={{ color: upVote ? "orangered" : "", fontSize: "20px" }}
               />
             </span>
           </button>
@@ -78,8 +78,8 @@ function CommentsLikeComp({ upvote, item, isLiked, isDisliked }) {
             onClick={(e) => handleDownVote(e)}
           >
             <span className={style.downvoteBtnInner}>
-              <ThumbDownOutlinedIcon
-                style={{ color: downVote ? "blue" : "" }}
+              <BiDownvote
+                style={{ color: downVote ? "blue" : "", fontSize: "20px" }}
               />
             </span>
           </button>
