@@ -7,6 +7,7 @@ import RulesComp from "./rulesComponent";
 import UserContext from "@/app/contexts/LoginContext";
 import AddIcon from "@mui/icons-material/Add";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 function CommentRightComp({ showUserName, setShowUserName }) {
   const { isLoggedIn, postItem, showComments } = useContext(UserContext);
@@ -15,6 +16,15 @@ function CommentRightComp({ showUserName, setShowUserName }) {
   const [isJoined, setIsJoined] = useState(false);
   const [userData, setUserData] = useState([]);
   const [userFollowed, setUserFollowed] = useState(false);
+
+  const notifyFollowClick = (name) =>
+    toast.success(`You're following ${name}.`);
+
+  const notifyUnfollowClik = (name) => toast.info(`You've unfollowed ${name}.`);
+
+  const notifyJoinClick = (name) => toast.success(`You've joined r/${name}.`);
+
+  const notifyLeftClick = (name) => toast.info(`You've left r/${name}.`);
 
   const followUser = async (id, token) => {
     try {
@@ -75,20 +85,24 @@ function CommentRightComp({ showUserName, setShowUserName }) {
     }
   };
 
-  const handleJoinBtn = () => {
+  const handleJoinBtn = (name) => {
     setIsJoined(!isJoined);
     if (!isJoined) {
+      notifyJoinClick(name);
       followUser(userData._id, localStorage.getItem("authToken"));
     } else {
+      notifyLeftClick(name);
       unfollowUser(userData._id, localStorage.getItem("authToken"));
     }
   };
 
-  const handleFollowBtn = () => {
+  const handleFollowBtn = (name) => {
     setUserFollowed(!userFollowed);
     if (!userFollowed) {
+      notifyFollowClick(name);
       followUser(userData._id, localStorage.getItem("authToken"));
     } else {
+      notifyUnfollowClik(name);
       unfollowUser(userData._id, localStorage.getItem("authToken"));
     }
   };
@@ -181,7 +195,7 @@ function CommentRightComp({ showUserName, setShowUserName }) {
                     <div className={style.joinBtnMain}>
                       <button
                         className={style.joinBtn}
-                        onClick={handleJoinBtn}
+                        onClick={() => handleJoinBtn(userData.name)}
                       >{`${isJoined ? "Joined" : "Join"}`}</button>
                     </div>
                   </div>
@@ -240,7 +254,9 @@ function CommentRightComp({ showUserName, setShowUserName }) {
                         <div className={style.joinBtnMain}>
                           <button
                             className={style.joinBtn}
-                            onClick={handleFollowBtn}
+                            onClick={() =>
+                              handleFollowBtn(postItem.author.name)
+                            }
                           >{`${userFollowed ? "Unfollow" : "Follow"}`}</button>
                         </div>
                       </div>
