@@ -325,7 +325,10 @@ function LogoutNavComp({ setIsNavDrawer, isNavDrawer, setIsGetRedditApp }) {
                       ref={loginRef}
                     >
                       <ul className={style.userProfileContentMain}>
-                        <li className={style.userProfileListMain}>
+                        <li
+                          className={style.userProfileListMain}
+                          onClick={notify}
+                        >
                           <span
                             className={style.userProfileLink}
                             style={{ color: theme.navTabColor }}

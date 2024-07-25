@@ -26,6 +26,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { useRouter } from "next/navigation";
 import NavSearchComp from "../../NavBar/LoggedIn/navSearchComp";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { toast } from "react-toastify";
 
 function SubmitPageHeaderComp({ setIsChannelSelected }) {
   const { theme, handleThemeChange, isDarkMode, setIsDarkMode } =
@@ -53,6 +54,8 @@ function SubmitPageHeaderComp({ setIsChannelSelected }) {
   const [onlineStatus, setOnlineStatus] = useState(false);
   const [openInbox, setOpenInbox] = useState(false);
   const [userProfileName, setUserProfileName] = useState("");
+
+  const notify = () => toast.info("This feature will be available soon!");
 
   const handleUserDropdown = () => {
     setUserDropdown(!userDropdown);
@@ -193,11 +196,6 @@ function SubmitPageHeaderComp({ setIsChannelSelected }) {
         }}
       >
         <div className={style.headerLeftContent}>
-          {/* <Tooltip title="Go to Reddit Home">
-            <span className={style.logoMain} onClick={(e) => router.push("/")}>
-              <RedditIcon style={{ fontSize: "38px", color: "orangered" }} />
-            </span>
-          </Tooltip> */}
           <Tooltip title="Go to Reddit Home">
             <span className={style.redditLogo} onClick={() => router.push("/")}>
               <span className={style.redditIcon}>
@@ -226,15 +224,11 @@ function SubmitPageHeaderComp({ setIsChannelSelected }) {
               onClick={handleCreatePostBtn}
               ref={createPostRef}
             >
-              {/* <span className={style.createPostTxt}>Create Post</span> */}
               <span className={style.addIconLogo}>
                 <MoreHorizIcon
                   style={{ color: theme.headerClr, fontSize: "28px" }}
                 />
               </span>
-              {/* <span className={style.downArrow}>
-                <KeyboardArrowDownIcon style={{ color: theme.headerClr }} />
-              </span> */}
             </button>
             {createPostDropdown && (
               <div
@@ -278,7 +272,7 @@ function SubmitPageHeaderComp({ setIsChannelSelected }) {
                 <div className={style.feeds} style={{ color: theme.arrowClr }}>
                   Other
                 </div>
-                <span className={style.focusInbox}>
+                <span className={style.focusInbox} onClick={notify}>
                   <span className={style.focusIcon}>
                     <ChatBubbleOutlineOutlinedIcon
                       style={{ fontSize: "22px" }}
@@ -330,10 +324,7 @@ function SubmitPageHeaderComp({ setIsChannelSelected }) {
             <div className={style.rightSideContent}>
               <div className={style.changeUsernameTooltip}>
                 <span className={style.messageIconMain}>
-                  <span
-                    className={style.messageLink}
-                    onClick={(e) => showAlert(e)}
-                  >
+                  <span className={style.messageLink} onClick={notify}>
                     <Tooltip title="Open chat">
                       <span className={style.messageIcon}>
                         <ChatBubbleOutlineOutlinedIcon />
@@ -413,7 +404,7 @@ function SubmitPageHeaderComp({ setIsChannelSelected }) {
                   </button>
                 </span>
                 <span className={style.advertiseMain}>
-                  <span className={style.adLink} onClick={(e) => showAlert(e)}>
+                  <span className={style.adLink} onClick={notify}>
                     <Tooltip title="Advertise on Reddit">
                       <span className={style.adIcon}>
                         <AdsClickOutlinedIcon />
@@ -506,7 +497,7 @@ function SubmitPageHeaderComp({ setIsChannelSelected }) {
                             />
                           </span>
                         </button>
-                        <span className={style.userMain}>
+                        <span className={style.userMain} onClick={notify}>
                           <span>Profile</span>
                         </span>
                       </div>

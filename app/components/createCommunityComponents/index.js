@@ -16,6 +16,7 @@ import ExplicitOutlinedIcon from "@mui/icons-material/ExplicitOutlined";
 import UserContext from "@/app/contexts/LoginContext";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import { toast } from "react-toastify";
 
 function CreateCommunityComp() {
   const { createCommunityModal, setCreateCommunityModal } =
@@ -31,6 +32,8 @@ function CreateCommunityComp() {
     setNameInput(event.target.value);
   };
 
+  const notify = () => toast.success("Community created successfully!🎉");
+
   const createCommunityApi = async (token) => {
     const formData = new FormData();
     formData.append("name", nameInput);
@@ -42,7 +45,6 @@ function CreateCommunityComp() {
 
           headers: {
             Authorization: `Bearer ${token}`,
-
             projectID: "y6yyb0r40hr5",
           },
 
@@ -56,6 +58,7 @@ function CreateCommunityComp() {
 
       const result = await resp.json();
       setCreateCommunityModal(false);
+      notify();
     } catch (err) {
       console.log(err.message ? err.message : err);
     }
@@ -83,20 +86,7 @@ function CreateCommunityComp() {
     e.stopPropagation();
     if (localStorage.getItem("authToken") && nameInput) {
       createCommunityApi(localStorage.getItem("authToken"));
-      handleClick();
     }
-  };
-
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
   };
 
   return (
@@ -104,16 +94,6 @@ function CreateCommunityComp() {
       className={style.mainContainer}
       style={{ backgroundColor: theme.createCommunityBg }}
     >
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity="success"
-          variant="filled"
-          sx={{ width: "100%" }}
-        >
-          Community Created Successfully
-        </Alert>
-      </Snackbar>
       <div className={style.wrapper}>
         <div className={style.headerContainer}>
           <div className={style.header}>
