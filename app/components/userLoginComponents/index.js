@@ -8,6 +8,7 @@ import TextField from "@mui/material/TextField";
 import { SetMeal } from "@mui/icons-material";
 import ThemeContext from "@/app/contexts/ThemeContext";
 import UserContext from "@/app/contexts/LoginContext";
+import { toast } from "react-toastify";
 
 function LoginComp() {
   const {
@@ -30,6 +31,8 @@ function LoginComp() {
     setUserEmail(e.target.value);
     setIsError("");
   };
+
+  const notify = () => toast.info("Feature is coming soon!");
 
   const handlePasswordChange = (e) => {
     setUserPass(e.target.value);
@@ -233,10 +236,11 @@ function LoginComp() {
                     <div
                       className={style.signInOption}
                       style={{ color: theme.navTabColor }}
+                      onClick={notify}
                     >
                       <GoogleIcon />
                       <span className={style.optionTxt}>
-                        Continue with Google (coming soon)
+                        Continue with Google
                       </span>
                     </div>
                     <div></div>
@@ -253,10 +257,11 @@ function LoginComp() {
                     <div
                       className={style.signInOption}
                       style={{ color: theme.navTabColor }}
+                      onClick={notify}
                     >
                       <AppleIcon />
                       <span className={style.optionTxt}>
-                        Continue with Apple (coming soon)
+                        Continue with Apple
                       </span>
                     </div>
                     <div></div>
@@ -412,9 +417,9 @@ function LoginComp() {
             {isError && (
               <div style={{ color: "red", margin: "5px 80px" }}>{isError}</div>
             )}
-            <span style={{ color: theme.linkColor }}>
+            {/* <span style={{ color: theme.linkColor }}>
               {isLogin ? "Forgot password?" : ""}
-            </span>
+            </span> */}
           </div>
           <div className={style.signUpTxtContainer}>
             {isLogin ? " New to Reddit? " : "Already a redditor? "}
