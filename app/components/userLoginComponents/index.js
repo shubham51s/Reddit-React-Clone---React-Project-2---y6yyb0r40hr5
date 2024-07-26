@@ -424,7 +424,11 @@ function LoginComp() {
           <div className={style.signUpTxtContainer}>
             {isLogin ? " New to Reddit? " : "Already a redditor? "}
             <span
-              style={{ color: theme.linkColor, cursor: "pointer" }}
+              style={{
+                color: theme.linkColor,
+                cursor: "pointer",
+                marginTop: "20px",
+              }}
               onClick={() => handleSubmitButton()}
             >
               {isLogin ? "Sign Up" : "Log In"}
